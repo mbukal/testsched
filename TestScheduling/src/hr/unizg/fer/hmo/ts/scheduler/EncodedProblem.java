@@ -1,4 +1,4 @@
-package scheduler;
+package hr.unizg.fer.hmo.ts.scheduler;
 
 import java.util.stream.Stream;
 
@@ -7,8 +7,8 @@ class EncodedProblem {
 	public final int[] resourceMultiplicities;
 	public final int testCount;
 	public final int[] testDurations;
-	public final int[][] testMachines;
-	public final int[][] testResources;
+	public final int[][] testToMachines;
+	public final int[][] testToResources;
 
 	public EncodedProblem(Problem problem) {
 		this.machineCount = problem.machines.size();
@@ -16,10 +16,10 @@ class EncodedProblem {
 				.toArray();
 		this.testCount = problem.tests.size();
 		this.testDurations = problem.tests.stream().mapToInt(t -> t.duration).toArray();
-		this.testMachines = (int[][]) problem.tests.stream()
+		this.testToMachines = (int[][]) problem.tests.stream()
 				.map(t -> Stream.of(t.machines).mapToInt(m -> problem.getMachineIndex(m)).toArray())
 				.toArray();
-		this.testResources = (int[][]) problem.tests.stream().map(
+		this.testToResources = (int[][]) problem.tests.stream().map(
 				t -> Stream.of(t.resources).mapToInt(r -> problem.getResourceIndex(r)).toArray())
 				.toArray();
 	}

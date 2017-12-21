@@ -1,12 +1,10 @@
-package scheduler;
+package hr.unizg.fer.hmo.ts.scheduler;
 
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 class Problem {
 	class Resource {
@@ -16,6 +14,24 @@ class Problem {
 		public Resource(String name, int multiplicity) {
 			this.name = name;
 			this.multiplicity = multiplicity;
+		}
+
+		@Override
+		public String toString() {
+			return "resource('" + name + "', " + multiplicity + ").";
+		}
+	}
+
+	class Machine {
+		String name;
+
+		public Machine(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public String toString() {
+			return "embedded_board('" + name + "').";
 		}
 	}
 
@@ -30,15 +46,16 @@ class Problem {
 			this.machines = machines;
 			this.resources = resources;
 		}
+
+		@Override
+		public String toString() {
+			return "embedded_board('" + name + "').";
+		}
 	}
 
-	public ArrayList<String> machines;
-	public ArrayList<Resource> resources;
-	public ArrayList<Test> tests;
-
-	public Problem(FileInputStream fs) throws IOException {
-		this(new String(fs.readAllBytes()));
-	}
+	public final List<Machine> machines = new ArrayList<Machine>();
+	public final List<Resource> resources = new ArrayList<Resource>();
+	public final List<Test> tests = new ArrayList<Test>();
 
 	public Problem(String definition) {
 		Pattern testRegex = Pattern.compile(
@@ -55,12 +72,12 @@ class Problem {
 					int duration = Integer.parseInt(m.group(2));
 					String[] machines = m.group(3).split("'?\\s*,\\s*'?");
 					String[] resources = m.group(4).split("'?\\s*,\\s*'?");
-					this.tests.add(new Test(name, duration, machines, resources));
+					tests.add(new Test(name, duration, machines, resources));
 				} else if (line.startsWith("embedded_board")) {
-					this.machines.add(machineRegex.matcher(line).group(1));
+					machines.add(new Machine(machineRegex.matcher(line).group(1)));
 				} else if (line.startsWith("resource")) {
 					Matcher m = resourceRegex.matcher(line);
-					this.resources.add(new Resource(m.group(1), Integer.parseInt((m.group(2)))));
+					resources.add(new Resource(m.group(1), Integer.parseInt((m.group(2)))));
 				} else
 					throw new Exception("Invalid problem definition line");
 			} catch (Exception ex) {
@@ -71,14 +88,32 @@ class Problem {
 	}
 
 	public int getMachineIndex(String name) {
-		int ind = this.machines.indexOf(name);
-		if (ind == -1)
-			throw new NoSuchElementException("Machine with name=" + name + "doesn't exist.");
-		return ind;
+		return IntStream.range(0, this.machines.size())
+				.filter(i -> this.machines.get(i).name == name).findFirst().getAsInt();
 	}
 
 	public int getResourceIndex(String name) {
 		return IntStream.range(0, this.resources.size())
 				.filter(i -> this.resources.get(i).name == name).findFirst().getAsInt();
+	}
+
+	@Override
+	public String toString() {
+		String nl = System.lineSeparator();
+		StringBuilder sb = new StringBuilder("%% **** Testsuite ****").append(nl);
+		sb.append("Number of tests: " + tests.size()).append(nl);
+		sb.append("Number of machines: " + machines.size()).append(nl);
+		sb.append("Number of resources: " + resources.size()).append(nl);
+		sb.append(nl);
+		for (Test t : tests)
+			sb.append(t.toString()).append(nl);
+		sb.append(nl);
+		for (Machine m : machines)
+			sb.append(m.toString()).append(nl);
+		sb.append(nl);
+		for (Resource r : resources)
+			sb.append(r.toString()).append(nl);
+		sb.append(nl);
+		return sb.toString();
 	}
 }

@@ -7,5 +7,5 @@ public class Main {
 		System.out.println("Entry point of our project");
 		System.out.println("says");
 		System.out.println(hi);
-	} 
+	}
 }
