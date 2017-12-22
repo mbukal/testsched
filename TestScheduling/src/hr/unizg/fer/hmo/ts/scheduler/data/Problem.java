@@ -1,4 +1,4 @@
-package hr.unizg.fer.hmo.ts.scheduler;
+package hr.unizg.fer.hmo.ts.scheduler.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
-class Problem {
-	class Resource {
-		String name;
-		int multiplicity;
+public class Problem {
+	public class Resource {
+		public final String name;
+		public final int multiplicity;
 
 		public Resource(String name, int multiplicity) {
 			this.name = name;
@@ -22,8 +22,8 @@ class Problem {
 		}
 	}
 
-	class Machine {
-		String name;
+	public class Machine {
+		public final String name;
 
 		public Machine(String name) {
 			this.name = name;
@@ -35,7 +35,7 @@ class Problem {
 		}
 	}
 
-	class Test {
+	public class Test {
 		public final String name;
 		public final int duration;
 		public final String[] machines, resources;
