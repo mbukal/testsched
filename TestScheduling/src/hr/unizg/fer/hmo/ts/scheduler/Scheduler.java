@@ -9,5 +9,5 @@ public abstract class Scheduler {
 		this.evaluator = new SolutionEvaluator(problem);
 	}
 
-	public abstract EncodedSolution solve(EncodedProblem problem);
+	public abstract EncodedSolutionOld2 solve(EncodedProblem problem);
 }

@@ -2,13 +2,13 @@ package hr.unizg.fer.hmo.ts.scheduler;
 
 public class SolutionEvaluator {
 	private final EncodedProblem problem;
-	private EncodedSolution solution;
+	private EncodedSolutionOld2 solution;
 
 	public SolutionEvaluator(EncodedProblem problem) {
 		this.problem = problem;
 	}
 
-	public void SetSolution(EncodedSolution solution) {
+	public void SetSolution(EncodedSolutionOld2 solution) {
 		this.solution = solution;
 	}
 
