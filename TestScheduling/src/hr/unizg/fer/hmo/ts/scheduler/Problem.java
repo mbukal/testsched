@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
-class Problem {
+public class Problem {
 	class Resource {
 		String name;
 		int multiplicity;

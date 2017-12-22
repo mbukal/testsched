@@ -8,7 +8,7 @@ public class SolutionEvaluator {
 		this.problem = problem;
 	}
 
-	public void SetSolution(EncodedSolution solution) {
+	public void setSolution(EncodedSolution solution) {
 		this.solution = solution;
 	}
 

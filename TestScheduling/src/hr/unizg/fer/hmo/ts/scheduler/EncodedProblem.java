@@ -2,7 +2,7 @@ package hr.unizg.fer.hmo.ts.scheduler;
 
 import java.util.stream.Stream;
 
-class EncodedProblem {
+public class EncodedProblem {
 	public final int machineCount;
 	public final int[] resourceMultiplicities;
 	public final int testCount;
