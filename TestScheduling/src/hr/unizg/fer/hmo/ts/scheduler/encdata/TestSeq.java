@@ -14,7 +14,7 @@ public class TestSeq {
 		this.tests = tests.clone();
 	}
 
-	public void add(int test, int delay) {
+	public void add(int test) {
 		// adds test to the end, O(1)
 		tests[len++] = test;
 	}

@@ -1,50 +1,13 @@
 package hr.unizg.fer.hmo.ts.scheduler.encdata;
 
-import java.util.Random;
-
 public class IndirectlyEncodedSolution {
-	private static Random rand = new Random();
-
-	public static void setRandomSeed(long seed) {
-		rand.setSeed(seed);
-	}
-
-	public static IndirectlyEncodedSolution createUninitialized(EncodedProblem problem) {
-		return new IndirectlyEncodedSolution(problem);
-	}
-
-	public static IndirectlyEncodedSolution createLazilyInitialized(EncodedProblem problem) {
-		IndirectlyEncodedSolution es = new IndirectlyEncodedSolution(problem);
-		for (int t = 0; t < problem.testCount; t++) {
-			int m = problem.testToMachines[t][0];
-			es.machineToTestSeq[m].add(t, 0);
-		}
-		return es;
-	}
-
-	public static IndirectlyEncodedSolution createRandomlyInitialized(EncodedProblem problem) {
-		IndirectlyEncodedSolution es = new IndirectlyEncodedSolution(problem);
-		for (int t = 0; t < problem.testCount; t++) {
-			int[] machines = problem.testToMachines[t];
-			int m = machines[rand.nextInt(machines.length)];
-			es.machineToTestSeq[m].add(t, 0);
-		}
-		return es;
-	}
-
-	// instance
-
 	public final TestSeq[] machineToTestSeq;
 
-	private IndirectlyEncodedSolution(EncodedProblem problem) {
-		int machineCount = problem.machineCount;
-		int[] machineReferenceCounts = new int[machineCount];
-		for (int[] machines : problem.testToMachines)
-			for (int machine : machines)
-				machineReferenceCounts[machine]++;
+	IndirectlyEncodedSolution(int[] maxTestsPerMachine) {
+		int machineCount = maxTestsPerMachine.length;
 		machineToTestSeq = new TestSeq[machineCount];
 		for (int i = 0; i < machineCount; i++)
-			machineToTestSeq[i] = new TestSeq(machineReferenceCounts[i]);
+			machineToTestSeq[i] = new TestSeq(maxTestsPerMachine[i]);
 	}
 
 	private IndirectlyEncodedSolution(TestSeq[] machineToTestSeq) {
@@ -56,7 +19,7 @@ public class IndirectlyEncodedSolution {
 	}
 
 	public void moveLastTestBetweenMachines(int mSrc, int mDest) {
-		machineToTestSeq[mDest].add(machineToTestSeq[mSrc].pop(), 0);
+		machineToTestSeq[mDest].add(machineToTestSeq[mSrc].pop());
 	}
 
 	@Override
