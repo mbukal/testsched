@@ -1,8 +1,6 @@
-package hr.unizg.fer.hmo.ts.scheduler.encdata;
+package hr.unizg.fer.hmo.ts.scheduler.problem;
 
 import java.util.stream.Stream;
-
-import hr.unizg.fer.hmo.ts.scheduler.data.Problem;
 
 public class EncodedProblem {
 	public final int machineCount;

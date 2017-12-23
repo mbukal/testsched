@@ -1,4 +1,4 @@
-package hr.unizg.fer.hmo.ts.scheduler.encdata;
+package hr.unizg.fer.hmo.ts.scheduler.enc;
 
 public class TestTimeSeq {
 	private int len;

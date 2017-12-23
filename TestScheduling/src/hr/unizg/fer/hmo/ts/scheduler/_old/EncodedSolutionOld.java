@@ -1,8 +1,8 @@
-package hr.unizg.fer.hmo.ts.scheduler.old;
+package hr.unizg.fer.hmo.ts.scheduler._old;
 
 import java.util.stream.Stream;
 
-import hr.unizg.fer.hmo.ts.scheduler.encdata.EncodedProblem;
+import hr.unizg.fer.hmo.ts.scheduler.problem.EncodedProblem;
 
 public class EncodedSolutionOld {
 	int[] testStartTimes;  // test to test start time map

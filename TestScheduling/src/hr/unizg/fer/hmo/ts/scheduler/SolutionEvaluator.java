@@ -2,9 +2,9 @@ package hr.unizg.fer.hmo.ts.scheduler;
 
 import java.util.stream.IntStream;
 
-import hr.unizg.fer.hmo.ts.scheduler.encdata.EncodedProblem;
-import hr.unizg.fer.hmo.ts.scheduler.encdata.EncodedSolution;
-import hr.unizg.fer.hmo.ts.scheduler.encdata.TestTimeSeq;
+import hr.unizg.fer.hmo.ts.scheduler.enc.EncodedSolution;
+import hr.unizg.fer.hmo.ts.scheduler.enc.TestTimeSeq;
+import hr.unizg.fer.hmo.ts.scheduler.problem.EncodedProblem;
 
 public class SolutionEvaluator {
 	private final EncodedProblem problem;

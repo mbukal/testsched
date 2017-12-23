@@ -1,7 +1,7 @@
 package hr.unizg.fer.hmo.ts.scheduler;
 
-import hr.unizg.fer.hmo.ts.scheduler.encdata.EncodedProblem;
-import hr.unizg.fer.hmo.ts.scheduler.encdata.EncodedSolution;
+import hr.unizg.fer.hmo.ts.scheduler.enc.EncodedSolution;
+import hr.unizg.fer.hmo.ts.scheduler.problem.EncodedProblem;
 
 public abstract class Scheduler {
 	private final SolutionEvaluator evaluator;

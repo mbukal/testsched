@@ -1,6 +1,8 @@
-package hr.unizg.fer.hmo.ts.scheduler.encdata;
+package hr.unizg.fer.hmo.ts.scheduler.enc;
 
 import java.util.Random;
+
+import hr.unizg.fer.hmo.ts.scheduler.problem.EncodedProblem;
 
 public class EncodedSolution {
 	private static Random rand = new Random();

@@ -1,4 +1,4 @@
-package hr.unizg.fer.hmo.ts.scheduler.encdata;
+package hr.unizg.fer.hmo.ts.scheduler.enci;
 
 public class IndirectlyEncodedSolution {
 	public final TestSeq[] machineToTestSeq;

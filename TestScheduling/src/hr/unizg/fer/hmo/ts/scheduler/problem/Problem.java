@@ -1,4 +1,4 @@
-package hr.unizg.fer.hmo.ts.scheduler.data;
+package hr.unizg.fer.hmo.ts.scheduler.problem;
 
 import java.util.ArrayList;
 import java.util.List;

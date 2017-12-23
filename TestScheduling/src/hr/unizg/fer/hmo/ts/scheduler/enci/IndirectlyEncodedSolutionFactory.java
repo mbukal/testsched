@@ -1,6 +1,8 @@
-package hr.unizg.fer.hmo.ts.scheduler.encdata;
+package hr.unizg.fer.hmo.ts.scheduler.enci;
 
 import java.util.Random;
+
+import hr.unizg.fer.hmo.ts.scheduler.problem.EncodedProblem;
 
 public final class IndirectlyEncodedSolutionFactory {
 	private Random rand = new Random();
@@ -22,15 +24,6 @@ public final class IndirectlyEncodedSolutionFactory {
 
 	public IndirectlyEncodedSolutionFactory(EncodedProblem problem) {
 		this(problem, 53);
-	}
-
-	private void initialize(EncodedProblem problem, long randomSeed) {
-		int machineCount = problem.machineCount;
-		maxTestsPerMachine = new int[machineCount];
-		for (int[] machines : problem.testToMachines)
-			for (int machine : machines)
-				maxTestsPerMachine[machine]++;
-		setRandomSeed(randomSeed);
 	}
 
 	public void setRandomSeed(long seed) {
