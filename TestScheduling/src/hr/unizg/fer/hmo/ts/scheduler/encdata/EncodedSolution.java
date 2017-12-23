@@ -52,13 +52,12 @@ public class EncodedSolution {
 		this.machineToTestTimeSeq = machineToTestTimeSeq;
 	}
 
-	public void swapTestsBetweenMachines(int machine1, int index1, int machine2, int index2) {
-		machineToTestTimeSeq[machine1].swap(index1, machineToTestTimeSeq[machine2],
-				index2);
+	public void swapTestsBetweenMachines(int m1, int index1, int m2, int index2) {
+		machineToTestTimeSeq[m1].swap(index1, machineToTestTimeSeq[m2], index2);
 	}
 
-	public void moveLastTestBetweenMachines(int machineSrc, int machineDest) {
-		machineToTestTimeSeq[machineDest].add(machineToTestTimeSeq[machineSrc].pop(), 0);
+	public void moveLastTestBetweenMachines(int mSrc, int mDest) {
+		machineToTestTimeSeq[mDest].add(machineToTestTimeSeq[mSrc].pop(), 0);
 	}
 
 	@Override
