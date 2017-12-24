@@ -1,12 +1,13 @@
-package hr.unizg.fer.hmo.ts.scheduler.problem;
+package hr.unizg.fer.hmo.ts.scheduler;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
-public class Problem {
+public class ProblemDefinition {
 	public class Resource {
 		public final String name;
 		public final int multiplicity;
@@ -53,11 +54,14 @@ public class Problem {
 		}
 	}
 
-	public final List<Machine> machines = new ArrayList<Machine>();
-	public final List<Resource> resources = new ArrayList<Resource>();
-	public final List<Test> tests = new ArrayList<Test>();
+	public final List<Machine> machines;
+	public final List<Resource> resources;
+	public final List<Test> tests;
 
-	public Problem(String definition) {
+	public ProblemDefinition(String definition) {
+		List<Machine> machines = new ArrayList<Machine>();
+		List<Resource> resources = new ArrayList<Resource>();
+		List<Test> tests = new ArrayList<Test>();
 		Pattern testRegex = Pattern.compile(
 				"'([^']*)'\\s*,\\s*(\\d+)\\s*,\\s*(\\[[^\\]]*\\])\\s*,\\s*(\\[[^\\]]*\\])");
 		Pattern machineRegex = Pattern.compile("'([^']*)'");
@@ -70,9 +74,9 @@ public class Problem {
 					Matcher m = testRegex.matcher(line);
 					String name = m.group(1);
 					int duration = Integer.parseInt(m.group(2));
-					String[] machines = m.group(3).split("'?\\s*,\\s*'?");
-					String[] resources = m.group(4).split("'?\\s*,\\s*'?");
-					tests.add(new Test(name, duration, machines, resources));
+					String[] tmachines = m.group(3).split("'?\\s*,\\s*'?");
+					String[] tresources = m.group(4).split("'?\\s*,\\s*'?");
+					tests.add(new Test(name, duration, tmachines, tresources));
 				} else if (line.startsWith("embedded_board")) {
 					machines.add(new Machine(machineRegex.matcher(line).group(1)));
 				} else if (line.startsWith("resource")) {
@@ -85,6 +89,14 @@ public class Problem {
 						+ "\".\n(" + ex.getMessage() + ")");
 			}
 		}
+		this.machines = Collections.unmodifiableList(machines);
+		this.resources = Collections.unmodifiableList(resources);
+		this.tests = Collections.unmodifiableList(tests);
+	}
+	
+	public int getTestIndex(String name) {
+		return IntStream.range(0, this.tests.size())
+				.filter(i -> this.tests.get(i).name == name).findFirst().getAsInt();
 	}
 
 	public int getMachineIndex(String name) {

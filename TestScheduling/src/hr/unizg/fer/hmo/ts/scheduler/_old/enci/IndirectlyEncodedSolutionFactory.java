@@ -1,14 +1,14 @@
-package hr.unizg.fer.hmo.ts.scheduler.enci;
+package hr.unizg.fer.hmo.ts.scheduler._old.enci;
 
 import java.util.Random;
 
-import hr.unizg.fer.hmo.ts.scheduler.problem.EncodedProblem;
+import hr.unizg.fer.hmo.ts.scheduler.Problem;
 
 public final class IndirectlyEncodedSolutionFactory {
 	private Random rand = new Random();
-	int[] maxTestsPerMachine;
+	private int[] maxTestsPerMachine;
 	
-	public IndirectlyEncodedSolutionFactory(EncodedProblem problem, Random rand) {
+	public IndirectlyEncodedSolutionFactory(Problem problem, Random rand) {
 		int machineCount = problem.machineCount;
 		maxTestsPerMachine = new int[machineCount];
 		for (int[] machines : problem.testToMachines)
@@ -17,12 +17,12 @@ public final class IndirectlyEncodedSolutionFactory {
 		this.rand = rand;
 	}
 
-	public IndirectlyEncodedSolutionFactory(EncodedProblem problem, long randomSeed) {
+	public IndirectlyEncodedSolutionFactory(Problem problem, long randomSeed) {
 		this(problem, new Random());
 		setRandomSeed(randomSeed);
 	}
 
-	public IndirectlyEncodedSolutionFactory(EncodedProblem problem) {
+	public IndirectlyEncodedSolutionFactory(Problem problem) {
 		this(problem, 53);
 	}
 
@@ -30,11 +30,11 @@ public final class IndirectlyEncodedSolutionFactory {
 		rand.setSeed(seed);
 	}
 
-	public IndirectlyEncodedSolution createUninitialized(EncodedProblem problem) {
+	public IndirectlyEncodedSolution createUninitialized(Problem problem) {
 		return new IndirectlyEncodedSolution(maxTestsPerMachine);
 	}
 
-	public IndirectlyEncodedSolution createLazilyInitialized(EncodedProblem problem) {
+	public IndirectlyEncodedSolution createLazilyInitialized(Problem problem) {
 		IndirectlyEncodedSolution s = new IndirectlyEncodedSolution(maxTestsPerMachine);
 		for (int t = 0; t < problem.testCount; t++) {
 			int m = problem.testToMachines[t][0];
@@ -43,7 +43,7 @@ public final class IndirectlyEncodedSolutionFactory {
 		return s;
 	}
 
-	public IndirectlyEncodedSolution createRandomlyInitialized(EncodedProblem problem) {
+	public IndirectlyEncodedSolution createRandomlyInitialized(Problem problem) {
 		IndirectlyEncodedSolution s = new IndirectlyEncodedSolution(maxTestsPerMachine);
 		for (int t = 0; t < problem.testCount; t++) {
 			int[] machines = problem.testToMachines[t];

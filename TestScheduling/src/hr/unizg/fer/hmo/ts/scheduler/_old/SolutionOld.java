@@ -1,22 +1,23 @@
-package hr.unizg.fer.hmo.ts.scheduler.enc;
+package hr.unizg.fer.hmo.ts.scheduler._old;
 
 import java.util.Random;
 
-import hr.unizg.fer.hmo.ts.scheduler.problem.EncodedProblem;
+import hr.unizg.fer.hmo.ts.scheduler.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.enc.TestTimeSeq;
 
-public class EncodedSolution {
+public class SolutionOld {
 	private static Random rand = new Random();
 
 	public static void setRandomSeed(long seed) {
 		rand.setSeed(seed);
 	}
 
-	public static EncodedSolution createUninitialized(EncodedProblem problem) {
-		return new EncodedSolution(problem);
+	public static SolutionOld createUninitialized(Problem problem) {
+		return new SolutionOld(problem);
 	}
 
-	public static EncodedSolution createLazilyInitialized(EncodedProblem problem) {
-		EncodedSolution es = new EncodedSolution(problem);
+	public static SolutionOld createLazilyInitialized(Problem problem) {
+		SolutionOld es = new SolutionOld(problem);
 		for (int t = 0; t < problem.testCount; t++) {
 			int m = problem.testToMachines[t][0];
 			es.machineToTestTimeSeq[m].add(t, 0);
@@ -24,8 +25,8 @@ public class EncodedSolution {
 		return es;
 	}
 
-	public static EncodedSolution createRandomlyInitialized(EncodedProblem problem) {
-		EncodedSolution es = new EncodedSolution(problem);
+	public static SolutionOld createRandomlyInitialized(Problem problem) {
+		SolutionOld es = new SolutionOld(problem);
 		for (int t = 0; t < problem.testCount; t++) {
 			int[] machines = problem.testToMachines[t];
 			int m = machines[rand.nextInt(machines.length)];
@@ -38,7 +39,7 @@ public class EncodedSolution {
 
 	public final TestTimeSeq[] machineToTestTimeSeq;
 
-	private EncodedSolution(EncodedProblem problem) {
+	private SolutionOld(Problem problem) {
 		int machineCount = problem.machineCount;
 		int[] machineReferenceCounts = new int[machineCount];
 		for (int[] machines : problem.testToMachines)
@@ -50,7 +51,7 @@ public class EncodedSolution {
 					problem.testToDuration);
 	}
 
-	private EncodedSolution(TestTimeSeq[] machineToTestTimeSeq) {
+	private SolutionOld(TestTimeSeq[] machineToTestTimeSeq) {
 		this.machineToTestTimeSeq = machineToTestTimeSeq;
 	}
 
@@ -64,7 +65,7 @@ public class EncodedSolution {
 
 	@Override
 	public boolean equals(Object other) {
-		EncodedSolution oth = (EncodedSolution) other;
+		SolutionOld oth = (SolutionOld) other;
 		for (int i = 0; i < machineToTestTimeSeq.length; i++) {
 			if (!machineToTestTimeSeq[i].equals(oth.machineToTestTimeSeq[i]))
 				return false;
@@ -73,10 +74,10 @@ public class EncodedSolution {
 	}
 
 	@Override
-	public EncodedSolution clone() {
+	public SolutionOld clone() {
 		TestTimeSeq[] machineToTestTimeSeq = new TestTimeSeq[this.machineToTestTimeSeq.length];
 		for (int i = 0; i < machineToTestTimeSeq.length; i++)
 			machineToTestTimeSeq[i] = this.machineToTestTimeSeq[i].clone();
-		return new EncodedSolution(machineToTestTimeSeq);
+		return new SolutionOld(machineToTestTimeSeq);
 	}
 }

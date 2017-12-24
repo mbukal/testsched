@@ -1,4 +1,4 @@
-package hr.unizg.fer.hmo.ts.scheduler.enci;
+package hr.unizg.fer.hmo.ts.scheduler._old.enci;
 
 public class TestSeq {
 	private int len;

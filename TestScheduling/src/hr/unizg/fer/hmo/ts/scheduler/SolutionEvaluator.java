@@ -2,24 +2,23 @@ package hr.unizg.fer.hmo.ts.scheduler;
 
 import java.util.stream.IntStream;
 
-import hr.unizg.fer.hmo.ts.scheduler.enc.EncodedSolution;
+import hr.unizg.fer.hmo.ts.scheduler.enc.Solution;
 import hr.unizg.fer.hmo.ts.scheduler.enc.TestTimeSeq;
-import hr.unizg.fer.hmo.ts.scheduler.problem.EncodedProblem;
 
 public class SolutionEvaluator {
-	private final EncodedProblem problem;
+	private final Problem problem;
 	private int maxDuration;
 
-	public SolutionEvaluator(EncodedProblem problem) {
+	public SolutionEvaluator(Problem problem) {
 		this.problem = problem;
 		maxDuration = IntStream.of(problem.testToDuration).sum();
 	}
 
-	public int evaluateSolution(EncodedSolution solution) {
+	public int evaluateSolution(Solution solution) {
 		return getTotalDuration(solution) + (isSolutionFeasible(solution) ? 0 : 2 * maxDuration);
 	}
 
-	public boolean isSolutionFeasible(EncodedSolution solution) {
+	public boolean isSolutionFeasible(Solution solution) {
 		return enoughResourcesAvailable(solution);
 	}
 
@@ -30,7 +29,7 @@ public class SolutionEvaluator {
 	 * tts.delays[i] + problem.testToDuration[i]; return time; }
 	 */
 
-	private static int getMachineWithEarliestTestStartTime(EncodedSolution solution, int[] indices) {
+	private static int getMachineWithEarliestTestStartTime(Solution solution, int[] indices) {
 		TestTimeSeq[] machineToTestTimeSeq = solution.machineToTestTimeSeq;
 		int earliestTime = Integer.MAX_VALUE;
 		int earliestMachine = -1;
@@ -49,7 +48,7 @@ public class SolutionEvaluator {
 		return earliestMachine;
 	}
 
-	private static int getMachineWithEarliestTestEndTime(EncodedSolution solution, int[] indices) {
+	private static int getMachineWithEarliestTestEndTime(Solution solution, int[] indices) {
 		// all indices must be > 0
 		TestTimeSeq[] machineToTestTimeSeq = solution.machineToTestTimeSeq;
 		int earliestTime = Integer.MAX_VALUE;
@@ -69,7 +68,7 @@ public class SolutionEvaluator {
 		return earliestMachine;
 	}
 
-	private boolean enoughResourcesAvailable(EncodedSolution solution) {
+	private boolean enoughResourcesAvailable(Solution solution) {
 		int[] leftResources = problem.resourceToMultiplicity.clone();
 
 		final boolean START = false, END = true;
@@ -103,7 +102,7 @@ public class SolutionEvaluator {
 		return true;
 	}
 
-	private int getTotalDuration(EncodedSolution solution) {
+	private int getTotalDuration(Solution solution) {
 		int duration = 0;
 		int[] testToDuration = problem.testToDuration;
 		for (TestTimeSeq tts : solution.machineToTestTimeSeq) {

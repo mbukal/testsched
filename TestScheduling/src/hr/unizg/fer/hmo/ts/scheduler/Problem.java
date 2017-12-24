@@ -1,8 +1,8 @@
-package hr.unizg.fer.hmo.ts.scheduler.problem;
+package hr.unizg.fer.hmo.ts.scheduler;
 
 import java.util.stream.Stream;
 
-public class EncodedProblem {
+public class Problem {
 	public final int machineCount;
 	public final int resourceCount;
 	public final int testCount;
@@ -11,7 +11,7 @@ public class EncodedProblem {
 	public final int[][] testToMachines;
 	public final int[][] testToResources;
 
-	public EncodedProblem(Problem problem) {
+	public Problem(ProblemDefinition problem) {
 		machineCount = problem.machines.size();
 		resourceToMultiplicity = problem.resources.stream().mapToInt(r -> r.multiplicity).toArray();
 		resourceCount = resourceToMultiplicity.length;
