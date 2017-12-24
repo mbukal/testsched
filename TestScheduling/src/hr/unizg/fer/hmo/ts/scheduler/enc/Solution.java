@@ -1,25 +1,11 @@
 package hr.unizg.fer.hmo.ts.scheduler.enc;
 
-import java.util.Random;
-
 import hr.unizg.fer.hmo.ts.scheduler.Problem;
 
 public class Solution {
-	private static Random rand = new Random();
-
-	public static void setRandomSeed(long seed) {
-		rand.setSeed(seed);
-	}
-
-	public static Solution createUninitialized(Problem problem) {
-		return new Solution(problem);
-	}
-
-	// instance
-
 	public final TestTimeSeq[] machineToTestTimeSeq;
 
-	private Solution(Problem problem) {
+	public Solution(Problem problem) {
 		int machineCount = problem.machineCount;
 		int[] machineReferenceCounts = new int[machineCount];
 		for (int[] machines : problem.testToMachines)

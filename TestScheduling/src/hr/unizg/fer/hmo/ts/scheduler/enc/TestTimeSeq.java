@@ -41,7 +41,7 @@ public class TestTimeSeq {
 		// attaches the start of test at index to the end off the previous test
 		startTimes[startIndex] = startIndex > 0 ? getEndTime(startIndex - 1) : 0;
 		for (int i = startIndex + 1; i < exclusiveEndIndex; i++)
-			startTimes[i] = getEndTime(i - 1);		
+			startTimes[i] = getEndTime(i - 1);
 	}
 
 	public int getEndTime(int index) {
@@ -68,6 +68,13 @@ public class TestTimeSeq {
 			if (delay < 0)
 				startTimes[i + 1] -= delay;
 		}
+	}
+
+	public void add(int test) {
+		// adds test to the end, O(1)
+		tests[len] = test;
+		startTimes[len] = len == 0 ? 0 : getEndTime(len - 1);
+		len++;
 	}
 
 	public void add(int test, int delay) {

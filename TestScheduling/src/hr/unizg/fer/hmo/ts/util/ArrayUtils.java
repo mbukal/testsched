@@ -18,7 +18,7 @@ public final class ArrayUtils {
 			swap(arr, i, rand.nextInt(i + 1));
 	}
 
-	// TODO: make symmetric to every element
+	// TODO: make swap probability equal for each element
 	public static void shuffleWeakly(int[] arr, double swapProbability) {
 		for (int i = arr.length - 1; i > 0; i--)
 			if (rand.nextDouble() < swapProbability)
@@ -26,7 +26,7 @@ public final class ArrayUtils {
 	}
 
 	public static void shufflePartially(int[] arr, int numberOfSwappedElements) {
-		for (int i = 0; i <= numberOfSwappedElements; i++)
+		for (int i = 0; i < numberOfSwappedElements; i++)
 			swap(arr, rand.nextInt(arr.length), rand.nextInt(arr.length));
 	}
 

@@ -23,6 +23,10 @@ public class PartialSolutionMutator {
 	public void shuffleWeakly(PartialSolution ps, double swapProbability) {
 		ArrayUtils.shuffleWeakly(ps.priorityToTest, swapProbability);
 	}
+	
+	public void shufflePartially(PartialSolution ps, int numberOfSwappedElements) {
+		ArrayUtils.shufflePartially(ps.priorityToTest, numberOfSwappedElements);
+	}
 
 	public void changeMachineRandomly(PartialSolution ps, int test) {
 		ps.testToMachine[test] = ArrayUtils.randomElement(testToMachines[test]);

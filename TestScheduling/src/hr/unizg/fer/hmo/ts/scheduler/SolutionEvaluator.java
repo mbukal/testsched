@@ -29,17 +29,16 @@ public class SolutionEvaluator {
 	 * tts.delays[i] + problem.testToDuration[i]; return time; }
 	 */
 
-	private static int getMachineWithEarliestTestStartTime(Solution solution, int[] indices) {
-		TestTimeSeq[] machineToTestTimeSeq = solution.machineToTestTimeSeq;
+	private static int getMachineWithEarliestTestStartTime(Solution sol, int[] indices) {
+		TestTimeSeq[] machineToTestTimeSeq = sol.machineToTestTimeSeq;
 		int earliestTime = Integer.MAX_VALUE;
 		int earliestMachine = -1;
-
 		for (int m = 0; m < indices.length; m++) {
-			int j = indices[m];
+			int i = indices[m];
 			TestTimeSeq tts = machineToTestTimeSeq[m];
 			if (indices[m] >= tts.size())
 				continue;
-			int startTime = tts.getStartTime(j);
+			int startTime = tts.getStartTime(i);
 			if (startTime < earliestTime) {
 				earliestTime = startTime;
 				earliestMachine = m;
@@ -48,18 +47,16 @@ public class SolutionEvaluator {
 		return earliestMachine;
 	}
 
-	private static int getMachineWithEarliestTestEndTime(Solution solution, int[] indices) {
+	private static int getMachineWithEarliestTestEndTime(Solution sol, int[] indices) {
 		// all indices must be > 0
-		TestTimeSeq[] machineToTestTimeSeq = solution.machineToTestTimeSeq;
+		TestTimeSeq[] machineToTestTimeSeq = sol.machineToTestTimeSeq;
 		int earliestTime = Integer.MAX_VALUE;
 		int earliestMachine = -1;
-
 		for (int m = 0; m < indices.length; m++) {
-			int j = indices[m];
-			if (j == 0)
+			int i = indices[m];
+			if (i == 0)
 				return -1;
-			TestTimeSeq tts = machineToTestTimeSeq[m];
-			int endTime = tts.getEndTime(j - 1);
+			int endTime = machineToTestTimeSeq[m].getEndTime(i - 1);
 			if (endTime < earliestTime) {
 				earliestTime = endTime;
 				earliestMachine = m;
