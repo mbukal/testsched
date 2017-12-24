@@ -2,6 +2,7 @@ package hr.unizg.fer.hmo.ts.scheduler.enc;
 
 import hr.unizg.fer.hmo.ts.scheduler.Problem;
 import hr.unizg.fer.hmo.ts.util.ArrayUtils;
+import hr.unizg.fer.hmo.ts.util.RandUtils;
 
 public class PartialSolutionGenerator {
 	private final int testCount;
@@ -12,9 +13,7 @@ public class PartialSolutionGenerator {
 	public PartialSolutionGenerator(Problem problem) {
 		testCount = problem.testCount;
 		testToMachines = problem.testToMachines;
-		priorityToTestTemplate = new int[problem.testCount];
-		for (int i = 0; i < problem.testCount; i++)
-			priorityToTestTemplate[i] = i;
+		priorityToTestTemplate = ArrayUtils.range(problem.testCount);
 	}
 
 	public PartialSolution createUninitialized() {
@@ -31,8 +30,8 @@ public class PartialSolutionGenerator {
 	public PartialSolution createRandomlyInitialized() {
 		int[] testToMachine = new int[testCount];
 		for (int t = 0; t < testCount; t++)
-			testToMachine[t] = ArrayUtils.randomElement(testToMachines[t]);
-		ArrayUtils.shuffle(priorityToTestTemplate);
+			testToMachine[t] = RandUtils.randomElement(testToMachines[t]);
+		RandUtils.shuffle(priorityToTestTemplate);
 		return new PartialSolution(priorityToTestTemplate.clone(), testToMachine);
 	}
 }

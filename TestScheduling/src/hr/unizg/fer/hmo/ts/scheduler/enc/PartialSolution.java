@@ -2,8 +2,6 @@ package hr.unizg.fer.hmo.ts.scheduler.enc;
 
 import java.util.Arrays;
 
-import hr.unizg.fer.hmo.ts.util.ArrayUtils;
-
 public class PartialSolution {
 	public final int[] priorityToTest;
 	public final int[] testToMachine;
@@ -18,13 +16,13 @@ public class PartialSolution {
 		this.testToMachine = testToMachine;
 	}
 
-	public void swap(int priority1, int priority2) {
+	/*public void swap(int priority1, int priority2) {
 		ArrayUtils.swap(priorityToTest, priority1, priority2);
 	}
 
 	public void changeMachine(int test, int machine) {
 		testToMachine[test] = machine;
-	}
+	}*/
 	
 	@Override
 	public boolean equals(Object other) {
