@@ -5,21 +5,18 @@ import java.util.Arrays;
 import hr.unizg.fer.hmo.ts.scheduler.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.enc.PartialSolution;
 
-class FastPriorityAdheringSolutionDecoder implements SolutionDecoder {
+public class FastPriorityAdheringSolutionDecoder implements SolutionDecoder {
 	private final Problem problem;
 	public final int[][] resourceToFreeTimes;
+	Solution solutionTemplate;
+
 
 	public FastPriorityAdheringSolutionDecoder(Problem problem) {
 		this.problem = problem;
-		// initialize resourceToTestTimeSeqs
-		int resourceCount = problem.resourceCount;
-		int[] resourceReferenceCounts = new int[resourceCount];
-		for (int[] resources : problem.testToResources)
-			for (int r : resources)
-				resourceReferenceCounts[r]++;
-		resourceToFreeTimes = new int[resourceCount][];
-		for (int r = 0; r < resourceCount; r++)
+		resourceToFreeTimes = new int[problem.resourceCount][];
+		for (int r = 0; r < problem.resourceCount; r++)
 			resourceToFreeTimes[r] = new int[problem.resourceToMultiplicity[r]];
+		solutionTemplate = new Solution(problem);
 	}
 
 	public Solution decode(PartialSolution psol) {
@@ -27,7 +24,7 @@ class FastPriorityAdheringSolutionDecoder implements SolutionDecoder {
 		for (int[] times : resourceToFreeTimes)
 			Arrays.fill(times, 0);
 
-		Solution sol = new Solution(problem);
+		Solution sol = Solution.emptyLike(solutionTemplate);
 		for (int i = 0; i < problem.testCount; i++) {
 			int test = psol.priorityToTest[i];
 			int mach = psol.testToMachine[test];
@@ -57,8 +54,9 @@ class FastPriorityAdheringSolutionDecoder implements SolutionDecoder {
 	}
 
 	private void assignResources(int test, int startTime) {
+		 // minimize gaps in resource usage
 		int[] resourceIndices = new int[problem.resourceCount];
-		for (int r = 0; r < problem.resourceCount; r++) { // minimize gaps in resource usage
+		for (int r = 0; r < problem.resourceCount; r++) {
 			int argmax = -1, max = 0;
 			for (int i = 0; i < problem.resourceToMultiplicity[r]; i++) {
 				int time = resourceToFreeTimes[r][i];

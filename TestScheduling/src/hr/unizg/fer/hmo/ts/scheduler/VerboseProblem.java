@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
-public class ProblemDefinition {
+public class VerboseProblem {
 	public class Resource {
 		public final String name;
 		public final int multiplicity;
@@ -58,7 +58,7 @@ public class ProblemDefinition {
 	public final List<Resource> resources;
 	public final List<Test> tests;
 
-	public ProblemDefinition(String definition) {
+	public VerboseProblem(String definition) {
 		List<Machine> machines = new ArrayList<Machine>();
 		List<Resource> resources = new ArrayList<Resource>();
 		List<Test> tests = new ArrayList<Test>();

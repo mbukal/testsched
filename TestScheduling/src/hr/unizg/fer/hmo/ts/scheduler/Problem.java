@@ -11,7 +11,7 @@ public class Problem {
 	public final int[][] testToMachines;
 	public final int[][] testToResources;
 
-	public Problem(ProblemDefinition problem) {
+	public Problem(VerboseProblem problem) {
 		machineCount = problem.machines.size();
 		resourceToMultiplicity = problem.resources.stream().mapToInt(r -> r.multiplicity).toArray();
 		resourceCount = resourceToMultiplicity.length;

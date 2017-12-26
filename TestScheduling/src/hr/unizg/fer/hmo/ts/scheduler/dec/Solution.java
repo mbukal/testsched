@@ -1,8 +1,17 @@
 package hr.unizg.fer.hmo.ts.scheduler.dec;
 
+import java.util.stream.Stream;
+
 import hr.unizg.fer.hmo.ts.scheduler.Problem;
 
 public class Solution {
+	public static Solution emptyLike(Solution sol) {
+		TestTimeSeq[] machineToTestTimeSeq = new TestTimeSeq[sol.machineToTestTimeSeq.length];
+		for (int m = 0; m < machineToTestTimeSeq.length; m++)
+			machineToTestTimeSeq[m] = TestTimeSeq.emptyLike(sol.machineToTestTimeSeq[m]);
+		return new Solution(machineToTestTimeSeq);
+	}
+
 	public final TestTimeSeq[] machineToTestTimeSeq;
 
 	public Solution(Problem problem) {
@@ -21,12 +30,14 @@ public class Solution {
 		this.machineToTestTimeSeq = machineToTestTimeSeq;
 	}
 
-	public void swapTestsBetweenMachines(int m1, int index1, int m2, int index2) {
-		machineToTestTimeSeq[m1].swap(index1, machineToTestTimeSeq[m2], index2);
+	public int getDuration() {
+		return Stream.of(machineToTestTimeSeq).mapToInt(tts -> tts.getDuration()).max().getAsInt();
 	}
 
-	public void moveLastTestBetweenMachines(int mSrc, int mDest) {
-		machineToTestTimeSeq[mDest].add(machineToTestTimeSeq[mSrc].pop(), 0);
+	public Solution clear() {
+		for (int m = 0; m < machineToTestTimeSeq.length; m++)
+			this.machineToTestTimeSeq[m].clear();
+		return new Solution(machineToTestTimeSeq);
 	}
 
 	@Override
@@ -42,8 +53,8 @@ public class Solution {
 	@Override
 	public Solution clone() {
 		TestTimeSeq[] machineToTestTimeSeq = new TestTimeSeq[this.machineToTestTimeSeq.length];
-		for (int i = 0; i < machineToTestTimeSeq.length; i++)
-			machineToTestTimeSeq[i] = this.machineToTestTimeSeq[i].clone();
+		for (int m = 0; m < machineToTestTimeSeq.length; m++)
+			machineToTestTimeSeq[m] = this.machineToTestTimeSeq[m].clone();
 		return new Solution(machineToTestTimeSeq);
 	}
 }

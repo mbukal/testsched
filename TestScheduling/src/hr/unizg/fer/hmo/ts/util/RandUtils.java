@@ -15,9 +15,4 @@ public final class RandUtils {
 		for (int i = arr.length - 1; i > 0; i--)
 			ArrayUtils.swap(arr, i, rand.nextInt(i + 1));
 	}
-
-	public static void swapRandomly(int[] arr, int swapCount) {
-		for (int i = 0; i < swapCount; i++)
-			ArrayUtils.swap(arr, rand.nextInt(arr.length), rand.nextInt(arr.length));
-	}
 }

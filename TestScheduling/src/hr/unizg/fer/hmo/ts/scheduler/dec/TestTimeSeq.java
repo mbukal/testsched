@@ -1,6 +1,12 @@
 package hr.unizg.fer.hmo.ts.scheduler.dec;
 
 public class TestTimeSeq {
+	public static TestTimeSeq emptyLike(TestTimeSeq tts) {
+		return new TestTimeSeq(tts.len, new int[tts.capacity], new int[tts.capacity],
+				tts.testToDuration);
+	}
+
+	public final int capacity;
 	private int len;
 	public final int[] tests;
 	private final int[] startTimes;
@@ -8,6 +14,7 @@ public class TestTimeSeq {
 	private final int[] testToDuration; // problem.testToDuration. not to be modified
 
 	public TestTimeSeq(int capacity, int[] testToDuration) {
+		this.capacity = capacity;
 		len = 0;
 		tests = new int[capacity];
 		startTimes = new int[capacity];
@@ -15,10 +22,16 @@ public class TestTimeSeq {
 	}
 
 	private TestTimeSeq(int len, int[] tests, int[] startTimes, int[] testToDuration) {
+		this.capacity = tests.length;
 		this.len = len;
-		this.tests = tests.clone();
-		this.startTimes = startTimes.clone();
+		this.tests = tests;
+		this.startTimes = startTimes;
 		this.testToDuration = testToDuration;
+	}
+
+	@Override
+	public TestTimeSeq clone() {
+		return new TestTimeSeq(len, tests.clone(), startTimes.clone(), testToDuration);
 	}
 
 	public void clear() {
@@ -128,11 +141,6 @@ public class TestTimeSeq {
 			if (oth.tests[i] != tests[i] || oth.startTimes[i] != startTimes[i])
 				return false;
 		return true;
-	}
-
-	@Override
-	public TestTimeSeq clone() {
-		return new TestTimeSeq(len, tests, startTimes, testToDuration);
 	}
 
 	private void fixContiguousOverlaps(int fromIndex) {

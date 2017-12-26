@@ -22,7 +22,9 @@ public class PartialSolutionMutator {
 	}
 
 	public void swapRandomly(PartialSolution ps, int swapCount) {
-		RandUtils.swapRandomly(ps.priorityToTest, swapCount);
+		int[] arr = ps.priorityToTest;
+		for (int i = 0; i < swapCount; i++)
+			ArrayUtils.swap(arr, rand.nextInt(arr.length), rand.nextInt(arr.length));
 	}
 
 	public void swapClosePairsRandomlyForward(PartialSolution ps, int swapProb) {

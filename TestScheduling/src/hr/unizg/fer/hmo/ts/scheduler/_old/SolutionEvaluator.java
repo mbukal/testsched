@@ -1,7 +1,8 @@
-package hr.unizg.fer.hmo.ts.scheduler;
+package hr.unizg.fer.hmo.ts.scheduler._old;
 
 import java.util.stream.IntStream;
 
+import hr.unizg.fer.hmo.ts.scheduler.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.dec.Solution;
 import hr.unizg.fer.hmo.ts.scheduler.dec.TestTimeSeq;
 
