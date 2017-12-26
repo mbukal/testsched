@@ -20,13 +20,6 @@ public class PartialSolutionGenerator {
 		return new PartialSolution(testCount);
 	}
 
-	public PartialSolution createLazilyInitialized() {
-		int[] testToMachine = new int[testCount];
-		for (int t = 0; t < testCount; t++)
-			testToMachine[t] = testToMachines[t][0];
-		return new PartialSolution(priorityToTestTemplate.clone(), testToMachine);
-	}
-
 	public PartialSolution createRandomlyInitialized() {
 		int[] testToMachine = new int[testCount];
 		for (int t = 0; t < testCount; t++)

@@ -27,7 +27,7 @@ public class PartialSolutionMutator {
 			ArrayUtils.swap(arr, rand.nextInt(arr.length), rand.nextInt(arr.length));
 	}
 
-	public void swapClosePairsRandomlyForward(PartialSolution ps, int swapProb) {
+	public void swapClosePairsRandomlyForward(PartialSolution ps, double swapProb) {
 		int[] arr = ps.priorityToTest;
 		int i = 0;
 		while (i < arr.length) {
@@ -42,7 +42,7 @@ public class PartialSolutionMutator {
 		}
 	}
 
-	public void swapClosePairsRandomlyBackward(PartialSolution ps, int swapProb) {
+	public void swapClosePairsRandomlyBackward(PartialSolution ps, double swapProb) {
 		int[] arr = ps.priorityToTest;
 		int j = arr.length - 1;
 		while (j >= 0) {

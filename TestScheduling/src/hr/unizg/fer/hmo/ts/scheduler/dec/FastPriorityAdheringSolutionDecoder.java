@@ -10,7 +10,6 @@ public class FastPriorityAdheringSolutionDecoder implements SolutionDecoder {
 	public final int[][] resourceToFreeTimes;
 	Solution solutionTemplate;
 
-
 	public FastPriorityAdheringSolutionDecoder(Problem problem) {
 		this.problem = problem;
 		resourceToFreeTimes = new int[problem.resourceCount][];
@@ -31,7 +30,7 @@ public class FastPriorityAdheringSolutionDecoder implements SolutionDecoder {
 			TestTimeSeq tts = sol.machineToTestTimeSeq[mach];
 			int startTime = constrainStartTimeToResources(tts.getDuration());
 			assignResources(test, startTime);
-			sol.machineToTestTimeSeq[mach].add(test, startTime);
+			tts.add(test, startTime);
 		}
 		return sol;
 	}
@@ -54,7 +53,7 @@ public class FastPriorityAdheringSolutionDecoder implements SolutionDecoder {
 	}
 
 	private void assignResources(int test, int startTime) {
-		 // minimize gaps in resource usage
+		// minimize gaps in resource usage
 		int[] resourceIndices = new int[problem.resourceCount];
 		for (int r = 0; r < problem.resourceCount; r++) {
 			int argmax = -1, max = 0;

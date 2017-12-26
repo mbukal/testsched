@@ -55,14 +55,14 @@ public class SolutionOld {
 		this.machineToTestTimeSeq = machineToTestTimeSeq;
 	}
 
-	public void swapTestsBetweenMachines(int m1, int index1, int m2, int index2) {
-		machineToTestTimeSeq[m1].swap(index1, machineToTestTimeSeq[m2], index2);
-	}
-
-	public void moveLastTestBetweenMachines(int mSrc, int mDest) {
-		machineToTestTimeSeq[mDest].add(machineToTestTimeSeq[mSrc].pop(), 0);
-	}
-
+	/*
+	 * public void swapTestsBetweenMachines(int m1, int index1, int m2, int index2)
+	 * { machineToTestTimeSeq[m1].swap(index1, machineToTestTimeSeq[m2], index2); }
+	 * 
+	 * public void moveLastTestBetweenMachines(int mSrc, int mDest) {
+	 * machineToTestTimeSeq[mDest].add(machineToTestTimeSeq[mSrc].pop(), 0); }
+	 */
+	
 	@Override
 	public boolean equals(Object other) {
 		SolutionOld oth = (SolutionOld) other;
