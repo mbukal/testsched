@@ -1,6 +1,6 @@
 package hr.unizg.fer.hmo.ts.scheduler;
 
-import hr.unizg.fer.hmo.ts.scheduler.enc.Solution;
+import hr.unizg.fer.hmo.ts.scheduler.dec.Solution;
 
 public abstract class Scheduler {
 	private final SolutionEvaluator evaluator;

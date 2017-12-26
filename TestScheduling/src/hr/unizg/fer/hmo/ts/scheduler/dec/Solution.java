@@ -1,4 +1,4 @@
-package hr.unizg.fer.hmo.ts.scheduler.enc;
+package hr.unizg.fer.hmo.ts.scheduler.dec;
 
 import hr.unizg.fer.hmo.ts.scheduler.Problem;
 

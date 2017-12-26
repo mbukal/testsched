@@ -2,8 +2,8 @@ package hr.unizg.fer.hmo.ts.scheduler;
 
 import java.util.stream.IntStream;
 
-import hr.unizg.fer.hmo.ts.scheduler.enc.Solution;
-import hr.unizg.fer.hmo.ts.scheduler.enc.TestTimeSeq;
+import hr.unizg.fer.hmo.ts.scheduler.dec.Solution;
+import hr.unizg.fer.hmo.ts.scheduler.dec.TestTimeSeq;
 
 public class SolutionEvaluator {
 	private final Problem problem;

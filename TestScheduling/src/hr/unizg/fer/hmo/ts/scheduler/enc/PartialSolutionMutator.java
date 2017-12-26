@@ -25,12 +25,41 @@ public class PartialSolutionMutator {
 		RandUtils.swapRandomly(ps.priorityToTest, swapCount);
 	}
 
+	public void swapClosePairsRandomlyForward(PartialSolution ps, int swapProb) {
+		int[] arr = ps.priorityToTest;
+		int i = 0;
+		while (i < arr.length) {
+			for (; i < arr.length; i++)
+				if (rand.nextDouble() < swapProb)
+					break;
+			int j = i + 1;
+			for (; j < arr.length; j++)
+				if (rand.nextDouble() < swapProb)
+					ArrayUtils.swap(arr, i, j);
+			i = j + 1;
+		}
+	}
+
+	public void swapClosePairsRandomlyBackward(PartialSolution ps, int swapProb) {
+		int[] arr = ps.priorityToTest;
+		int j = arr.length - 1;
+		while (j >= 0) {
+			for (; j >= 0; j--)
+				if (rand.nextDouble() < swapProb)
+					break;
+			int i = j - 1;
+			for (; i >= 0; i--)
+				if (rand.nextDouble() < swapProb)
+					ArrayUtils.swap(arr, i, j);
+			j = i - 1;
+		}
+	}
+
 	public void changeMachineRandomly(PartialSolution ps, int test) {
 		ps.testToMachine[test] = RandUtils.randomElement(testToMachines[test]);
 	}
 
 	public void changeMachineRandomly(PartialSolution ps) {
-		int test = rand.nextInt(testCount);
-		ps.testToMachine[test] = RandUtils.randomElement(testToMachines[test]);
+		changeMachineRandomly(ps, rand.nextInt(testCount));
 	}
 }

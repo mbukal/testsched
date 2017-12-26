@@ -1,20 +1,20 @@
-package hr.unizg.fer.hmo.ts.scheduler.enc;
+package hr.unizg.fer.hmo.ts.scheduler._old;
 
-public class TestTimeSeq {
+public class TestTimeSeqWithLotsOfOperations {
 	private int len;
 	public final int[] tests;
 	private final int[] startTimes;
 
 	private final int[] testToDuration; // problem.testToDuration. not to be modified
 
-	public TestTimeSeq(int capacity, int[] testToDuration) {
+	public TestTimeSeqWithLotsOfOperations(int capacity, int[] testToDuration) {
 		len = 0;
 		tests = new int[capacity];
 		startTimes = new int[capacity];
 		this.testToDuration = testToDuration;
 	}
 
-	private TestTimeSeq(int len, int[] tests, int[] startTimes, int[] testToDuration) {
+	private TestTimeSeqWithLotsOfOperations(int len, int[] tests, int[] startTimes, int[] testToDuration) {
 		this.len = len;
 		this.tests = tests.clone();
 		this.startTimes = startTimes.clone();
@@ -106,7 +106,7 @@ public class TestTimeSeq {
 		fixContiguousOverlaps(test1Longer ? index1 : index2);
 	}
 
-	public void swap(int index, TestTimeSeq other, int indexOther) {
+	public void swap(int index, TestTimeSeqWithLotsOfOperations other, int indexOther) {
 		// swaps tests between TestTimeSeqs
 		assert index < len && indexOther < other.len;
 		int tempTest = tests[index];
@@ -163,7 +163,7 @@ public class TestTimeSeq {
 
 	@Override
 	public boolean equals(Object other) {
-		TestTimeSeq oth = (TestTimeSeq) other;
+		TestTimeSeqWithLotsOfOperations oth = (TestTimeSeqWithLotsOfOperations) other;
 		if (oth.size() != len)
 			return false;
 		for (int i = 0; i < len; i++)
@@ -173,7 +173,7 @@ public class TestTimeSeq {
 	}
 
 	@Override
-	public TestTimeSeq clone() {
-		return new TestTimeSeq(len, tests, startTimes, testToDuration);
+	public TestTimeSeqWithLotsOfOperations clone() {
+		return new TestTimeSeqWithLotsOfOperations(len, tests, startTimes, testToDuration);
 	}
 }

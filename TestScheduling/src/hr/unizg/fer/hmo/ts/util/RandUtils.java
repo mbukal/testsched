@@ -6,6 +6,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public final class RandUtils {
 	private static final Random rand = ThreadLocalRandom.current();
 
+	public static int randomElement(int[] arr) {
+		return arr[rand.nextInt(arr.length)];
+	}
+
 	// Fisher–Yates shuffle
 	public static void shuffle(int[] arr) {
 		for (int i = arr.length - 1; i > 0; i--)
@@ -15,9 +19,5 @@ public final class RandUtils {
 	public static void swapRandomly(int[] arr, int swapCount) {
 		for (int i = 0; i < swapCount; i++)
 			ArrayUtils.swap(arr, rand.nextInt(arr.length), rand.nextInt(arr.length));
-	}
-
-	public static int randomElement(int[] arr) {
-		return arr[rand.nextInt(arr.length)];
 	}
 }
