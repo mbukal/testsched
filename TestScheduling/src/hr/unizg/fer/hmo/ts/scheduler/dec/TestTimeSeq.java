@@ -55,6 +55,8 @@ public class TestTimeSeq {
 	}
 
 	public int getDuration() {
+		if (len == 0)
+			return 0;
 		return getEndTime(len - 1);
 	}
 
@@ -90,5 +92,15 @@ public class TestTimeSeq {
 			if (oth.tests[i] != tests[i] || oth.startTimes[i] != startTimes[i])
 				return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("[");
+		for (int i = 0; i < len; i++)
+			sb.append("(" + tests[i] + ", " + startTimes[i] + "), ");
+		if (len > 0)
+			sb.setLength(sb.length() - 2);
+		return sb.append("]").toString();
 	}
 }

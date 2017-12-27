@@ -17,11 +17,13 @@ public class Problem {
 		resourceCount = resourceToMultiplicity.length;
 		testCount = problem.tests.size();
 		testToDuration = problem.tests.stream().mapToInt(t -> t.duration).toArray();
-		testToMachines = (int[][]) problem.tests.stream()
-				.map(t -> Stream.of(t.machines).mapToInt(m -> problem.getMachineIndex(m)).toArray())
-				.toArray();
-		testToResources = (int[][]) problem.tests.stream().map(
-				t -> Stream.of(t.resources).mapToInt(r -> problem.getResourceIndex(r)).toArray())
-				.toArray();
+		testToMachines = new int[testCount][];
+		testToResources = new int[testCount][];
+		for (int t = 0; t < testCount; t++) {
+			testToMachines[t] = Stream.of(problem.tests.get(t).machines)
+					.mapToInt(m -> problem.getMachineIndex(m)).toArray();
+			testToResources[t] = Stream.of(problem.tests.get(t).resources)
+					.mapToInt(r -> problem.getResourceIndex(r)).toArray();
+		}
 	}
 }

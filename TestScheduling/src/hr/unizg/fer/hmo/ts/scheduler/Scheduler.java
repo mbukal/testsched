@@ -29,18 +29,4 @@ public class Scheduler {
 	protected int evaluate(Solution solution) {
 		return solution.getDuration();
 	}
-
-	public static void main(String[] args) throws IOException {
-		String problemDefinitionString;
-		try (FileInputStream problemFile = new FileInputStream(args[1])) {
-			problemDefinitionString = new String(problemFile.readAllBytes());
-		}
-		VerboseProblem verboseProblem = new VerboseProblem(problemDefinitionString);
-		System.out.println(verboseProblem);
-		Problem problem = new Problem(verboseProblem);
-		Scheduler scheduler = new Scheduler();
-		Solution solution = scheduler.solve(problem);
-		VerboseSolution verboseSolution = new VerboseSolution(verboseProblem, solution);
-		System.out.println(verboseSolution);
-	}
 }

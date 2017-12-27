@@ -28,15 +28,15 @@ public class FastPriorityAdheringSolutionDecoder implements SolutionDecoder {
 			int test = psol.priorityToTest[i];
 			int mach = psol.testToMachine[test];
 			TestTimeSeq tts = sol.machineToTestTimeSeq[mach];
-			int startTime = constrainStartTimeToResources(tts.getDuration());
+			int startTime = constrainStartTimeToResources(test, tts.getDuration());
 			assignResources(test, startTime);
 			tts.add(test, startTime);
 		}
 		return sol;
 	}
 
-	private int constrainStartTimeToResources(int minStartTime) {
-		for (int r = 0; r < problem.resourceCount; r++) {
+	private int constrainStartTimeToResources(int test, int minStartTime) {
+		for (int r: problem.testToResources[test]) {
 			int min = Integer.MAX_VALUE;
 			for (int i = 0; i < problem.resourceToMultiplicity[r]; i++) {
 				int time = resourceToFreeTimes[r][i];
@@ -55,8 +55,8 @@ public class FastPriorityAdheringSolutionDecoder implements SolutionDecoder {
 	private void assignResources(int test, int startTime) {
 		// minimize gaps in resource usage
 		int[] resourceIndices = new int[problem.resourceCount];
-		for (int r = 0; r < problem.resourceCount; r++) {
-			int argmax = -1, max = 0;
+		for (int r: problem.testToResources[test]) {
+			int argmax = -1, max = -1;
 			for (int i = 0; i < problem.resourceToMultiplicity[r]; i++) {
 				int time = resourceToFreeTimes[r][i];
 				if (max < time && time <= startTime) {
