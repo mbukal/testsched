@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import hr.unizg.fer.hmo.ts.scheduler.dec.Solution;
 import hr.unizg.fer.hmo.ts.scheduler.dec.TestTimeSeq;
 
 public class VerboseSolution {

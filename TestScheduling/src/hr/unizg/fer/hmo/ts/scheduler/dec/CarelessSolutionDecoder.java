@@ -1,6 +1,7 @@
 package hr.unizg.fer.hmo.ts.scheduler.dec;
 
 import hr.unizg.fer.hmo.ts.scheduler.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.Solution;
 import hr.unizg.fer.hmo.ts.scheduler.enc.PartialSolution;
 
 public class CarelessSolutionDecoder implements SolutionDecoder {

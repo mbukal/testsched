@@ -1,8 +1,8 @@
-package hr.unizg.fer.hmo.ts.scheduler.dec;
+package hr.unizg.fer.hmo.ts.scheduler;
 
 import java.util.stream.Stream;
 
-import hr.unizg.fer.hmo.ts.scheduler.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.dec.TestTimeSeq;
 
 public class Solution {
 	public static Solution emptyLike(Solution sol) {
@@ -31,7 +31,10 @@ public class Solution {
 	}
 
 	public int getDuration() {
-		return Stream.of(machineToTestTimeSeq).mapToInt(tts -> tts.getDuration()).max().getAsInt();
+		int max = 0;
+		for (TestTimeSeq tts : machineToTestTimeSeq)
+			max = Math.max(max, tts.getDuration());
+		return max;
 	}
 
 	public Solution clear() {
