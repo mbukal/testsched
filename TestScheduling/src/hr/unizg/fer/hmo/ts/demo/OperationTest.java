@@ -9,12 +9,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import hr.unizg.fer.hmo.ts.optimization.Optimizer;
-import hr.unizg.fer.hmo.ts.scheduler.DummyScheduler;
-import hr.unizg.fer.hmo.ts.scheduler.Problem;
-import hr.unizg.fer.hmo.ts.scheduler.Solution;
-import hr.unizg.fer.hmo.ts.scheduler.VerboseProblem;
-import hr.unizg.fer.hmo.ts.scheduler.VerboseSolution;
-import hr.unizg.fer.hmo.ts.util.FileUtils;
+import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.model.problem.VerboseProblem;
+import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
+import hr.unizg.fer.hmo.ts.scheduler.model.solution.VerboseSolution;
+import hr.unizg.fer.hmo.ts.scheduler.solver.dummy.DummyScheduler;
+import hr.unizg.fer.hmo.ts.scheduler.util.FileUtils;
 
 public class OperationTest {
 	public static void main(String[] args) throws IOException {

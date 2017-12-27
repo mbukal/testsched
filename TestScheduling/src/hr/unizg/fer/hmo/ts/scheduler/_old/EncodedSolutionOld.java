@@ -2,7 +2,7 @@ package hr.unizg.fer.hmo.ts.scheduler._old;
 
 import java.util.stream.Stream;
 
-import hr.unizg.fer.hmo.ts.scheduler.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
 
 public class EncodedSolutionOld {
 	int[] testStartTimes;  // test to test start time map
