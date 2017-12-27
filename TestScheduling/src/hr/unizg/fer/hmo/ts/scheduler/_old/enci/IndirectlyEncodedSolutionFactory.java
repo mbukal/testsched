@@ -2,7 +2,7 @@ package hr.unizg.fer.hmo.ts.scheduler._old.enci;
 
 import java.util.Random;
 
-import hr.unizg.fer.hmo.ts.scheduler.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
 
 public final class IndirectlyEncodedSolutionFactory {
 	private Random rand = new Random();
