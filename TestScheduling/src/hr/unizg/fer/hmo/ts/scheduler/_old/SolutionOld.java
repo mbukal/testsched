@@ -2,7 +2,7 @@ package hr.unizg.fer.hmo.ts.scheduler._old;
 
 import java.util.Random;
 
-import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.TestTimeSeq;
 
 public class SolutionOld {

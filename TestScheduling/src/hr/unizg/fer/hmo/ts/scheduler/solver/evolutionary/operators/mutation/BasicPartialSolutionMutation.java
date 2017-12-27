@@ -13,7 +13,6 @@ public class BasicPartialSolutionMutation implements MutationOperator<PartialSol
 
 	@Override
 	public PartialSolution mutate(PartialSolution ps) {
-		psm.changeMachineRandomly(ps);
 		psm.swapRandomly(ps);
 		return ps;
 	}

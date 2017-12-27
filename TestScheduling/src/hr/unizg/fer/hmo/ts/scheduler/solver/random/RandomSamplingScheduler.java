@@ -1,9 +1,9 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.random;
 
 import hr.unizg.fer.hmo.ts.optimization.Optimizer;
-import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
-import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.FastPriorityAdheringSolutionDecoder;
+import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SecretSolutionDecoder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SolutionDecoder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGenerator;
@@ -22,7 +22,7 @@ public class RandomSamplingScheduler implements Optimizer<Problem, Solution> {
 	@Override
 	public Solution optimize(Problem problem) {
 		PartialSolutionGenerator generator = new PartialSolutionGenerator(problem);
-		SolutionDecoder decoder = new FastPriorityAdheringSolutionDecoder(problem);
+		SolutionDecoder decoder = new SecretSolutionDecoder(problem);
 
 		Solution bestSol = null;
 		int bestResult = Integer.MAX_VALUE;

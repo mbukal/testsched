@@ -2,6 +2,8 @@ package hr.unizg.fer.hmo.ts.scheduler;
 
 import java.util.stream.Stream;
 
+import hr.unizg.fer.hmo.ts.scheduler.model.problem.VerboseProblem;
+
 public class Problem {
 	public final int machineCount;
 	public final int resourceCount;

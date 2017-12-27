@@ -3,28 +3,23 @@ package hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
-import hr.unizg.fer.hmo.ts.scheduler.util.ArrayUtils;
-import hr.unizg.fer.hmo.ts.scheduler.util.RandUtils;
+import hr.unizg.fer.hmo.ts.util.ArrayUtils;
 
 public class PartialSolutionMutator {
-	private final int testCount;
-	private final int[][] testToMachines;
 	private final Random rand = ThreadLocalRandom.current();
 
-	public PartialSolutionMutator(Problem problem) {
-		testCount = problem.testCount;
-		testToMachines = problem.testToMachines;
+	public PartialSolutionMutator() {
 	}
 
 	public void swapRandomly(PartialSolution ps) {
+		int testCount = ps.priorityToTest.length;
 		ArrayUtils.swap(ps.priorityToTest, rand.nextInt(testCount), rand.nextInt(testCount));
 	}
 
 	public void swapRandomly(PartialSolution ps, int swapCount) {
-		int[] arr = ps.priorityToTest;
+		int testCount = ps.priorityToTest.length;
 		for (int i = 0; i < swapCount; i++)
-			ArrayUtils.swap(arr, rand.nextInt(arr.length), rand.nextInt(arr.length));
+			ArrayUtils.swap(ps.priorityToTest, rand.nextInt(testCount), rand.nextInt(testCount));
 	}
 
 	public void swapClosePairsRandomlyForward(PartialSolution ps, double swapProb) {
@@ -55,13 +50,5 @@ public class PartialSolutionMutator {
 					ArrayUtils.swap(arr, i, j);
 			j = i - 1;
 		}
-	}
-
-	public void changeMachineRandomly(PartialSolution ps, int test) {
-		ps.testToMachine[test] = RandUtils.randomElement(testToMachines[test]);
-	}
-
-	public void changeMachineRandomly(PartialSolution ps) {
-		changeMachineRandomly(ps, rand.nextInt(testCount));
 	}
 }

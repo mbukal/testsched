@@ -1,4 +1,4 @@
-package hr.unizg.fer.hmo.ts.scheduler.util;
+package hr.unizg.fer.hmo.ts.util;
 
 public final class ArrayUtils {
 	public static void swap(int[] arr, int index1, int index2) {

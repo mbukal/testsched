@@ -1,4 +1,4 @@
-package hr.unizg.fer.hmo.ts.scheduler.model.solution;
+package hr.unizg.fer.hmo.ts.scheduler._old.model.solution;
 
 import hr.unizg.fer.hmo.ts.scheduler.Problem;
 

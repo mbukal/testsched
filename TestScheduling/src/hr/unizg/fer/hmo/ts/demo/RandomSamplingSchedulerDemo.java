@@ -9,13 +9,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import hr.unizg.fer.hmo.ts.optimization.Optimizer;
-import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.model.problem.VerboseProblem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
-import hr.unizg.fer.hmo.ts.scheduler.model.solution.VerboseSolution;
-import hr.unizg.fer.hmo.ts.scheduler.solver.dummy.DummyScheduler;
 import hr.unizg.fer.hmo.ts.scheduler.solver.random.RandomSamplingScheduler;
-import hr.unizg.fer.hmo.ts.scheduler.util.FileUtils;
+import hr.unizg.fer.hmo.ts.util.FileUtils;
 
 public class RandomSamplingSchedulerDemo {
 	public static void main(String[] args) throws IOException {
@@ -32,9 +30,9 @@ public class RandomSamplingSchedulerDemo {
 			VerboseProblem verboseProblem = new VerboseProblem(problemDefinitionString);
 			// System.out.println(verboseProblem);
 			Problem problem = new Problem(verboseProblem);
-			Optimizer<Problem, Solution> scheduler = new RandomSamplingScheduler(10000);
+			Optimizer<Problem, Solution> scheduler = new RandomSamplingScheduler(100000);
 			Solution solution = scheduler.optimize(problem);
-			VerboseSolution verboseSolution = new VerboseSolution(verboseProblem, solution);
+			// VerboseSolution verboseSolution = new VerboseSolution(verboseProblem, solution);
 			// System.out.println(verboseSolution);
 			System.out.println(solution.getDuration());
 			System.out.println(verboseProblem.tests.stream().mapToInt(t -> t.duration).sum());

@@ -1,4 +1,4 @@
-package hr.unizg.fer.hmo.ts.scheduler.util;
+package hr.unizg.fer.hmo.ts.util;
 
 import java.io.File;
 import java.util.Arrays;
