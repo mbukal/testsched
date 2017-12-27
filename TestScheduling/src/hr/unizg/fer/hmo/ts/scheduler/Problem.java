@@ -21,9 +21,9 @@ public class Problem {
 		testToResources = new int[testCount][];
 		for (int t = 0; t < testCount; t++) {
 			testToMachines[t] = Stream.of(problem.tests.get(t).machines)
-					.mapToInt(m -> problem.getMachineIndex(m)).toArray();
+					.mapToInt(m -> problem.getMachineIndex(m)).sorted().toArray();
 			testToResources[t] = Stream.of(problem.tests.get(t).resources)
-					.mapToInt(r -> problem.getResourceIndex(r)).toArray();
+					.mapToInt(r -> problem.getResourceIndex(r)).sorted().toArray();
 		}
 	}
 }
