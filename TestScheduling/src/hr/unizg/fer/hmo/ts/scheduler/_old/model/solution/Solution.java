@@ -1,6 +1,6 @@
 package hr.unizg.fer.hmo.ts.scheduler._old.model.solution;
 
-import hr.unizg.fer.hmo.ts.scheduler.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
 
 public class Solution {
 	public static Solution emptyLike(Solution sol) {

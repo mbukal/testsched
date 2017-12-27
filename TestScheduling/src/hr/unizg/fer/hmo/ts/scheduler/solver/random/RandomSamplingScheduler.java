@@ -1,7 +1,7 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.random;
 
 import hr.unizg.fer.hmo.ts.optimization.Optimizer;
-import hr.unizg.fer.hmo.ts.scheduler.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SecretSolutionDecoder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SolutionDecoder;

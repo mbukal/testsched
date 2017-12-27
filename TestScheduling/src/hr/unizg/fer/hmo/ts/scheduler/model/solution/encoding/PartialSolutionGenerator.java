@@ -1,6 +1,6 @@
 package hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding;
 
-import hr.unizg.fer.hmo.ts.scheduler.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
 import hr.unizg.fer.hmo.ts.util.ArrayUtils;
 import hr.unizg.fer.hmo.ts.util.RandUtils;
 
