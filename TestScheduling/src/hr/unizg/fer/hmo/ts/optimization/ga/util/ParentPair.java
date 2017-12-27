@@ -8,6 +8,10 @@ public class ParentPair<T> {
 		this.parent1 = parent1;
 		this.parent2 = parent2;
 	}
+	
+	public static <T> ParentPair<T> of(T parent1, T parent2) {
+		return new ParentPair<>(parent1, parent2);
+	}
 
 	public T getParent1() {
 		return parent1;
@@ -41,6 +45,7 @@ public class ParentPair<T> {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -49,7 +54,7 @@ public class ParentPair<T> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ParentPair other = (ParentPair) obj;
+		ParentPair<T> other = (ParentPair<T>) obj;
 		if (parent1 == null) {
 			if (other.parent1 != null)
 				return false;
