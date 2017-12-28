@@ -27,13 +27,13 @@ import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGene
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionMutator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.EvolutionaryScheduler;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.crossover.DummyCrossover;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.ScheduleEvaluator;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.mutation.BasicPartialSolutionMutation;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanDetector;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RandomPartialSolutionSelection;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.ProportionalPopulationUpdater;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.DeterministicWorstEliminator;
 import hr.unizg.fer.hmo.ts.util.FileUtils;
 
 public class EvolutionarySchedulerDemo {
@@ -53,7 +53,7 @@ public class EvolutionarySchedulerDemo {
 			
 			/* evaluation */
 			SolutionDecoder decoder = new SecretSolutionDecoder(problem);
-			EvaluationFunction<PartialSolution> evalFunc = new ScheduleEvaluator(decoder);
+			EvaluationFunction<PartialSolution> evalFunc = new CachingScheduleEvaluator(decoder);
 			
 			/* generation */
 			PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);	
@@ -62,7 +62,7 @@ public class EvolutionarySchedulerDemo {
 			PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(indGen, popSize);
 				
 			/* updating */
-			UpdatePopulationOperator<PartialSolution> updatePopOp = new ProportionalPopulationUpdater(evalFunc);
+			UpdatePopulationOperator<PartialSolution> updatePopOp = new DeterministicWorstEliminator(evalFunc);
 			
 			/* optimum individual detection */
 			OptimumFinder<PartialSolution> optFinder = new ShortestMakespanDetector(evalFunc);
