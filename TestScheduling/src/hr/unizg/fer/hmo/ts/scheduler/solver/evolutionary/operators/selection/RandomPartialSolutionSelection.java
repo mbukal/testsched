@@ -22,12 +22,7 @@ public class RandomPartialSolutionSelection
 		int index1 = rnd.nextInt(population.size());
 		PartialSolution parent1 = population.get(index1);
 		
-		int index2 = index1;
-		
-		while(index2 == index1) {
-			index2 = rnd.nextInt(population.size());
-		}
-		
+		int index2 = rnd.nextInt(population.size());
 		PartialSolution parent2 = population.get(index2);
 		
 		return ParentPair.of(parent1, parent2);

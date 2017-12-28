@@ -32,7 +32,7 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.Random
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.mutation.IntensePartialSolutionMutation;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanDetector;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RandomPartialSolutionSelection;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RouletteWheelSelection;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.DeterministicWorstEliminator;
 import hr.unizg.fer.hmo.ts.util.FileUtils;
 
@@ -58,7 +58,7 @@ public class EvolutionarySchedulerDemo {
 			/* generation */
 			PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);	
 			IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(psg);		
-			int popSize = 30;	
+			int popSize = 10;	
 			PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(indGen, popSize);
 				
 			/* updating */
@@ -68,7 +68,7 @@ public class EvolutionarySchedulerDemo {
 			OptimumFinder<PartialSolution> optFinder = new ShortestMakespanDetector(evalFunc);
 			
 			/* selection */
-			SelectionOperator<PartialSolution> selectOp = new RandomPartialSolutionSelection();
+			SelectionOperator<PartialSolution> selectOp = new RouletteWheelSelection(evalFunc);
 			
 			/* stop criterion */
 			int maxIter = 1000;	

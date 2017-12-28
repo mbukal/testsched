@@ -8,6 +8,7 @@ public final class RandUtils {
 	private static final Random rand = ThreadLocalRandom.current();
 	public final static int HEADS = 0;
 	public final static int TAILS = 1;
+	private final static double PRECISION = 1e-4;
 
 	public static int randomElement(int[] arr) {
 		return arr[rand.nextInt(arr.length)];
@@ -32,10 +33,11 @@ public final class RandUtils {
 		double accum = 0;
 		for (Map.Entry<T, Double> entry : elementToValue.entrySet()) {
 			accum += entry.getValue();
-			if (accum > spinnedValue) {
+			if (accum > spinnedValue || Math.abs(accum - spinnedValue) < PRECISION) {
 				return entry.getKey();
 			}
 		}
+
 		throw new IllegalArgumentException("Provided map not suitable to this method. Make sure values are normed!");
 	}
 }
