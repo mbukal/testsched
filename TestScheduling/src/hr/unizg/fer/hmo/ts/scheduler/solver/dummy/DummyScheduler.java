@@ -1,6 +1,6 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.dummy;
 
-import hr.unizg.fer.hmo.ts.scheduler.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SecretSolutionDecoder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SolutionDecoder;

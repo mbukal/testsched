@@ -4,11 +4,11 @@ import hr.unizg.fer.hmo.ts.optimization.ga.indgen.IndividualGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGenerator;
 
-public class RanomPartialSolutionGenerator
+public class RandomPartialSolutionGenerator
 			implements IndividualGenerator<PartialSolution> {
 	private final PartialSolutionGenerator psg;
 
-	public RanomPartialSolutionGenerator(PartialSolutionGenerator psg) {
+	public RandomPartialSolutionGenerator(PartialSolutionGenerator psg) {
 		this.psg = psg;
 	}
 	

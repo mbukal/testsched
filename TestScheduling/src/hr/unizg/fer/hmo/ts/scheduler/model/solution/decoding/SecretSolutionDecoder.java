@@ -3,8 +3,8 @@ package hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
-import hr.unizg.fer.hmo.ts.scheduler.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
+import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;;
 
 

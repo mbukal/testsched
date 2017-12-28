@@ -3,19 +3,15 @@ package hr.unizg.fer.hmo.ts.optimization.ga;
 import java.util.List;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.crossover.CrossoverOperator;
-import hr.unizg.fer.hmo.ts.optimization.ga.evalfunc.EvaluationFunction;
 import hr.unizg.fer.hmo.ts.optimization.ga.mutation.MutationOperator;
 import hr.unizg.fer.hmo.ts.optimization.ga.optfinder.OptimumFinder;
 import hr.unizg.fer.hmo.ts.optimization.ga.popgen.PopulationGenerator;
 import hr.unizg.fer.hmo.ts.optimization.ga.selection.SelectionOperator;
-import hr.unizg.fer.hmo.ts.optimization.ga.stopcrit.StopCriterion;
 import hr.unizg.fer.hmo.ts.optimization.ga.updatepop.UpdatePopulationOperator;
 import hr.unizg.fer.hmo.ts.optimization.ga.util.ParentPair;
 
 public class SteadyStateGeneticAlgorithm<T> implements GeneticAlgorithm<T> {
 	private PopulationGenerator<T> initPopGen;
-	
-	private EvaluationFunction<T> evalFunc;
 	
 	private SelectionOperator<T> selectOp;
 	
@@ -27,26 +23,28 @@ public class SteadyStateGeneticAlgorithm<T> implements GeneticAlgorithm<T> {
 	
 	private OptimumFinder<T> optFinder;
 	
-	private StopCriterion stopCrit;
+	// private StopCriterion stopCrit;
+	
+	private int maxIter;
 	
 	public SteadyStateGeneticAlgorithm(
-			PopulationGenerator<T> initPopGen,
-			EvaluationFunction<T> evalFunc,
-			SelectionOperator<T> selectOp,
-			CrossoverOperator<T> crossOp,
-			MutationOperator<T> mutOp,
-			UpdatePopulationOperator<T> updatePopOp,
-			OptimumFinder<T> optFinder,
-			StopCriterion stopCrit) {
+			PopulationGenerator<T> initPopGen
+			,SelectionOperator<T> selectOp
+			,CrossoverOperator<T> crossOp
+			,MutationOperator<T> mutOp
+			,UpdatePopulationOperator<T> updatePopOp
+			,OptimumFinder<T> optFinder
+			/*,StopCriterion stopCrit*/
+			,int maxIter) {
 
 		this.initPopGen = initPopGen;
-		this.evalFunc = evalFunc;
 		this.selectOp = selectOp;
 		this.crossOp = crossOp;
 		this.mutOp = mutOp;
 		this.updatePopOp = updatePopOp;
 		this.optFinder = optFinder;
-		this.stopCrit = stopCrit;
+		// this.stopCrit = stopCrit;
+		this.maxIter = maxIter;
 	}
 
 
@@ -54,8 +52,9 @@ public class SteadyStateGeneticAlgorithm<T> implements GeneticAlgorithm<T> {
 	@Override
 	public T optimize() {
 		List<T> population = initPopGen.generate();
+		int iter = 0;
 		
-		while(! stopCrit.isMet()) {
+		while(iter < maxIter) {
 			ParentPair<T> parents = selectOp.select(population);
 			
 			T offspring = crossOp.reproduce(parents);
@@ -63,6 +62,8 @@ public class SteadyStateGeneticAlgorithm<T> implements GeneticAlgorithm<T> {
 			offspring = mutOp.mutate(offspring);
 			
 			population = updatePopOp.update(population, offspring);
+			
+			iter++;
 		}
 		
 		return optFinder.getOptimum(population);

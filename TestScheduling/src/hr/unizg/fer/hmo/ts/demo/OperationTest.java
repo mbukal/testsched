@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import hr.unizg.fer.hmo.ts.optimization.Optimizer;
-import hr.unizg.fer.hmo.ts.scheduler.Problem;
+import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.model.problem.VerboseProblem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
 import hr.unizg.fer.hmo.ts.scheduler.solver.dummy.DummyScheduler;
