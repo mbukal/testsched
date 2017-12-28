@@ -81,6 +81,6 @@ public class SecretSolutionDecoder implements SolutionDecoder {
 				machArgmax = m;
 			}
 		}
-		sol.machineToTestTimeSeq[machArgmax].add(test);
+		sol.machineToTestTimeSeq[machArgmax].add(test, startTime);
 	}
 }

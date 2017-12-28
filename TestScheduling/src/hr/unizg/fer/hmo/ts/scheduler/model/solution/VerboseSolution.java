@@ -5,39 +5,43 @@ import java.util.Collections;
 import java.util.List;
 
 import hr.unizg.fer.hmo.ts.scheduler.model.problem.VerboseProblem;
+import hr.unizg.fer.hmo.ts.scheduler.model.problem.VerboseProblem.Test;
 
 public class VerboseSolution {
 	public class Entry {
-		public String testName, machineName;
+		public Test test;
+		public String machineName;
 		public int startTime;
 
-		public Entry(String testName, String machineName, int startTime) {
-			this.testName = testName;
+		public Entry(Test test, String machineName, int startTime) {
+			this.test = test;
 			this.startTime = startTime;
 			this.machineName = machineName;
 		}
-		
+
 		@Override
 		public String toString() {
-			return String.format("'%s',%d,'%s'", testName, startTime, machineName);
+			return String.format("'%s',%d,'%s'", test.name, startTime, machineName);
 		}
 	}
-	
+
+	public VerboseProblem problem;
 	public List<Entry> entries;
 
 	public VerboseSolution(VerboseProblem verboseProblem, Solution solution) {
+		this.problem = verboseProblem;
 		List<Entry> entries = new ArrayList<Entry>();
 		for (int m = 0; m < solution.machineToTestTimeSeq.length; m++) {
 			TestTimeSeq tts = solution.machineToTestTimeSeq[m];
 			String machineName = verboseProblem.machines.get(m).name;
 			for (int i = 0; i < tts.size(); i++) {
-				String testName = verboseProblem.tests.get(tts.tests[i]).name;
-				entries.add(new Entry(testName, machineName, tts.getStartTime(i)));
+				Test test = verboseProblem.tests.get(tts.tests[i]);
+				entries.add(new Entry(test, machineName, tts.getStartTime(i)));
 			}
 		}
-		this.entries = Collections.unmodifiableList(entries);		
+		this.entries = Collections.unmodifiableList(entries);
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

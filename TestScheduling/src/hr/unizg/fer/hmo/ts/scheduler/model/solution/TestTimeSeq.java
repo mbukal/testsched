@@ -51,7 +51,7 @@ public class TestTimeSeq {
 	}
 
 	public int getStartDelay(int index) {
-		return startTimes[index] - (index == 0 ? 0 : getEndTime(index));
+		return startTimes[index] - (index == 0 ? 0 : getEndTime(index-1));
 	}
 
 	public int getDuration() {

@@ -12,27 +12,33 @@ import hr.unizg.fer.hmo.ts.optimization.Optimizer;
 import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.model.problem.VerboseProblem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
+import hr.unizg.fer.hmo.ts.scheduler.model.solution.VerboseSolution;
 import hr.unizg.fer.hmo.ts.scheduler.solver.random.RandomSamplingScheduler;
 import hr.unizg.fer.hmo.ts.util.FileUtils;
+import hr.unizg.fer.hmo.ts.util.Visualization;
 
 public class RandomSamplingSchedulerDemo {
 	public static void main(String[] args) throws IOException {
 		String problemInstanceDirPath = FileUtils.findInAncestor(new File(".").getAbsolutePath(),
 				"data/problem-instances");
+		String visualizationDirPath = FileUtils.findInAncestor(new File(".").getAbsolutePath(),
+				"data/visualization");
 		DirectoryStream<Path> dirStream = Files
 				.newDirectoryStream(Paths.get(problemInstanceDirPath));
 		for (Path problemFilePath : dirStream) {
-			String problemDefinitionString;
 			System.out.println(problemFilePath);
-			try (FileInputStream problemFile = new FileInputStream(problemFilePath.toFile())) {
-				problemDefinitionString = new String(problemFile.readAllBytes());
-			}
+			String problemDefinitionString = new String(Files.readAllBytes(problemFilePath));
 			VerboseProblem verboseProblem = new VerboseProblem(problemDefinitionString);
 			// System.out.println(verboseProblem);
 			Problem problem = new Problem(verboseProblem);
-			Optimizer<Problem, Solution> scheduler = new RandomSamplingScheduler(100000);
+			RandomSamplingScheduler scheduler = new RandomSamplingScheduler(10000);
 			Solution solution = scheduler.optimize(problem);
-			// VerboseSolution verboseSolution = new VerboseSolution(verboseProblem, solution);
+			// VerboseSolution verboseSolution = new VerboseSolution(verboseProblem,
+			// solution);
+			String htmlVis = Visualization.convertSolutionToHTML(solution, problem);			
+			String visualizationFilePath = visualizationDirPath + "/viz.html";
+			System.out.println(visualizationFilePath);
+			Files.write(Paths.get(visualizationFilePath), htmlVis.getBytes());
 			// System.out.println(verboseSolution);
 			System.out.println(solution.getDuration());
 			System.out.println(verboseProblem.tests.stream().mapToInt(t -> t.duration).sum());
