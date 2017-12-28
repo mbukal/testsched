@@ -1,5 +1,6 @@
 package hr.unizg.fer.hmo.ts.util;
 
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -24,5 +25,17 @@ public final class RandUtils {
 		} else {
 			return TAILS;
 		}
+	}
+	
+	public static <T> T spinAWheel(Map<T, Double> elementToValue) {
+		double spinnedValue = Math.random();
+		double accum = 0;
+		for (Map.Entry<T, Double> entry : elementToValue.entrySet()) {
+			accum += entry.getValue();
+			if (accum > spinnedValue) {
+				return entry.getKey();
+			}
+		}
+		throw new IllegalArgumentException("Provided map not suitable to this method. Make sure values are normed!");
 	}
 }

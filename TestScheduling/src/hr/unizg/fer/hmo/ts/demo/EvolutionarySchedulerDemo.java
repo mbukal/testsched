@@ -33,7 +33,7 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.mutation.Basi
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanDetector;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RandomPartialSolutionSelection;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.RandomPopulationUpdater;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.ProportionalPopulationUpdater;
 import hr.unizg.fer.hmo.ts.util.FileUtils;
 
 public class EvolutionarySchedulerDemo {
@@ -51,18 +51,18 @@ public class EvolutionarySchedulerDemo {
 			VerboseProblem verboseProblem = new VerboseProblem(problemDefinitionString);
 			Problem problem = new Problem(verboseProblem);
 			
+			/* evaluation */
+			SolutionDecoder decoder = new SecretSolutionDecoder(problem);
+			EvaluationFunction<PartialSolution> evalFunc = new ScheduleEvaluator(decoder);
+			
 			/* generation */
 			PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);	
 			IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(psg);		
 			int popSize = 10;	
 			PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(indGen, popSize);
-			
+				
 			/* updating */
-			UpdatePopulationOperator<PartialSolution> updatePopOp = new RandomPopulationUpdater();
-			
-			/* evaluation */
-			SolutionDecoder decoder = new SecretSolutionDecoder(problem);
-			EvaluationFunction<PartialSolution> evalFunc = new ScheduleEvaluator(decoder);
+			UpdatePopulationOperator<PartialSolution> updatePopOp = new ProportionalPopulationUpdater(evalFunc);
 			
 			/* optimum individual detection */
 			OptimumFinder<PartialSolution> optFinder = new ShortestMakespanDetector(evalFunc);
@@ -71,7 +71,7 @@ public class EvolutionarySchedulerDemo {
 			SelectionOperator<PartialSolution> selectOp = new RandomPartialSolutionSelection();
 			
 			/* stop criterion */
-			int maxIter = 10000;	
+			int maxIter = 100;	
 			
 			/* crossover */
 			CrossoverOperator<PartialSolution> crossOp = new DummyCrossover();
