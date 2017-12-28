@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class RandUtils {
-	private static final Random rand = ThreadLocalRandom.current();
+	public static final Random rand = ThreadLocalRandom.current();
 	public final static int HEADS = 0;
 	public final static int TAILS = 1;
 	private final static double PRECISION = 1e-4;
@@ -19,7 +19,7 @@ public final class RandUtils {
 		for (int i = arr.length - 1; i > 0; i--)
 			ArrayUtils.swap(arr, i, rand.nextInt(i + 1));
 	}
-	
+
 	public static int flipCoin() {
 		if (rand.nextDouble() < 0.5) {
 			return HEADS;
@@ -27,7 +27,7 @@ public final class RandUtils {
 			return TAILS;
 		}
 	}
-	
+
 	public static <T> T spinAWheel(Map<T, Double> elementToValue) {
 		double spinnedValue = Math.random();
 		double accum = 0;
@@ -38,6 +38,7 @@ public final class RandUtils {
 			}
 		}
 
-		throw new IllegalArgumentException("Provided map not suitable to this method. Make sure values are normed!");
+		throw new IllegalArgumentException(
+				"Provided map not suitable to this method. Make sure values are normed!");
 	}
 }

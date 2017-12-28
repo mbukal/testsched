@@ -19,11 +19,9 @@ public class KendallTau {
         }
         int n = a.length;
 
-        int[] ainv = new int[n];
-        for (int i = 0; i < n; i++)
-            ainv[a[i]] = i;
-
-        Integer[] bnew = new Integer[n];
+        int[] ainv = ArrayUtils.invertedIndex(a);
+        
+        int[] bnew = new int[n];
         for (int i = 0; i < n; i++)
             bnew[i] = ainv[b[i]];
 

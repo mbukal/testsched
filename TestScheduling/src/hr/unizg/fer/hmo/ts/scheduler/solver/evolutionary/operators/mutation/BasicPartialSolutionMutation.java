@@ -16,5 +16,4 @@ public class BasicPartialSolutionMutation implements MutationOperator<PartialSol
 		psm.swapRandomly(ps);
 		return ps;
 	}
-
 }
