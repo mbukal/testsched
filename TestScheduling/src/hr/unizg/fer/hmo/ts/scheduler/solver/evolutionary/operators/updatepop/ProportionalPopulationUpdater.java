@@ -21,17 +21,11 @@ public class ProportionalPopulationUpdater
 	public List<PartialSolution> update(List<PartialSolution> population, PartialSolution offspring) {
 		Map<PartialSolution, Double> psToNormEval = new HashMap<>();
 	
-		// suspicious norming
-		int evalSum = population.stream().mapToInt(ps -> evalFunc.evaluate(ps)).sum();
-		population.forEach(ps -> psToNormEval.put(ps, (double)evalFunc.evaluate(ps) / evalSum));
-
-		/*
-		// gibberish
-		int maxEval = population.stream().mapToInt(ps -> evalFunc.evaluate(ps)).max().getAsInt();
 		int minEval = population.stream().mapToInt(ps -> evalFunc.evaluate(ps)).min().getAsInt();
+		int evalSum = population.stream().mapToInt(ps -> (evalFunc.evaluate(ps) - minEval)).sum();
 		
-		population.forEach(ps -> psToNormEval.put(ps, (double)(evalFunc.evaluate(ps) - minEval) / (maxEval - minEval)));
-		*/
+		population.forEach(ps -> psToNormEval.put(ps, (double)(evalFunc.evaluate(ps) - minEval) / evalSum));
+
 		PartialSolution toBeEliminated = RandUtils.spinAWheel(psToNormEval);
 		
 		population.set(population.indexOf(toBeEliminated), offspring);
