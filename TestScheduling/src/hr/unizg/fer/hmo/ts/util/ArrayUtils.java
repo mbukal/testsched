@@ -44,4 +44,11 @@ public final class ArrayUtils {
 				min = arr[argmin = i];
 		return argmin;
 	}
+	
+	public static int[] invertedIndex(int[] arr) {
+		int[] inv = new int[arr.length];
+		for (int i = 1; i < arr.length; i++)
+			inv[arr[i]]=i;
+		return inv;
+	}
 }
