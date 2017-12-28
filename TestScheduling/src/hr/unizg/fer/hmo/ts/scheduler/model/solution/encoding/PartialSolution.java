@@ -13,6 +13,10 @@ public class PartialSolution {
 		this.priorityToTest = priorityToTest;
 	}
 
+	@Override
+	public String toString() {
+		return Arrays.toString(priorityToTest);
+	}
 
 	@Override
 	public int hashCode() {
