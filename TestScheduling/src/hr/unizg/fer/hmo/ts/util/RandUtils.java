@@ -28,8 +28,6 @@ public final class RandUtils {
 	}
 	
 	public static <T> T spinAWheel(Map<T, Double> elementToValue) {
-		double totalValueSum = elementToValue.entrySet().stream().mapToDouble(entry -> entry.getValue()).sum();
-		assert(Math.abs(totalValueSum - 1) < 0.001);
 		double spinnedValue = Math.random();
 		double accum = 0;
 		for (Map.Entry<T, Double> entry : elementToValue.entrySet()) {

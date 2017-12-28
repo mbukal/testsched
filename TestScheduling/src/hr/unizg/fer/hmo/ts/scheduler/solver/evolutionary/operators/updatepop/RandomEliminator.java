@@ -6,11 +6,11 @@ import java.util.Random;
 import hr.unizg.fer.hmo.ts.optimization.ga.updatepop.UpdatePopulationOperator;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 
-public class RandomPopulationUpdater
+public class RandomEliminator
 			implements UpdatePopulationOperator<PartialSolution> {
 	private final Random rnd;
 	
-	public RandomPopulationUpdater() {
+	public RandomEliminator() {
 		rnd = new Random();
 	}
 	

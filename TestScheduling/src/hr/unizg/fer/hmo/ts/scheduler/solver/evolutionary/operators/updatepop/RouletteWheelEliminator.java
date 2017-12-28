@@ -9,11 +9,11 @@ import hr.unizg.fer.hmo.ts.optimization.ga.updatepop.UpdatePopulationOperator;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 import hr.unizg.fer.hmo.ts.util.RandUtils;
 
-public class ProportionalPopulationUpdater
+public class RouletteWheelEliminator
 				implements UpdatePopulationOperator<PartialSolution> {
 	private final EvaluationFunction<PartialSolution> evalFunc;
 
-	public ProportionalPopulationUpdater(EvaluationFunction<PartialSolution> evalFunc) {
+	public RouletteWheelEliminator(EvaluationFunction<PartialSolution> evalFunc) {
 		this.evalFunc = evalFunc;
 	}
 	

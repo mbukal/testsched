@@ -8,7 +8,7 @@ import hr.unizg.fer.hmo.ts.optimization.ga.optfinder.OptimumFinder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 
 public class ShortestMakespanDetector implements OptimumFinder<PartialSolution> {
-	private static Comparator<PartialSolution> comparator;
+	private final Comparator<PartialSolution> comparator;
 	
 	public ShortestMakespanDetector(EvaluationFunction<PartialSolution> evalFunc) {
 		comparator = (ps1, ps2) -> evalFunc.evaluate(ps1) - evalFunc.evaluate(ps2); 
