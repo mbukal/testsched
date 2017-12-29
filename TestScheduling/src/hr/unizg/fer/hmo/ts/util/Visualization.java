@@ -11,7 +11,7 @@ public final class Visualization {
 		sb.append("  <style>").append("\n");
 		sb.append("    .line  { height: 50px; background-color: #eee; white-space: nowrap; padding:5px; margin: 5px }\n");
 		sb.append("    .event { height: 40px; background-color: #ccc; display:inline-block; margin: 0px }\n");
-		sb.append("    .space { height:  0px; background-color: #eee; display:inline-block; margin: 0px }\n");
+		sb.append("    .gap   { height:  0px; background-color: #eee; display:inline-block; margin: 0px }\n");
 		sb.append("  </style>").append("\n");
 		sb.append("  <body>").append("\n");
 		for (int m = 0; m < problem.machineCount; m++) {
@@ -21,7 +21,7 @@ public final class Visualization {
 				int test = mtts.tests[i];
 				sb.append("      ");
 				if(mtts.getStartDelay(i)>0) {
-					sb.append("<div class=\"space\" style=\"");
+					sb.append("<div class=\"gap\" style=\"");
 					sb.append("width:" + mtts.getStartDelay(i) + "px\"");
 					sb.append(">").append("</div>");			
 				}				
