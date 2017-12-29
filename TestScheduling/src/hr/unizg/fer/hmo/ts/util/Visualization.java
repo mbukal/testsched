@@ -19,7 +19,6 @@ public final class Visualization {
 			sb.append("    <div class=\"line\">").append("\n");
 			for (int i = 0; i < mtts.size(); i++) {
 				int test = mtts.tests[i];
-				System.out.println(mtts.getStartDelay(i));
 				sb.append("      ");
 				if(mtts.getStartDelay(i)>0) {
 					sb.append("<div class=\"space\" style=\"");

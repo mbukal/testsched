@@ -10,6 +10,8 @@ import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGene
 
 public class RandomSamplingScheduler implements Optimizer<Problem, Solution> {
 	private int sampleCount;
+	public PartialSolution _bestPsol = null;
+
 
 	public RandomSamplingScheduler(int sampleCount) {
 		this.sampleCount = sampleCount;
@@ -33,6 +35,7 @@ public class RandomSamplingScheduler implements Optimizer<Problem, Solution> {
 			if (res < bestResult) {
 				bestSol = s;
 				bestResult = res;
+				_bestPsol = ps;
 			}
 		}
 		return bestSol;
