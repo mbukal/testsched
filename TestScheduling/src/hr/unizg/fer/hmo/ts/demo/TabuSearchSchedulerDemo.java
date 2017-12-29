@@ -26,7 +26,7 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.tabu.tenure.ConstantTenure;
 
 public class TabuSearchSchedulerDemo {
 	public static void main(String[] args) throws IOException {
-		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts1.txt";
+		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts500m50r5-5.txt";
 		String problemDefinitionString;
 		try (FileInputStream problemFile = new FileInputStream(path)) {
 			problemDefinitionString = new String(problemFile.readAllBytes());

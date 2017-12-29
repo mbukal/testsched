@@ -1,5 +1,8 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.random;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import hr.unizg.fer.hmo.ts.optimization.Optimizer;
 import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
@@ -28,16 +31,19 @@ public class RandomSamplingScheduler implements Optimizer<Problem, Solution> {
 
 		Solution bestSol = null;
 		int bestResult = Integer.MAX_VALUE;
+		Set<Integer> results = new HashSet<>();
 		for (int i = 0; i < sampleCount; i++) {
 			PartialSolution ps = generator.createRandomlyInitialized();
 			Solution s = decoder.decode(ps);
 			int res = evaluate(s);
+			results.add(res);
 			if (res < bestResult) {
 				bestSol = s;
 				bestResult = res;
 				_bestPsol = ps;
 			}
 		}
+		System.out.println("distinct evals: " + results.size() + " / " + sampleCount);
 		return bestSol;
 	}
 }

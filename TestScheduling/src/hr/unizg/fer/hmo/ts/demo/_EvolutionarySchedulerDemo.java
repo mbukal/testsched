@@ -33,7 +33,7 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.Det
 
 public class _EvolutionarySchedulerDemo {
 	public static void main(String[] args) throws IOException {
-		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts1.txt";
+		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts500m50r5-5.txt";
 		String problemDefinitionString;
 		try (FileInputStream problemFile = new FileInputStream(path)) {
 			problemDefinitionString = new String(problemFile.readAllBytes());
@@ -48,7 +48,7 @@ public class _EvolutionarySchedulerDemo {
 		/* generation */
 		PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);
 		IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(psg);
-		int popSize = 50;
+		int popSize = 70;
 		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(indGen, popSize);
 
 		/* updating */
@@ -61,7 +61,7 @@ public class _EvolutionarySchedulerDemo {
 		SelectionOperator<PartialSolution> selectOp = new RandomPartialSolutionSelection();
 
 		/* stop criterion */
-		int maxIter = 10000;
+		int maxIter = 100000;
 
 		/* crossover */
 		CrossoverOperator<PartialSolution> crossOp = new PartiallyMappedCrossover();

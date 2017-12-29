@@ -1,11 +1,9 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.crossover;
 
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-
 import hr.unizg.fer.hmo.ts.optimization.ga.crossover.CrossoverOperator;
 import hr.unizg.fer.hmo.ts.optimization.ga.util.ParentPair;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
+import hr.unizg.fer.hmo.ts.util.RandUtils;
 
 public class PartiallyMappedCrossover implements CrossoverOperator<PartialSolution> {
 	@Override
