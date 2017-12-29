@@ -21,11 +21,12 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.Cach
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.tabu.TabuSearchScheduler;
 import hr.unizg.fer.hmo.ts.scheduler.solver.tabu.neighborhood.InterchangeNeighborhood;
+import hr.unizg.fer.hmo.ts.scheduler.solver.tabu.neighborhood.TransposeNeighborhood;
 import hr.unizg.fer.hmo.ts.scheduler.solver.tabu.tenure.ConstantTenure;
 
 public class TabuSearchSchedulerDemo {
 	public static void main(String[] args) throws IOException {
-		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts0.txt";
+		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts1.txt";
 		String problemDefinitionString;
 		try (FileInputStream problemFile = new FileInputStream(path)) {
 			problemDefinitionString = new String(problemFile.readAllBytes());
@@ -43,10 +44,10 @@ public class TabuSearchSchedulerDemo {
 		PartialSolution initSol = indGen.generate();
 		
 		/* stop criterion */
-		int maxIter = 1000;
+		int maxIter = 100;
 		
 		/* neighborhood */
-		Neighborhood<PartialSolution> neighborhood = new InterchangeNeighborhood();
+		Neighborhood<PartialSolution> neighborhood = new TransposeNeighborhood();
 		//System.out.println("initial solution: " + initSol);
 		//System.out.println("neighbors: ");
 		//neighborhood.neighbors(initSol).forEach(ps -> System.out.println(ps));
@@ -56,7 +57,7 @@ public class TabuSearchSchedulerDemo {
 		TabuList<PartialSolution> tabuList = new SimpleTabuList<>();
 		
 		/* tabu tenure */
-		int constTenure = 20;
+		int constTenure = 10;
 		TabuTenure<PartialSolution> tabuTenure = new ConstantTenure(constTenure);
 
 		TabuSearch<PartialSolution> scheduler = new TabuSearchScheduler(maxIter, evalFunc, neighborhood, tabuList, tabuTenure);

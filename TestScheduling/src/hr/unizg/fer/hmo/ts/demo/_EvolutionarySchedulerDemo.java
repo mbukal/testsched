@@ -22,6 +22,7 @@ import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGene
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionMutator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.EvolutionaryScheduler;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.crossover.DummyCrossover;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.crossover.PartiallyMappedCrossover;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.mutation.IntensePartialSolutionMutation;
@@ -32,7 +33,7 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.Det
 
 public class _EvolutionarySchedulerDemo {
 	public static void main(String[] args) throws IOException {
-		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts0.txt";
+		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts1.txt";
 		String problemDefinitionString;
 		try (FileInputStream problemFile = new FileInputStream(path)) {
 			problemDefinitionString = new String(problemFile.readAllBytes());
@@ -63,7 +64,7 @@ public class _EvolutionarySchedulerDemo {
 		int maxIter = 10000;
 
 		/* crossover */
-		CrossoverOperator<PartialSolution> crossOp = new DummyCrossover();
+		CrossoverOperator<PartialSolution> crossOp = new PartiallyMappedCrossover();
 
 		/* mutation */
 		PartialSolutionMutator psm = new PartialSolutionMutator();

@@ -1,7 +1,6 @@
 package hr.unizg.fer.hmo.ts.scheduler.model.problem;
 
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class ConstraintlessProblem extends Problem {
 	public final int machineCount;

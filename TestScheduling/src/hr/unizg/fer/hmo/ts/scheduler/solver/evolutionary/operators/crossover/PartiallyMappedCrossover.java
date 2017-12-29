@@ -6,8 +6,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import hr.unizg.fer.hmo.ts.optimization.ga.crossover.CrossoverOperator;
 import hr.unizg.fer.hmo.ts.optimization.ga.util.ParentPair;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
-import hr.unizg.fer.hmo.ts.util.ArrayUtils;
-import hr.unizg.fer.hmo.ts.util.RandUtils;
 
 public class PartiallyMappedCrossover implements CrossoverOperator<PartialSolution> {
 	private static Random rand = ThreadLocalRandom.current();
