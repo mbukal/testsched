@@ -68,7 +68,7 @@ public class SecretSolutionDecoder implements SolutionDecoder {
 			}
 			resourceIndices[r] = argmax;
 		}
-		for (int r = 0; r < problem.resourceCount; r++)
+		for (int r : problem.testToResources[test])
 			resourceToFreeTimes[r][resourceIndices[r]] = startTime + problem.testToDuration[test];
 	}
 	

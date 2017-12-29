@@ -52,13 +52,19 @@ public class VerboseProblem {
 
 		@Override
 		public String toString() {
-			return "embedded_board('" + name + "').";
+			String machinesStr = machines == allMachines ? "[]"
+					: ("['" + String.join("', '", machines) + "']");
+			String resourcesStr = resources.length == 0 ? "[]"
+					: ("['" + String.join("', '", resources) + "']");
+			return "test('" + name + "'," + duration + ", " + machinesStr + ", " + resourcesStr
+					+ ").";
 		}
 	}
 
 	public final List<Machine> machines;
 	public final List<Resource> resources;
 	public final List<Test> tests;
+	private String[] allMachines;
 
 	public VerboseProblem(String definition) {
 		List<Machine> machines = new ArrayList<Machine>();
@@ -96,7 +102,7 @@ public class VerboseProblem {
 			 * "\".\n(" + ex.getMessage() + ")"); }
 			 */
 		}
-		String[] allMachines = machines.stream().map(m -> m.name).toArray(String[]::new);
+		this.allMachines = machines.stream().map(m -> m.name).toArray(String[]::new);
 		for (Test test : tests)
 			if (test.machines.length == 0)
 				test.machines = allMachines;
