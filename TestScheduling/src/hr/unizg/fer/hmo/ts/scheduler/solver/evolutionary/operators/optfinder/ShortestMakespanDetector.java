@@ -1,7 +1,7 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder;
 
 import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.evalfunc.EvaluationFunction;
 import hr.unizg.fer.hmo.ts.optimization.ga.optfinder.OptimumFinder;
@@ -15,7 +15,7 @@ public class ShortestMakespanDetector implements OptimumFinder<PartialSolution> 
 	}
 
 	@Override
-	public PartialSolution getOptimum(List<PartialSolution> candidates) {
+	public PartialSolution getOptimum(Set<PartialSolution> candidates) {
 		return candidates.stream().min(comparator).get();
 	}
 

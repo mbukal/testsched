@@ -1,7 +1,7 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.indgen.IndividualGenerator;
 import hr.unizg.fer.hmo.ts.optimization.ga.popgen.PopulationGenerator;
@@ -20,8 +20,8 @@ public class IndependentPopulationGenerator
 	}
 
 	@Override
-	public List<PartialSolution> generate() {
-		List<PartialSolution> population = new ArrayList<>();
+	public Set<PartialSolution> generate() {
+		Set<PartialSolution> population = new HashSet<>();
 		
 		while (population.size() < populationSize) {
 			population.add(individualGenerator.generate());
