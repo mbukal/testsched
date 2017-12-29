@@ -8,12 +8,15 @@ import hr.unizg.fer.hmo.ts.optimization.ga.util.ParentPair;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 
 public class PartiallyMappedCrossover implements CrossoverOperator<PartialSolution> {
-	private static Random rand = ThreadLocalRandom.current();
-
 	@Override
 	public PartialSolution reproduce(ParentPair<PartialSolution> parents) {
 		int[] p1 = parents.getParent1().priorityToTest, p2 = parents.getParent2().priorityToTest;
-		int br1 = rand.nextInt(p1.length), br2 = rand.nextInt(p1.length);
+		if (RandUtils.rand.nextBoolean()) {
+			int[] temp = p1;
+			p1 = p2;
+			p2 = temp;
+		}
+		int br1 = RandUtils.rand.nextInt(p1.length), br2 = RandUtils.rand.nextInt(p1.length);
 		if (br1 > br2) {
 			int temp = br1;
 			br1 = br2;

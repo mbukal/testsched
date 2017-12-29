@@ -28,14 +28,15 @@ public class RandomSamplingSchedulerDemo {
 			VerboseProblem verboseProblem = new VerboseProblem(problemDefinitionString);
 			// System.out.println(verboseProblem);
 			Problem problem = new Problem(verboseProblem);
-			RandomSamplingScheduler scheduler = new RandomSamplingScheduler(50000);
+			RandomSamplingScheduler scheduler = new RandomSamplingScheduler(10000);
 			Solution solution = scheduler.optimize(problem);
 			// VerboseSolution verboseSolution = new VerboseSolution(verboseProblem,
 			// solution);
 			// System.out.println(verboseSolution);
-			System.out.println(solution.getDuration());
+			System.out.println("schedule duration: " + solution.getDuration());
 			int testDurationSum = verboseProblem.tests.stream().mapToInt(t -> t.duration).sum();
-			System.out.println(testDurationSum/problem.machineCount);
+			System.out.print("total duration: " + testDurationSum + ", ");
+			System.out.println("unconstrained lb: " + testDurationSum / problem.machineCount);
 		}
 	}
 }

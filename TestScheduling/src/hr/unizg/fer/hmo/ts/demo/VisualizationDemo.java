@@ -33,7 +33,7 @@ public class VisualizationDemo {
 			VerboseProblem verboseProblem = new VerboseProblem(problemDefinitionString);
 			// System.out.println(verboseProblem);
 			Problem problem = new Problem(verboseProblem);
-			RandomSamplingScheduler scheduler = new RandomSamplingScheduler(1000);
+			RandomSamplingScheduler scheduler = new RandomSamplingScheduler(2000);
 			Solution solution = scheduler.optimize(problem);
 			// VerboseSolution verboseSolution = new VerboseSolution(verboseProblem,
 			// solution);

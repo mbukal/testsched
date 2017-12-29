@@ -28,11 +28,14 @@ public class OperationTest {
 				problemDefinitionString = new String(problemFile.readAllBytes());
 			}
 			VerboseProblem verboseProblem = new VerboseProblem(problemDefinitionString);
-			// System.out.println(verboseProblem);
+			System.out.println(verboseProblem);
+			if (true)
+				return;
 			Problem problem = new Problem(verboseProblem);
 			Optimizer<Problem, Solution> scheduler = new DummyScheduler();
 			Solution solution = scheduler.optimize(problem);
-			// VerboseSolution verboseSolution = new VerboseSolution(verboseProblem, solution);
+			// VerboseSolution verboseSolution = new VerboseSolution(verboseProblem,
+			// solution);
 			// System.out.println(verboseSolution);
 			System.out.println(solution.getDuration());
 			System.out.println(verboseProblem.tests.stream().mapToInt(t -> t.duration).sum());
