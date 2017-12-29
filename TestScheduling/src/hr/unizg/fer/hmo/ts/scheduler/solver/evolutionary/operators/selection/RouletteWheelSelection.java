@@ -1,8 +1,8 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.evalfunc.EvaluationFunction;
 import hr.unizg.fer.hmo.ts.optimization.ga.selection.SelectionOperator;
@@ -17,7 +17,7 @@ public class RouletteWheelSelection implements SelectionOperator<PartialSolution
 		this.evalFunc = evalFunc;
 	}
 	@Override
-	public ParentPair<PartialSolution> select(List<PartialSolution> population) {
+	public ParentPair<PartialSolution> select(Set<PartialSolution> population) {
 		Map<PartialSolution, Double> psToInverseEval = new HashMap<>();
 		
 		int evalSum = population.stream().mapToInt(ps -> evalFunc.evaluate(ps)).sum();

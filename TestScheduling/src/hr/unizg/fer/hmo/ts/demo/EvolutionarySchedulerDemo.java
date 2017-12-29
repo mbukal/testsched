@@ -33,7 +33,7 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.mutation.Inte
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanDetector;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RouletteWheelSelection;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.DeterministicWorstEliminator;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.RouletteWheelEliminator;
 import hr.unizg.fer.hmo.ts.util.FileUtils;
 
 public class EvolutionarySchedulerDemo {
@@ -62,7 +62,7 @@ public class EvolutionarySchedulerDemo {
 			PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(indGen, popSize);
 				
 			/* updating */
-			UpdatePopulationOperator<PartialSolution> updatePopOp = new DeterministicWorstEliminator(evalFunc);
+			UpdatePopulationOperator<PartialSolution> updatePopOp = new RouletteWheelEliminator(evalFunc);
 			
 			/* optimum individual detection */
 			OptimumFinder<PartialSolution> optFinder = new ShortestMakespanDetector(evalFunc);
@@ -71,7 +71,7 @@ public class EvolutionarySchedulerDemo {
 			SelectionOperator<PartialSolution> selectOp = new RouletteWheelSelection(evalFunc);
 			
 			/* stop criterion */
-			int maxIter = 1000;	
+			int maxIter = 10000;	
 			
 			/* crossover */
 			CrossoverOperator<PartialSolution> crossOp = new DummyCrossover();

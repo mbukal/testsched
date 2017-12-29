@@ -1,7 +1,7 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop;
 
 import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.evalfunc.EvaluationFunction;
 import hr.unizg.fer.hmo.ts.optimization.ga.updatepop.UpdatePopulationOperator;
@@ -16,9 +16,13 @@ public class DeterministicWorstEliminator
 	}
 
 	@Override
-	public List<PartialSolution> update(List<PartialSolution> population, PartialSolution offspring) {
+	public Set<PartialSolution> update(Set<PartialSolution> population, PartialSolution offspring) {
+		if (population.contains(offspring)) {
+			return population;
+		}
 		PartialSolution worst = population.stream().max(comparator).get();
-		population.set(population.indexOf(worst), offspring);
+		population.remove(worst);
+		population.add(offspring);
 		return population;
 	}
 

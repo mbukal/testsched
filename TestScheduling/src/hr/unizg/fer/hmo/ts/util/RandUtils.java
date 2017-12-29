@@ -37,7 +37,7 @@ public final class RandUtils {
 				return entry.getKey();
 			}
 		}
-
+		elementToValue.forEach((el, val) -> System.out.println(el + "--> " + val));
 		throw new IllegalArgumentException(
 				"Provided map not suitable to this method. Make sure values are normed!");
 	}

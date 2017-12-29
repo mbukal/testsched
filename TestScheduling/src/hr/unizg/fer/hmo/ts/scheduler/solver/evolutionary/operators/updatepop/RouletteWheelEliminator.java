@@ -1,8 +1,9 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.evalfunc.EvaluationFunction;
 import hr.unizg.fer.hmo.ts.optimization.ga.updatepop.UpdatePopulationOperator;
@@ -18,17 +19,31 @@ public class RouletteWheelEliminator
 	}
 	
 	@Override
-	public List<PartialSolution> update(List<PartialSolution> population, PartialSolution offspring) {
+	public Set<PartialSolution> update(Set<PartialSolution> population, PartialSolution offspring) {
+		
+		if (population.contains(offspring)) {
+			return population;
+		}
+		
 		Map<PartialSolution, Double> psToNormEval = new HashMap<>();
 	
 		int minEval = population.stream().mapToInt(ps -> evalFunc.evaluate(ps)).min().getAsInt();
 		int evalSum = population.stream().mapToInt(ps -> (evalFunc.evaluate(ps) - minEval)).sum();
 		
 		population.forEach(ps -> psToNormEval.put(ps, (double)(evalFunc.evaluate(ps) - minEval) / evalSum));
-
-		PartialSolution toBeEliminated = RandUtils.spinAWheel(psToNormEval);
 		
-		population.set(population.indexOf(toBeEliminated), offspring);
+		PartialSolution toBeEliminated = null;
+		try {
+			toBeEliminated = RandUtils.spinAWheel(psToNormEval);
+		} catch (IllegalArgumentException ex) {
+			int distinctEvals = population.stream().mapToInt(ps -> evalFunc.evaluate(ps)).boxed().collect(Collectors.toSet()).size();
+			System.out.println("distinct evals: " + distinctEvals);
+			System.out.println("evalSum: " + evalSum);
+			throw ex;
+		}
+		
+		population.remove(toBeEliminated);
+		population.add(offspring);
 				
 		return population;
 	}
