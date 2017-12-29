@@ -28,6 +28,7 @@ public class BasicTabuSearch<T> implements TabuSearch<T> {
 		T localBest = initSolution;
 		T globalBest = initSolution;
 		while (iter < maxIter) {
+			// System.out.format("iter %d: %d\n", iter, evalFunc.evaluate(globalBest));
 			T bestNeighbor = null;
 			for (T neighbor : neighborhood.neighbors(localBest)) {
 				if (! tabuList.contains(neighbor)) {
@@ -38,6 +39,7 @@ public class BasicTabuSearch<T> implements TabuSearch<T> {
 				}
 			}
 			if (bestNeighbor != null) {
+				// System.out.println(evalFunc.evaluate(bestNeighbor));
 				localBest = bestNeighbor;
 				tabuList.add(localBest, tabuTenure.tenureOf(localBest));
 				if (evalFunc.evaluate(localBest) <= evalFunc.evaluate(globalBest)) {
