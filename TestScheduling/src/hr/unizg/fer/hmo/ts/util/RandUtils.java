@@ -19,6 +19,11 @@ public final class RandUtils {
 		for (int i = arr.length - 1; i > 0; i--)
 			ArrayUtils.swap(arr, i, rand.nextInt(i + 1));
 	}
+	
+	public static void shufflePart(int[] arr, int startIndex, int exclusiveEndIndex) {
+		for (int i = exclusiveEndIndex - 1; i > startIndex; i--)
+			ArrayUtils.swap(arr, i, rand.nextInt(i + 1));
+	}
 
 	public static int flipCoin() {
 		if (rand.nextDouble() < 0.5) {

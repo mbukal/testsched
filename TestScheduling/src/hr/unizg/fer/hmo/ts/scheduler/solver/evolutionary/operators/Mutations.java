@@ -1,6 +1,5 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -45,6 +44,20 @@ public final class Mutations {
 	public static MutationOperator<PartialSolution> insert() {
 		return (individual) -> {
 			insertRandomly(individual.priorityToTest);
+			return individual;
+		};
+	}
+
+	public static MutationOperator<PartialSolution> scramble() {
+		return (individual) -> {
+			int start = rand.nextInt(individual.priorityToTest.length);
+			int end = rand.nextInt(individual.priorityToTest.length);
+			if (end < start) {
+				int temp = start;
+				start = end;
+				end = temp;
+			}
+			RandUtils.shufflePart(individual.priorityToTest, start, end + 1);
 			return individual;
 		};
 	}
@@ -97,7 +110,7 @@ public final class Mutations {
 		for (int i = 0; i < swapCount; i++)
 			ArrayUtils.swap(arr, rand.nextInt(arr.length), rand.nextInt(arr.length));
 	}
-	
+
 	private static void insertRandomly(int[] arr) {
 		int take = rand.nextInt(arr.length), put = rand.nextInt(arr.length);
 		int taken = arr[take];
