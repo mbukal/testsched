@@ -29,8 +29,8 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.EvolutionaryScheduler;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.crossover.DummyCrossover;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.mutation.IntensePartialSolutionMutation;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanDetector;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.mutation.MultipleSwapMutation;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanFinder;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RouletteWheelSelection;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.SimplifiedRouletteWheelEliminator;
@@ -65,7 +65,7 @@ public class EvolutionarySchedulerDemo {
 			UpdatePopulationOperator<PartialSolution> updatePopOp = new SimplifiedRouletteWheelEliminator(evalFunc);
 			
 			/* optimum individual detection */
-			OptimumFinder<PartialSolution> optFinder = new ShortestMakespanDetector(evalFunc);
+			OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder(evalFunc);
 			
 			/* selection */
 			SelectionOperator<PartialSolution> selectOp = new RouletteWheelSelection(evalFunc);
@@ -78,8 +78,9 @@ public class EvolutionarySchedulerDemo {
 			
 			/* mutation */
 			PartialSolutionMutator psm = new PartialSolutionMutator();
+			int minSwaps = 1;
 			int maxSwaps = 100;
-			MutationOperator<PartialSolution> mutOp = new IntensePartialSolutionMutation(psm, maxSwaps);
+			MutationOperator<PartialSolution> mutOp = new MultipleSwapMutation(psm, minSwaps, maxSwaps);
 			
 			/* final product -- genetic algorithm */
 			GeneticAlgorithm<PartialSolution> scheduler = new EvolutionaryScheduler(popGen, selectOp, crossOp , mutOp , updatePopOp, optFinder, maxIter );
