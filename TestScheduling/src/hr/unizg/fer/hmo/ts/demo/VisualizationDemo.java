@@ -13,12 +13,14 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import hr.unizg.fer.hmo.ts.optimization.Optimizer;
+import hr.unizg.fer.hmo.ts.optimization.ga.mutation.MutationOperator;
 import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.model.problem.VerboseProblem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.VerboseSolution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SecretSolutionDecoder;
-import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionMutator;
+import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.Mutations;
 import hr.unizg.fer.hmo.ts.scheduler.solver.random.RandomSamplingScheduler;
 import hr.unizg.fer.hmo.ts.util.FileUtils;
 import hr.unizg.fer.hmo.ts.util.Visualization;
@@ -49,8 +51,8 @@ public class VisualizationDemo {
 			Files.write(Paths.get(visualizationFilePath), htmlVis.getBytes());
 
 			SecretSolutionDecoder ssd = new SecretSolutionDecoder(problem);
-			PartialSolutionMutator mut = new PartialSolutionMutator();
-			mut.swapRandomly(scheduler._bestPsol, 1);
+			MutationOperator<PartialSolution> mut = Mutations.multipleSwapMutation(1);
+			mut.mutate(scheduler._bestPsol);
 			htmlVis = Visualization.convertSolutionToHTML(ssd.decode(scheduler._bestPsol), problem);
 			visualizationFilePath = visualizationDirPath + "/viz2.html";
 			System.out.println(visualizationFilePath);
