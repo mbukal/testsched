@@ -32,6 +32,7 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.Indepe
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RouletteWheelSelection;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.DeterministicWorstEliminator;
 import hr.unizg.fer.hmo.ts.util.FileUtils;
+import hr.unizg.fer.hmo.ts.util.LogUtils;
 
 public class EvolutionarySchedulerDemo2 {
 	public static void main(String[] args) throws IOException {
@@ -65,7 +66,7 @@ public class EvolutionarySchedulerDemo2 {
 		SelectionOperator<PartialSolution> selectOp = new RouletteWheelSelection(evalFunc);
 
 		/* stop criterion */
-		int maxIter = 100000;
+		int maxIter = 300000;
 
 		/* crossover */
 		CrossoverOperator<PartialSolution> crossOp = new PartiallyMappedCrossover();
@@ -80,7 +81,9 @@ public class EvolutionarySchedulerDemo2 {
 		GeneticAlgorithm<PartialSolution> scheduler = new EvolutionaryScheduler(popGen, selectOp,
 				crossOp, mutOp, updatePopOp, optFinder, maxIter);
 
+		LogUtils.print("Starting optimization.");
 		PartialSolution parSolution = scheduler.optimize();
+		LogUtils.print("Optimization finished.");
 		Solution solution = decoder.decode(parSolution);
 		// VerboseSolution verboseSolution = new VerboseSolution(verboseProblem,
 		// solution);
