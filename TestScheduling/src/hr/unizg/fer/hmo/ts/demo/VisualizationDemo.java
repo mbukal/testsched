@@ -7,6 +7,10 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
 
 import hr.unizg.fer.hmo.ts.optimization.Optimizer;
 import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
@@ -33,24 +37,25 @@ public class VisualizationDemo {
 			VerboseProblem verboseProblem = new VerboseProblem(problemDefinitionString);
 			// System.out.println(verboseProblem);
 			Problem problem = new Problem(verboseProblem);
-			RandomSamplingScheduler scheduler = new RandomSamplingScheduler(2000);
+			RandomSamplingScheduler scheduler = new RandomSamplingScheduler(1);
 			Solution solution = scheduler.optimize(problem);
 			// VerboseSolution verboseSolution = new VerboseSolution(verboseProblem,
 			// solution);
-			
-			String htmlVis = Visualization.convertSolutionToHTML(solution, problem);			
+			Visualization.pyDisplayHistogram(IntStream.range(0, 4000)
+					.map(i -> scheduler.optimize(problem).getDuration()).toArray());
+			String htmlVis = Visualization.convertSolutionToHTML(solution, problem);
 			String visualizationFilePath = visualizationDirPath + "/viz1.html";
 			System.out.println(visualizationFilePath);
 			Files.write(Paths.get(visualizationFilePath), htmlVis.getBytes());
-			
+
 			SecretSolutionDecoder ssd = new SecretSolutionDecoder(problem);
 			PartialSolutionMutator mut = new PartialSolutionMutator();
 			mut.swapRandomly(scheduler._bestPsol, 1);
-			htmlVis = Visualization.convertSolutionToHTML(ssd.decode(scheduler._bestPsol), problem);			
+			htmlVis = Visualization.convertSolutionToHTML(ssd.decode(scheduler._bestPsol), problem);
 			visualizationFilePath = visualizationDirPath + "/viz2.html";
 			System.out.println(visualizationFilePath);
 			Files.write(Paths.get(visualizationFilePath), htmlVis.getBytes());
-			
+
 			// System.out.println(verboseSolution);
 			System.out.println(solution.getDuration());
 			System.out.println(verboseProblem.tests.stream().mapToInt(t -> t.duration).sum());

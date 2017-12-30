@@ -1,6 +1,7 @@
 package hr.unizg.fer.hmo.ts.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public final class Visualization {
 		sb.append("    resource multiplicities: ");
 		for (int r = 0; r < problem.resourceCount; r++)
 			sb.append(r).append(": ").append(problem.resourceToMultiplicity[r]).append(", ");
-		sb.setLength(sb.length()-2);
+		sb.setLength(sb.length() - 2);
 		sb.append("<br>\n");
 		for (int m = 0; m < problem.machineCount; m++) {
 			TestTimeSeq mtts = solution.machineToTestTimeSeq[m];
@@ -55,8 +56,11 @@ public final class Visualization {
 		return sb.toString();
 	}
 
-	public static void pyDisplayHistogram(List<Integer> sample) {
+	public static void pyDisplayHistogram(int[] sample) throws IOException {
 		String scriptPath = FileUtils.findInAncestor(new File(".").getAbsolutePath(),
 				"scripts/histogram.py");
+		String cmd = "python " + scriptPath + " \"" + Arrays.toString(sample) + "\"";
+		System.out.println(cmd);
+		Process pr = Runtime.getRuntime().exec(cmd);
 	}
 }
