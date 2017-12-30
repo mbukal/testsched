@@ -7,19 +7,21 @@ import hr.unizg.fer.hmo.ts.optimization.ga.mutation.MutationOperator;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionMutator;
 
-public class IntensePartialSolutionMutation implements MutationOperator<PartialSolution> {
+public class MultipleSwapMutation implements MutationOperator<PartialSolution> {
 	private final PartialSolutionMutator psm;
+	private final int minSwaps;
 	private final int maxSwaps;
 	private static Random rnd = ThreadLocalRandom.current();
 
-	public IntensePartialSolutionMutation(PartialSolutionMutator psm, int maxSwaps) {
+	public MultipleSwapMutation(PartialSolutionMutator psm, int minSwaps, int maxSwaps) {	
 		this.psm = psm;
+		this.minSwaps = minSwaps;
 		this.maxSwaps = maxSwaps;
 	}
 
 	@Override
 	public PartialSolution mutate(PartialSolution individual) {
-		int swaps = 1 + rnd.nextInt(maxSwaps);
+		int swaps = minSwaps + rnd.nextInt(maxSwaps);
 		psm.swapRandomly(individual, swaps);
 		return individual;
 	}

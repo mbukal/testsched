@@ -21,14 +21,13 @@ import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionMutator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.EvolutionaryScheduler;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.crossover.DummyCrossover;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.crossover.PartiallyMappedCrossover;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.mutation.IntensePartialSolutionMutation;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanDetector;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.mutation.MultipleSwapMutation;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanFinder;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RandomPartialSolutionSelection;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RouletteWheelSelection;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.DeterministicWorstEliminator;
 
 public class _EvolutionarySchedulerDemo {
@@ -48,17 +47,17 @@ public class _EvolutionarySchedulerDemo {
 		/* generation */
 		PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);
 		IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(psg);
-		int popSize = 70;
+		int popSize = 30;
 		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(indGen, popSize);
 
 		/* updating */
 		UpdatePopulationOperator<PartialSolution> updatePopOp = new DeterministicWorstEliminator(evalFunc);
 
 		/* optimum individual detection */
-		OptimumFinder<PartialSolution> optFinder = new ShortestMakespanDetector(evalFunc);
+		OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder(evalFunc);
 
 		/* selection */
-		SelectionOperator<PartialSolution> selectOp = new RandomPartialSolutionSelection();
+		SelectionOperator<PartialSolution> selectOp = new RouletteWheelSelection(evalFunc);
 
 		/* stop criterion */
 		int maxIter = 100000;
@@ -68,8 +67,9 @@ public class _EvolutionarySchedulerDemo {
 
 		/* mutation */
 		PartialSolutionMutator psm = new PartialSolutionMutator();
-		int maxSwaps = 100;
-		MutationOperator<PartialSolution> mutOp = new IntensePartialSolutionMutation(psm, maxSwaps);
+		int minSwaps = 1;
+		int maxSwaps = 2;
+		MutationOperator<PartialSolution> mutOp = new MultipleSwapMutation(psm, minSwaps, maxSwaps);
 
 		/* final product -- genetic algorithm */
 		GeneticAlgorithm<PartialSolution> scheduler = new EvolutionaryScheduler(popGen, selectOp, crossOp, mutOp,

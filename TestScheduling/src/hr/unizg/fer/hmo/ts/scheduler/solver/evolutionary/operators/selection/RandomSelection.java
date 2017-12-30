@@ -9,12 +9,12 @@ import hr.unizg.fer.hmo.ts.optimization.ga.selection.SelectionOperator;
 import hr.unizg.fer.hmo.ts.optimization.ga.util.ParentPair;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 
-public class RandomPartialSolutionSelection 
+public class RandomSelection 
 			implements SelectionOperator<PartialSolution> {
 	
 	private final Random rnd;
 	
-	public RandomPartialSolutionSelection() {
+	public RandomSelection() {
 		rnd = new Random();
 	}
 
