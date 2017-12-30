@@ -7,6 +7,7 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.GeneticAlgorithm;
 import hr.unizg.fer.hmo.ts.optimization.ga.crossover.CrossoverOperator;
@@ -59,13 +60,14 @@ public class EvolutionarySchedulerDemo {
 			PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);	
 			IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(psg);		
 			int popSize = 10;	
-			PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(indGen, popSize);
+			Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFunc.evaluate(ps1) - evalFunc.evaluate(ps2);
+			PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator, indGen, popSize);
 				
 			/* updating */
 			UpdatePopulationOperator<PartialSolution> updatePopOp = new SimplifiedRouletteWheelEliminator(evalFunc);
 			
 			/* optimum individual detection */
-			OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder(evalFunc);
+			OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder();
 			
 			/* selection */
 			SelectionOperator<PartialSolution> selectOp = new RouletteWheelSelection(evalFunc);

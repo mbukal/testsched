@@ -16,6 +16,7 @@ public class RouletteWheelSelection implements SelectionOperator<PartialSolution
 	public RouletteWheelSelection(EvaluationFunction<PartialSolution> evalFunc) {
 		this.evalFunc = evalFunc;
 	}
+	
 	@Override
 	public ParentPair<PartialSolution> select(Set<PartialSolution> population) {
 		Map<PartialSolution, Double> psToInverseEval = new HashMap<>();

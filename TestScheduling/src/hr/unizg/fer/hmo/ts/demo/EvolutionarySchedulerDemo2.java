@@ -3,6 +3,7 @@ package hr.unizg.fer.hmo.ts.demo;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Comparator;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.GeneticAlgorithm;
 import hr.unizg.fer.hmo.ts.optimization.ga.crossover.CrossoverOperator;
@@ -51,15 +52,14 @@ public class EvolutionarySchedulerDemo2 {
 		PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);
 		IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(psg);
 		int popSize = 30;
-		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(indGen,
-				popSize);
+		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFunc.evaluate(ps1) - evalFunc.evaluate(ps2);
+		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator, indGen, popSize);
 
 		/* updating */
-		UpdatePopulationOperator<PartialSolution> updatePopOp = new DeterministicWorstEliminator(
-				evalFunc);
+		UpdatePopulationOperator<PartialSolution> updatePopOp = new DeterministicWorstEliminator();
 
 		/* optimum individual detection */
-		OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder(evalFunc);
+		OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder();
 
 		/* selection */
 		SelectionOperator<PartialSolution> selectOp = new RouletteWheelSelection(evalFunc);
