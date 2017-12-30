@@ -20,7 +20,7 @@ public final class Mutations {
 		};
 	}
 
-	public static MutationOperator<PartialSolution> singleSwapMutation(int minSwaps, int maxSwaps) {
+	public static MutationOperator<PartialSolution> singleSwapMutation() {
 		return (individual) -> {
 			swapRandomly(individual);
 			return individual;
