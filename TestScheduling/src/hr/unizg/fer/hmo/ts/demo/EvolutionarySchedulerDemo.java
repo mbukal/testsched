@@ -29,7 +29,7 @@ import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionMuta
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.EvolutionaryScheduler;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.crossover.DummyCrossover;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen._RandomPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.mutation.MultipleSwapMutation;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanFinder;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
@@ -58,7 +58,7 @@ public class EvolutionarySchedulerDemo {
 			
 			/* generation */
 			PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);	
-			IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(psg);		
+			IndividualGenerator<PartialSolution> indGen = new _RandomPartialSolutionGenerator(psg);		
 			int popSize = 10;	
 			Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFunc.evaluate(ps1) - evalFunc.evaluate(ps2);
 			PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator, indGen, popSize);

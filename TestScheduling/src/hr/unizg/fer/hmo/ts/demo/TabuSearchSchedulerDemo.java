@@ -18,7 +18,7 @@ import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SolutionDecoder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen._RandomPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.tabu.TabuSearchScheduler;
 import hr.unizg.fer.hmo.ts.scheduler.solver.tabu.neighborhood.InterchangeNeighborhood;
 import hr.unizg.fer.hmo.ts.scheduler.solver.tabu.neighborhood.TransposeNeighborhood;
@@ -40,7 +40,7 @@ public class TabuSearchSchedulerDemo {
 
 		/* initial solution */
 		PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);
-		IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(psg);
+		IndividualGenerator<PartialSolution> indGen = new _RandomPartialSolutionGenerator(psg);
 		PartialSolution initSol = indGen.generate();
 		
 		/* stop criterion */
