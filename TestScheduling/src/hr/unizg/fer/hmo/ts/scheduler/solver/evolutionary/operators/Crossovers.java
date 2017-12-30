@@ -15,7 +15,7 @@ public final class Crossovers {
 				: parents.getParent2();
 	}
 
-	public static CrossoverOperator<PartialSolution> partiallyMappedCrossover() {
+	public static CrossoverOperator<PartialSolution> partiallyMapped() {
 		return (ParentPair<PartialSolution> parents) -> {
 			int[] p1 = parents.getParent1().priorityToTest,
 					p2 = parents.getParent2().priorityToTest;

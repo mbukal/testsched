@@ -71,7 +71,7 @@ public class EvolutionarySchedulerDemo2 {
 		int maxIter = 3000;
 
 		/* crossover */
-		CrossoverOperator<PartialSolution> crossOp = Crossovers.partiallyMappedCrossover();
+		CrossoverOperator<PartialSolution> crossOp = Crossovers.partiallyMapped();
 
 		/* mutation */
 		int minSwaps = 1, maxSwaps = 2;
