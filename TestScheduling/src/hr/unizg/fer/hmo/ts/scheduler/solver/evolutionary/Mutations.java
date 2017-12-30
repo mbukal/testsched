@@ -26,6 +26,13 @@ public final class Mutations {
 			return individual;
 		};
 	}
+	
+	public static MutationOperator<PartialSolution> multipleSwapMutation(int swapCount) {
+		return (individual) -> {
+			swapRandomly(individual, swapCount);
+			return individual;
+		};
+	}
 
 	public static MutationOperator<PartialSolution> multipleSwapMutation(int minSwaps,
 			int maxSwaps) {
