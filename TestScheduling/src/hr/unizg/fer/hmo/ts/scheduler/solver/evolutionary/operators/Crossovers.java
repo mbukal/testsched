@@ -11,12 +11,12 @@ public final class Crossovers {
 	private static Random rand = RandUtils.rand;
 
 	public static CrossoverOperator<PartialSolution> randomParentDummy() {
-		return (ParentPair<PartialSolution> parents) -> rand.nextBoolean() ? parents.getParent1()
-				: parents.getParent2();
+		return (parents) -> (rand.nextBoolean() ? parents.getParent1() : parents.getParent2())
+				.clone();
 	}
 
 	public static CrossoverOperator<PartialSolution> partiallyMapped() {
-		return (ParentPair<PartialSolution> parents) -> {
+		return (parents) -> {
 			int[] p1 = parents.getParent1().priorityToTest,
 					p2 = parents.getParent2().priorityToTest;
 			if (RandUtils.rand.nextBoolean()) {

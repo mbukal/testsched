@@ -1,5 +1,6 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -22,22 +23,28 @@ public final class Mutations {
 
 	public static MutationOperator<PartialSolution> singleSwap() {
 		return (individual) -> {
-			swapRandomly(individual);
-			return individual;
-		};
-	}
-	
-	public static MutationOperator<PartialSolution> multiSwap(int swapCount) {
-		return (individual) -> {
-			swapRandomly(individual, swapCount);
+			swapRandomly(individual.priorityToTest);
 			return individual;
 		};
 	}
 
-	public static MutationOperator<PartialSolution> multiSwap(int minSwaps,
-			int maxSwaps) {
+	public static MutationOperator<PartialSolution> multiSwap(int swapCount) {
 		return (individual) -> {
-			swapRandomly(individual, minSwaps + rand.nextInt(maxSwaps));
+			swapRandomly(individual.priorityToTest, swapCount);
+			return individual;
+		};
+	}
+
+	public static MutationOperator<PartialSolution> multiSwap(int minSwaps, int maxSwaps) {
+		return (individual) -> {
+			swapRandomly(individual.priorityToTest, minSwaps + rand.nextInt(maxSwaps));
+			return individual;
+		};
+	}
+
+	public static MutationOperator<PartialSolution> insert() {
+		return (individual) -> {
+			insertRandomly(individual.priorityToTest);
 			return individual;
 		};
 	}
@@ -82,14 +89,22 @@ public final class Mutations {
 
 	// private static helper methods
 
-	private static void swapRandomly(PartialSolution ps) {
-		int testCount = ps.priorityToTest.length;
-		ArrayUtils.swap(ps.priorityToTest, rand.nextInt(testCount), rand.nextInt(testCount));
+	private static void swapRandomly(int[] arr) {
+		ArrayUtils.swap(arr, rand.nextInt(arr.length), rand.nextInt(arr.length));
 	}
 
-	private static void swapRandomly(PartialSolution ps, int swapCount) {
-		int testCount = ps.priorityToTest.length;
+	private static void swapRandomly(int[] arr, int swapCount) {
 		for (int i = 0; i < swapCount; i++)
-			ArrayUtils.swap(ps.priorityToTest, rand.nextInt(testCount), rand.nextInt(testCount));
+			ArrayUtils.swap(arr, rand.nextInt(arr.length), rand.nextInt(arr.length));
+	}
+	
+	private static void insertRandomly(int[] arr) {
+		int take = rand.nextInt(arr.length), put = rand.nextInt(arr.length);
+		int taken = arr[take];
+		if (take < put)
+			System.arraycopy(arr, take + 1, arr, take, put - take);
+		else // put < take
+			System.arraycopy(arr, put, arr, put + 1, take - put);
+		arr[put] = taken;
 	}
 }
