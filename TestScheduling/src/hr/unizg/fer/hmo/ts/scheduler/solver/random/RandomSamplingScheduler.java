@@ -9,7 +9,7 @@ import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SecretSolutionDecoder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SolutionDecoder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
-import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGenerator;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
 
 public class RandomSamplingScheduler implements Optimizer<Problem, Solution> {
 	private int sampleCount;
@@ -26,14 +26,14 @@ public class RandomSamplingScheduler implements Optimizer<Problem, Solution> {
 
 	@Override
 	public Solution optimize(Problem problem) {
-		PartialSolutionGenerator generator = new PartialSolutionGenerator(problem);
+		RandomPartialSolutionGenerator generator = new RandomPartialSolutionGenerator(problem.testCount);
 		SolutionDecoder decoder = new SecretSolutionDecoder(problem);
 
 		Solution bestSol = null;
 		int bestResult = Integer.MAX_VALUE;
 		Set<Integer> results = new HashSet<>();
 		for (int i = 0; i < sampleCount; i++) {
-			PartialSolution ps = generator.createRandomlyInitialized();
+			PartialSolution ps = generator.generate();
 			Solution s = decoder.decode(ps);
 			int res = evaluate(s);
 			results.add(res);

@@ -3,7 +3,6 @@ package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators;
 import java.util.Random;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.crossover.CrossoverOperator;
-import hr.unizg.fer.hmo.ts.optimization.ga.util.ParentPair;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 import hr.unizg.fer.hmo.ts.util.RandUtils;
 

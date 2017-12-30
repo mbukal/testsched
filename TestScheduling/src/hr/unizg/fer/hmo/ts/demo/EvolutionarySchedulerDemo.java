@@ -24,12 +24,11 @@ import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SecretSolutionDecoder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SolutionDecoder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
-import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.EvolutionaryScheduler;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.Crossovers;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.Mutations;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen._RandomPartialSolutionGenerator;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanFinder;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RouletteWheelSelection;
@@ -56,8 +55,7 @@ public class EvolutionarySchedulerDemo {
 			EvaluationFunction<PartialSolution> evalFunc = new CachingScheduleEvaluator(decoder);
 
 			/* generation */
-			PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);
-			IndividualGenerator<PartialSolution> indGen = new _RandomPartialSolutionGenerator(psg);
+			IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(problem.testCount);
 			int popSize = 10;
 			Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFunc.evaluate(ps1)
 					- evalFunc.evaluate(ps2);
