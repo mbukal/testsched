@@ -29,12 +29,7 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.EvolutionaryScheduler;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.Mutations;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.crossover.DummyCrossover;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
-<<<<<<< HEAD
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen._RandomPartialSolutionGenerator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.mutation.MultipleSwapMutation;
-=======
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
->>>>>>> branch 'master' of https://github.com/mbukal/testsched.git
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanFinder;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RouletteWheelSelection;
@@ -61,23 +56,12 @@ public class EvolutionarySchedulerDemo {
 			EvaluationFunction<PartialSolution> evalFunc = new CachingScheduleEvaluator(decoder);
 
 			/* generation */
-<<<<<<< HEAD
 			PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);	
 			IndividualGenerator<PartialSolution> indGen = new _RandomPartialSolutionGenerator(psg);		
 			int popSize = 10;	
 			Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFunc.evaluate(ps1) - evalFunc.evaluate(ps2);
 			PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator, indGen, popSize);
-				
-=======
-			PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);
-			IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(psg);
-			int popSize = 10;
-			Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFunc.evaluate(ps1)
-					- evalFunc.evaluate(ps2);
-			PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(
-					comparator, indGen, popSize);
 
->>>>>>> branch 'master' of https://github.com/mbukal/testsched.git
 			/* updating */
 			UpdatePopulationOperator<PartialSolution> updatePopOp = new SimplifiedRouletteWheelEliminator(
 					evalFunc);
