@@ -26,8 +26,8 @@ import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SolutionDecoder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.EvolutionaryScheduler;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.Mutations;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.crossover.DummyCrossover;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.Crossovers;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.Mutations;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen._RandomPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanFinder;
@@ -56,11 +56,13 @@ public class EvolutionarySchedulerDemo {
 			EvaluationFunction<PartialSolution> evalFunc = new CachingScheduleEvaluator(decoder);
 
 			/* generation */
-			PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);	
-			IndividualGenerator<PartialSolution> indGen = new _RandomPartialSolutionGenerator(psg);		
-			int popSize = 10;	
-			Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFunc.evaluate(ps1) - evalFunc.evaluate(ps2);
-			PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator, indGen, popSize);
+			PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);
+			IndividualGenerator<PartialSolution> indGen = new _RandomPartialSolutionGenerator(psg);
+			int popSize = 10;
+			Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFunc.evaluate(ps1)
+					- evalFunc.evaluate(ps2);
+			PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(
+					comparator, indGen, popSize);
 
 			/* updating */
 			UpdatePopulationOperator<PartialSolution> updatePopOp = new SimplifiedRouletteWheelEliminator(
@@ -76,12 +78,11 @@ public class EvolutionarySchedulerDemo {
 			int maxIter = 10000;
 
 			/* crossover */
-			CrossoverOperator<PartialSolution> crossOp = new DummyCrossover();
+			CrossoverOperator<PartialSolution> crossOp = Crossovers.randomParentDummy();
 
 			/* mutation */
 			int minSwaps = 1, maxSwaps = 100;
-			MutationOperator<PartialSolution> mutOp = Mutations.multipleSwapMutation(minSwaps,
-					maxSwaps);
+			MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(minSwaps, maxSwaps);
 
 			/* final product -- genetic algorithm */
 			GeneticAlgorithm<PartialSolution> scheduler = new EvolutionaryScheduler(popGen,

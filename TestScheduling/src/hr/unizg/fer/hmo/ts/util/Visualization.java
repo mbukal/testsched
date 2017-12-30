@@ -3,7 +3,6 @@ package hr.unizg.fer.hmo.ts.util;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
@@ -61,6 +60,6 @@ public final class Visualization {
 				"scripts/histogram.py");
 		String cmd = "python " + scriptPath + " \"" + Arrays.toString(sample) + "\"";
 		System.out.println(cmd);
-		Process pr = Runtime.getRuntime().exec(cmd);
+		Runtime.getRuntime().exec(cmd);
 	}
 }

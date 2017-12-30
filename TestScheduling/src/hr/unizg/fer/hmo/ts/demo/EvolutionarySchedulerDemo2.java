@@ -22,8 +22,8 @@ import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SolutionDecoder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.EvolutionaryScheduler;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.Mutations;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.crossover.PartiallyMappedCrossover;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.Crossovers;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.Mutations;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen._RandomPartialSolutionGenerator;
 //github.com/mbukal/testsched.git
@@ -71,12 +71,11 @@ public class EvolutionarySchedulerDemo2 {
 		int maxIter = 3000;
 
 		/* crossover */
-		CrossoverOperator<PartialSolution> crossOp = new PartiallyMappedCrossover();
+		CrossoverOperator<PartialSolution> crossOp = Crossovers.partiallyMappedCrossover();
 
 		/* mutation */
 		int minSwaps = 1, maxSwaps = 2;
-		MutationOperator<PartialSolution> mutOp = Mutations.multipleSwapMutation(minSwaps,
-				maxSwaps);
+		MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(minSwaps, maxSwaps);
 
 		/* final product -- genetic algorithm */
 		GeneticAlgorithm<PartialSolution> scheduler = new EvolutionaryScheduler(popGen, selectOp,

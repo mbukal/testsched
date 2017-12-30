@@ -29,8 +29,7 @@ public class OperationTest {
 			}
 			VerboseProblem verboseProblem = new VerboseProblem(problemDefinitionString);
 			System.out.println(verboseProblem);
-			if (true)
-				return;
+			
 			Problem problem = new Problem(verboseProblem);
 			Optimizer<Problem, Solution> scheduler = new DummyScheduler();
 			Solution solution = scheduler.optimize(problem);

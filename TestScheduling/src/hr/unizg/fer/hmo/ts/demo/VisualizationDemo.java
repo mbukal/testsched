@@ -1,26 +1,20 @@
 package hr.unizg.fer.hmo.ts.demo;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.IntStream;
 
-import hr.unizg.fer.hmo.ts.optimization.Optimizer;
 import hr.unizg.fer.hmo.ts.optimization.ga.mutation.MutationOperator;
 import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
 import hr.unizg.fer.hmo.ts.scheduler.model.problem.VerboseProblem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
-import hr.unizg.fer.hmo.ts.scheduler.model.solution.VerboseSolution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SecretSolutionDecoder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.Mutations;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.Mutations;
 import hr.unizg.fer.hmo.ts.scheduler.solver.random.RandomSamplingScheduler;
 import hr.unizg.fer.hmo.ts.util.FileUtils;
 import hr.unizg.fer.hmo.ts.util.Visualization;
@@ -51,7 +45,7 @@ public class VisualizationDemo {
 			Files.write(Paths.get(visualizationFilePath), htmlVis.getBytes());
 
 			SecretSolutionDecoder ssd = new SecretSolutionDecoder(problem);
-			MutationOperator<PartialSolution> mut = Mutations.multipleSwapMutation(1);
+			MutationOperator<PartialSolution> mut = Mutations.multiSwap(1);
 			mut.mutate(scheduler._bestPsol);
 			htmlVis = Visualization.convertSolutionToHTML(ssd.decode(scheduler._bestPsol), problem);
 			visualizationFilePath = visualizationDirPath + "/viz2.html";

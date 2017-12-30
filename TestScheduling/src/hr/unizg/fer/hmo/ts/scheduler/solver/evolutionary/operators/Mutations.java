@@ -1,4 +1,4 @@
-package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary;
+package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators;
 
 import java.util.List;
 import java.util.Random;
@@ -11,7 +11,7 @@ import hr.unizg.fer.hmo.ts.util.RandUtils;
 public final class Mutations {
 	private static Random rand = RandUtils.rand;
 
-	public static MutationOperator<PartialSolution> mutationSequence(
+	public static MutationOperator<PartialSolution> sequence(
 			List<MutationOperator<PartialSolution>> mutations) {
 		return (individual) -> {
 			for (MutationOperator<PartialSolution> mut : mutations)
@@ -20,21 +20,21 @@ public final class Mutations {
 		};
 	}
 
-	public static MutationOperator<PartialSolution> singleSwapMutation() {
+	public static MutationOperator<PartialSolution> singleSwap() {
 		return (individual) -> {
 			swapRandomly(individual);
 			return individual;
 		};
 	}
 	
-	public static MutationOperator<PartialSolution> multipleSwapMutation(int swapCount) {
+	public static MutationOperator<PartialSolution> multiSwap(int swapCount) {
 		return (individual) -> {
 			swapRandomly(individual, swapCount);
 			return individual;
 		};
 	}
 
-	public static MutationOperator<PartialSolution> multipleSwapMutation(int minSwaps,
+	public static MutationOperator<PartialSolution> multiSwap(int minSwaps,
 			int maxSwaps) {
 		return (individual) -> {
 			swapRandomly(individual, minSwaps + rand.nextInt(maxSwaps));
@@ -42,7 +42,7 @@ public final class Mutations {
 		};
 	}
 
-	public static MutationOperator<PartialSolution> forwardGeometricallyDistributedDistanceSwapMutation(
+	public static MutationOperator<PartialSolution> forwardGeometricallyDistributedDistanceSwap(
 			double elementSwapProbability) {
 		return (individual) -> {
 			int[] arr = individual.priorityToTest;
@@ -61,7 +61,7 @@ public final class Mutations {
 		};
 	}
 
-	public static MutationOperator<PartialSolution> backwardGeometricallyDistributedDistanceSwapMutation(
+	public static MutationOperator<PartialSolution> backwardGeometricallyDistributedDistanceSwap(
 			double elementSwapProbability) {
 		return (individual) -> {
 			int[] arr = individual.priorityToTest;

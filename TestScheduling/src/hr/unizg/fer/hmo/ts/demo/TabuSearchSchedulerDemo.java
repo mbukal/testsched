@@ -20,7 +20,6 @@ import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGene
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen._RandomPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.tabu.TabuSearchScheduler;
-import hr.unizg.fer.hmo.ts.scheduler.solver.tabu.neighborhood.InterchangeNeighborhood;
 import hr.unizg.fer.hmo.ts.scheduler.solver.tabu.neighborhood.TransposeNeighborhood;
 import hr.unizg.fer.hmo.ts.scheduler.solver.tabu.tenure.ConstantTenure;
 

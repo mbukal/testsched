@@ -12,14 +12,11 @@ import hr.unizg.fer.hmo.ts.scheduler.model.problem.VerboseProblem;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.Solution;
 import hr.unizg.fer.hmo.ts.scheduler.solver.random.RandomSamplingScheduler;
 import hr.unizg.fer.hmo.ts.util.FileUtils;
-import hr.unizg.fer.hmo.ts.util.Visualization;
 
 public class RandomSamplingSchedulerDemo {
 	public static void main(String[] args) throws IOException {
 		String problemInstanceDirPath = FileUtils.findInAncestor(new File(".").getAbsolutePath(),
 				"data/problem-instances");
-		String visualizationDirPath = FileUtils.findInAncestor(new File(".").getAbsolutePath(),
-				"data/visualization");
 		DirectoryStream<Path> dirStream = Files
 				.newDirectoryStream(Paths.get(problemInstanceDirPath));
 		for (Path problemFilePath : dirStream) {

@@ -6,7 +6,7 @@ import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SecretSolutionDecod
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.decoding.SolutionDecoder;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGenerator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.Mutations;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.Mutations;
 import hr.unizg.fer.hmo.ts.optimization.Optimizer;
 import hr.unizg.fer.hmo.ts.optimization.ga.mutation.MutationOperator;
 
@@ -20,7 +20,7 @@ public class DummyScheduler implements Optimizer<Problem, Solution> {
 		PartialSolutionGenerator generator = new PartialSolutionGenerator(problem);
 		SolutionDecoder decoder = new SecretSolutionDecoder(problem);
 		// start optimization
-		MutationOperator<PartialSolution> mutator = Mutations.multipleSwapMutation(20);		
+		MutationOperator<PartialSolution> mutator = Mutations.multiSwap(20);		
 		PartialSolution psol = generator.createRandomlyInitialized();
 		mutator.mutate(psol);
 		// end optimization
