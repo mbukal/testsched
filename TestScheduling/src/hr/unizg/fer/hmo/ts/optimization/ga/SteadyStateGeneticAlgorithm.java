@@ -1,6 +1,6 @@
 package hr.unizg.fer.hmo.ts.optimization.ga;
 
-import java.util.Set;
+import java.util.SortedSet;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.crossover.CrossoverOperator;
 import hr.unizg.fer.hmo.ts.optimization.ga.mutation.MutationOperator;
@@ -51,7 +51,7 @@ public class SteadyStateGeneticAlgorithm<T> implements GeneticAlgorithm<T> {
 
 	@Override
 	public T optimize() {
-		Set<T> population = initPopGen.generate();
+		SortedSet<T> population = initPopGen.generate();
 		int iter = 0;
 		
 		while(iter < maxIter) {

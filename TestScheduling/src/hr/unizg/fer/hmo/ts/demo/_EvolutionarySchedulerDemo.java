@@ -2,6 +2,7 @@ package hr.unizg.fer.hmo.ts.demo;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Comparator;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.GeneticAlgorithm;
 import hr.unizg.fer.hmo.ts.optimization.ga.crossover.CrossoverOperator;
@@ -21,13 +22,13 @@ import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolutionMutator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.EvolutionaryScheduler;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.crossover.PartiallyMappedCrossover;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.crossover.DummyCrossover;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.mutation.MultipleSwapMutation;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanFinder;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RouletteWheelSelection;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RandomSelection;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.DeterministicWorstEliminator;
 
 public class _EvolutionarySchedulerDemo {
@@ -48,22 +49,23 @@ public class _EvolutionarySchedulerDemo {
 		PartialSolutionGenerator psg = new PartialSolutionGenerator(problem);
 		IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(psg);
 		int popSize = 30;
-		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(indGen, popSize);
+		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFunc.evaluate(ps1) - evalFunc.evaluate(ps2);
+		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator, indGen, popSize);
 
 		/* updating */
-		UpdatePopulationOperator<PartialSolution> updatePopOp = new DeterministicWorstEliminator(evalFunc);
+		UpdatePopulationOperator<PartialSolution> updatePopOp = new DeterministicWorstEliminator();
 
 		/* optimum individual detection */
-		OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder(evalFunc);
+		OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder();
 
 		/* selection */
-		SelectionOperator<PartialSolution> selectOp = new RouletteWheelSelection(evalFunc);
+		SelectionOperator<PartialSolution> selectOp = new RandomSelection();
 
 		/* stop criterion */
 		int maxIter = 100000;
 
 		/* crossover */
-		CrossoverOperator<PartialSolution> crossOp = new PartiallyMappedCrossover();
+		CrossoverOperator<PartialSolution> crossOp = new DummyCrossover();
 
 		/* mutation */
 		PartialSolutionMutator psm = new PartialSolutionMutator();

@@ -2,7 +2,7 @@ package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.stream.Collectors;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.evalfunc.EvaluationFunction;
@@ -19,7 +19,7 @@ public class RouletteWheelEliminator
 	}
 	
 	@Override
-	public Set<PartialSolution> update(Set<PartialSolution> population, PartialSolution offspring) {
+	public SortedSet<PartialSolution> update(SortedSet<PartialSolution> population, PartialSolution offspring) {
 		if (population.contains(offspring)) {
 			return population;
 		}

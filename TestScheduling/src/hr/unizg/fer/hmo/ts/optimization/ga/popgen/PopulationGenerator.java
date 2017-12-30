@@ -1,7 +1,7 @@
 package hr.unizg.fer.hmo.ts.optimization.ga.popgen;
 
-import java.util.Set;
+import java.util.SortedSet;
 
 public interface PopulationGenerator<T> {
-	public Set<T> generate();
+	public SortedSet<T> generate();
 }
