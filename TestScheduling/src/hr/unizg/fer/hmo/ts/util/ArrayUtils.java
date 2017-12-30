@@ -14,9 +14,9 @@ public final class ArrayUtils {
 		return arr;
 	}
 
-	public static int[] range(int start, int endExclusive) {
-		int[] arr = new int[endExclusive - start];
-		for (int i = start; i < endExclusive; i++)
+	public static int[] range(int start, int length) {
+		int[] arr = new int[length];
+		for (int i = start; i < start + length; i++)
 			arr[i] = i;
 		return arr;
 	}
@@ -40,15 +40,15 @@ public final class ArrayUtils {
 	public static int argmin(int[] arr) {
 		int argmin = 0, min = arr[0];
 		for (int i = 1; i < arr.length; i++)
-			if (arr[i] < min) 
+			if (arr[i] < min)
 				min = arr[argmin = i];
 		return argmin;
 	}
-	
+
 	public static int[] invertedIndex(int[] arr) {
 		int[] inv = new int[arr.length];
 		for (int i = 1; i < arr.length; i++)
-			inv[arr[i]]=i;
+			inv[arr[i]] = i;
 		return inv;
 	}
 }

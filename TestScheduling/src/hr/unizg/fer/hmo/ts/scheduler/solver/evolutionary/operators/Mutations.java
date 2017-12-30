@@ -57,7 +57,7 @@ public final class Mutations {
 				start = end;
 				end = temp;
 			}
-			RandUtils.shufflePart(individual.priorityToTest, start, end + 1);
+			RandUtils.shufflePart(individual.priorityToTest, start, end + 1 - start);
 			return individual;
 		};
 	}
