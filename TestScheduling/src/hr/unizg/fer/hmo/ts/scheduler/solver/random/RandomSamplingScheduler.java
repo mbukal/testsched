@@ -43,7 +43,6 @@ public class RandomSamplingScheduler implements Optimizer<Problem, Solution> {
 				_bestPsol = ps;
 			}
 		}
-		System.out.println("distinct evals: " + results.size() + " / " + sampleCount);
 		return bestSol;
 	}
 }

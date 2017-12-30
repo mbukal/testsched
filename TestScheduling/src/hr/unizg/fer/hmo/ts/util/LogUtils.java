@@ -7,7 +7,7 @@ import java.util.Date;
 public class LogUtils {
 	private static DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
-	public static void print(String text) {
-		System.out.println("[" + timeFormat.format(new Date()) + "] " + text);
+	public static void print(Object best) {
+		System.out.println("[" + timeFormat.format(new Date()) + "] " + best);
 	}
 }
