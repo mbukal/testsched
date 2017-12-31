@@ -27,7 +27,7 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.Cach
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanFinder;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.DeterministicBestSelection;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.TopTwoSelection;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.DeterministicWorstEliminator;
 import hr.unizg.fer.hmo.ts.util.LogUtils;
 
@@ -63,28 +63,17 @@ public class _EvolutionarySchedulerDemo {
 		OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder();
 
 		/* selection */
-		SelectionOperator<PartialSolution> selectOp = new DeterministicBestSelection();
+		SelectionOperator<PartialSolution> selectOp = new TopTwoSelection();
 
 		/* stop criterion */
 		int maxIter = 100000;
 
 		/* crossover */
-		CrossoverOperator<PartialSolution> crossOp = Crossovers.randomParentDummy();
+		CrossoverOperator<PartialSolution> crossOp = Crossovers.uniformLike();
 
 		/* mutation */
-		/*
-		int minSwaps = 1, maxSwaps = 10;
-		MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(minSwaps,
-				maxSwaps);
-		*/
-		
-		/*
-		int minDist = 499, maxDist = 499;
-		MutationOperator<PartialSolution> mutOp = Mutations.singleSwapByDist(minDist, maxDist);
-		*/
-		
-		int minIndex = 0, maxIndex = 100;
-		MutationOperator<PartialSolution> mutOp = Mutations.singleSwapByLocation(minIndex, maxIndex);
+		//int minSwaps = 1, maxSwaps = 10;
+		MutationOperator<PartialSolution> mutOp = Mutations.singleSwap();
 
 		/* final product -- genetic algorithm */
 		GeneticAlgorithm<PartialSolution> scheduler = new EvolutionaryScheduler(popGen, selectOp,
