@@ -56,7 +56,7 @@ public class EvolutionarySchedulerDemo2 {
 		/* generation */
 		IndividualGenerator<PartialSolution> indGen = new RandomSearchPartialSolutionGenerator(
 				problem, 1);
-		int popSize = 300;
+		int popSize = 70;
 		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFuncMonitored.evaluate(ps1)
 				- evalFuncMonitored.evaluate(ps2);
 		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator,
@@ -72,7 +72,7 @@ public class EvolutionarySchedulerDemo2 {
 		SelectionOperator<PartialSolution> selectOp = new RouletteWheelSelection(evalFunc);
 
 		/* stop criterion */
-		int maxIter = 500000;
+		int maxIter = 100000;
 
 		/* crossover */
 		CrossoverOperator<PartialSolution> crossOp = Crossovers.partiallyMapped();

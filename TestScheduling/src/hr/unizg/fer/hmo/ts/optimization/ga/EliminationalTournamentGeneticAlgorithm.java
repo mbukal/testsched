@@ -11,6 +11,7 @@ import hr.unizg.fer.hmo.ts.optimization.ga.evalfunc.EvaluationFunction;
 import hr.unizg.fer.hmo.ts.optimization.ga.mutation.MutationOperator;
 import hr.unizg.fer.hmo.ts.optimization.ga.popgen.PopulationGenerator;
 import hr.unizg.fer.hmo.ts.optimization.ga.util.ParentPair;
+import hr.unizg.fer.hmo.ts.util.LogUtils;
 import hr.unizg.fer.hmo.ts.util.RandUtils;
 
 public class EliminationalTournamentGeneticAlgorithm<T> implements GeneticAlgorithm<T> {
@@ -38,11 +39,14 @@ public class EliminationalTournamentGeneticAlgorithm<T> implements GeneticAlgori
 		int iter = 0;
 
 		while (iter < maxIter) {
-			Iterator<T> tournament = selectTournament(population);						
-			T offspring = crossOp.reproduce(new ParentPair<T>(tournament.next(), tournament.next()));			
-			population.remove(tournament.next());			
+			Iterator<T> tournament = selectTournament(population);
+			T offspring = crossOp
+					.reproduce(new ParentPair<T>(tournament.next(), tournament.next()));
 			offspring = mutOp.mutate(offspring);
-			population.add(offspring);			
+			if (!population.contains(offspring)) {
+				population.remove(tournament.next());
+				population.add(offspring);
+			}
 			iter++;
 		}
 
