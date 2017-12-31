@@ -1,6 +1,8 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.crossover.CrossoverOperator;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
@@ -47,6 +49,30 @@ public final class Crossovers {
 				if (!skips[val])
 					c[i++] = val;
 			}
+			return new PartialSolution(c);
+		};
+	}
+	
+	public static CrossoverOperator<PartialSolution> uniformLike() {
+		return (parents) -> {
+			int[] p1 = parents.getParent1().priorityToTest,
+					p2 = parents.getParent2().priorityToTest;
+			int[] c = new int[p1.length]; // child
+			Set<Integer> used = new HashSet<>();
+			for (int i = 0; i < c.length; i++) {	
+				if (used.contains(p1[i])) {
+					c[i] = p2[i];
+					used.add(p2[i]);
+				} else if (used.contains(p2[i])) {
+					c[i] = p1[i];
+					used.add(p1[i]);
+				} else {
+					int choice = RandUtils.rand.nextBoolean() ? p1[i] : p2[i];
+					c[i] = choice;
+					used.add(choice);
+				}
+			}
+			assert(used.size() == c.length);
 			return new PartialSolution(c);
 		};
 	}

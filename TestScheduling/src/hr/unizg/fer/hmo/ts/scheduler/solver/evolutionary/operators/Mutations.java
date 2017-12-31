@@ -1,6 +1,5 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators;
 
-import java.util.List;
 import java.util.Random;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.mutation.MutationOperator;
@@ -11,8 +10,9 @@ import hr.unizg.fer.hmo.ts.util.RandUtils;
 public final class Mutations {
 	private static Random rand = RandUtils.rand;
 
+	@SafeVarargs
 	public static MutationOperator<PartialSolution> sequence(
-			List<MutationOperator<PartialSolution>> mutations) {
+			MutationOperator<PartialSolution> ... mutations) {
 		return (individual) -> {
 			for (MutationOperator<PartialSolution> mut : mutations)
 				individual = mut.mutate(individual);
@@ -33,6 +33,15 @@ public final class Mutations {
 			int maxFirst = (individual.priorityToTest.length - 1) - dist;
 			int first = RandUtils.rand.nextInt(maxFirst + 1);
 			int second = first + dist;
+			ArrayUtils.swap(individual.priorityToTest, first, second);
+			return individual;
+		};
+	}
+	
+	public static MutationOperator<PartialSolution> singleSwapByLocation(int minIndex, int maxIndex) {
+		return (individual) -> {
+			int first = minIndex + RandUtils.rand.nextInt(maxIndex - minIndex + 1);
+			int second = minIndex + RandUtils.rand.nextInt(maxIndex - minIndex + 1);
 			ArrayUtils.swap(individual.priorityToTest, first, second);
 			return individual;
 		};
