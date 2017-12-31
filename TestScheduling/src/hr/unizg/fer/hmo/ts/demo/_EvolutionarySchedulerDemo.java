@@ -27,13 +27,13 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.Cach
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanFinder;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RandomSelection;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RouletteWheelSelection;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.DeterministicWorstEliminator;
 import hr.unizg.fer.hmo.ts.util.LogUtils;
 
 public class _EvolutionarySchedulerDemo {
 	public static void main(String[] args) throws IOException {
-		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts1.txt";
+		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts500m50r5-5.txt";
 		String problemDefinitionString;
 		try (FileInputStream problemFile = new FileInputStream(path)) {
 			problemDefinitionString = new String(problemFile.readAllBytes());
@@ -50,7 +50,7 @@ public class _EvolutionarySchedulerDemo {
 		
 		/* generation */
 		IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(problem.testCount);
-		int popSize = 30;
+		int popSize = 300;
 		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFuncMonitored.evaluate(ps1)
 				- evalFuncMonitored.evaluate(ps2);
 		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator,
@@ -63,7 +63,7 @@ public class _EvolutionarySchedulerDemo {
 		OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder();
 
 		/* selection */
-		SelectionOperator<PartialSolution> selectOp = new RandomSelection();
+		SelectionOperator<PartialSolution> selectOp = new RouletteWheelSelection(evalFunc);
 
 		/* stop criterion */
 		int maxIter = 100000;

@@ -10,9 +10,7 @@ public class DeterministicBestSelection implements SelectionOperator<PartialSolu
 
 	@Override
 	public ParentPair<PartialSolution> select(SortedSet<PartialSolution> population) {
-		PartialSolution parent1 = population.first().clone();
-		PartialSolution parent2 = population.first().clone();
-		return ParentPair.of(parent1, parent2);
+		return ParentPair.of(population.first(), population.first());
 	}
 
 }

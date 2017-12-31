@@ -11,9 +11,7 @@ public class DeterministicWorstSelection
 
 	@Override
 	public ParentPair<PartialSolution> select(SortedSet<PartialSolution> population) {
-		PartialSolution parent1 = population.last().clone();
-		PartialSolution parent2 = population.last().clone();
-		return ParentPair.of(parent1, parent2);
+		return ParentPair.of(population.last(), population.last());
 	}
 
 }

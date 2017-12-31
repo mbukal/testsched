@@ -21,9 +21,11 @@ public class RouletteWheelSelection implements SelectionOperator<PartialSolution
 	public ParentPair<PartialSolution> select(SortedSet<PartialSolution> population) {
 		Map<PartialSolution, Double> psToInverseEval = new HashMap<>();
 		
-		int evalSum = population.stream().mapToInt(ps -> evalFunc.evaluate(ps)).sum();
+		int maxEval = evalFunc.evaluate(population.last());
 		
-		population.forEach(ps -> psToInverseEval.put(ps, (double)evalFunc.evaluate(ps) / evalSum));
+		int evalSum = population.stream().mapToInt(ps -> (maxEval - evalFunc.evaluate(ps))).sum();
+		
+		population.forEach(ps -> psToInverseEval.put(ps, (double)(maxEval - evalFunc.evaluate(ps)) / evalSum));
 		
 		PartialSolution parent1 = RandUtils.spinAWheel(psToInverseEval);
 		PartialSolution parent2 = RandUtils.spinAWheel(psToInverseEval);
