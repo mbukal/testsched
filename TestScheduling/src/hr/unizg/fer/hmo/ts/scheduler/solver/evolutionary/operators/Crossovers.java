@@ -1,8 +1,8 @@
 package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.crossover.CrossoverOperator;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.encoding.PartialSolution;
@@ -58,24 +58,31 @@ public final class Crossovers {
 			int[] p1 = parents.getParent1().priorityToTest,
 					p2 = parents.getParent2().priorityToTest;
 			int[] c = new int[p1.length]; // child
-			Set<Integer> used = new HashSet<>();
-			for (int i = 0; i < c.length; i++) {	
-				if (used.contains(p1[i])) {
-					c[i] = p2[i];
-					used.add(p2[i]);
-				} else if (used.contains(p2[i])) {
+			boolean[] used = new boolean[c.length];
+			List<Integer> unassignedPositions = new ArrayList<>();
+			for (int i = 0; i < c.length; i++) {
+				if (!used[p1[i]] && !used[p2[i]]) {
+					c[i] = RandUtils.rand.nextBoolean() ? p1[i] : p2[i];
+					used[c[i]] = true;
+				} else if (!used[p1[i]] && used[p2[i]]) {
 					c[i] = p1[i];
-					used.add(p1[i]);
+					used[c[i]] = true;
+				} else if (used[p1[i]] && !used[p2[i]]) {
+					c[i] = p2[i];
+					used[c[i]] = true;
 				} else {
-					int choice = RandUtils.rand.nextBoolean() ? p1[i] : p2[i];
-					c[i] = choice;
-					used.add(choice);
+					unassignedPositions.add(i);
 				}
 			}
-			assert(used.size() == c.length);
-			PartialSolution child = new PartialSolution(c);
-			assert(child.isValid());
-			return child; 
+			
+			for (int test = 0; test < used.length; test++ ) {
+				if (!used[test]) {
+					int i = unassignedPositions.remove(RandUtils.rand.nextInt(unassignedPositions.size()));
+					c[i] = test;
+				}
+			}
+			
+			return new PartialSolution(c);
 		};
 	}
 }
