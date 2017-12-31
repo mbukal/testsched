@@ -26,6 +26,17 @@ public final class Mutations {
 			return individual;
 		};
 	}
+	
+	public static MutationOperator<PartialSolution> singleSwapByDist(int minDist, int maxDist) {
+		return (individual) -> {
+			int dist = minDist + RandUtils.rand.nextInt(maxDist - minDist + 1);
+			int maxFirst = (individual.priorityToTest.length - 1) - dist;
+			int first = RandUtils.rand.nextInt(maxFirst + 1);
+			int second = first + dist;
+			ArrayUtils.swap(individual.priorityToTest, first, second);
+			return individual;
+		};
+	}
 
 	public static MutationOperator<PartialSolution> multiSwap(int swapCount) {
 		return (individual) -> {

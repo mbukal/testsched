@@ -27,7 +27,7 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.Cach
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanFinder;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RouletteWheelSelection;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.DeterministicBestSelection;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.DeterministicWorstEliminator;
 import hr.unizg.fer.hmo.ts.util.LogUtils;
 
@@ -50,7 +50,7 @@ public class _EvolutionarySchedulerDemo {
 		
 		/* generation */
 		IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(problem.testCount);
-		int popSize = 300;
+		int popSize = 30;
 		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFuncMonitored.evaluate(ps1)
 				- evalFuncMonitored.evaluate(ps2);
 		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator,
@@ -63,7 +63,7 @@ public class _EvolutionarySchedulerDemo {
 		OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder();
 
 		/* selection */
-		SelectionOperator<PartialSolution> selectOp = new RouletteWheelSelection(evalFunc);
+		SelectionOperator<PartialSolution> selectOp = new DeterministicBestSelection();
 
 		/* stop criterion */
 		int maxIter = 100000;
@@ -72,9 +72,13 @@ public class _EvolutionarySchedulerDemo {
 		CrossoverOperator<PartialSolution> crossOp = Crossovers.randomParentDummy();
 
 		/* mutation */
-		int minSwaps = 1, maxSwaps = 2;
+		/*
+		int minSwaps = 1, maxSwaps = 10;
 		MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(minSwaps,
 				maxSwaps);
+		*/
+		int minDist = 100, maxDist = 499;
+		MutationOperator<PartialSolution> mutOp = Mutations.singleSwapByDist(minDist, maxDist);
 
 		/* final product -- genetic algorithm */
 		GeneticAlgorithm<PartialSolution> scheduler = new EvolutionaryScheduler(popGen, selectOp,
