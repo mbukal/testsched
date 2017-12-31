@@ -10,6 +10,6 @@ hist, bins = np.histogram(x, bins=50, normed=True)
 width = 1 * (bins[1] - bins[0])
 center = (bins[:-1] + bins[1:]) / 2
 plt.bar(center, hist, align='center', width=width)
-plt.xlabel('Duration')
-plt.ylabel('Normed frequency')
+plt.xlabel('trajanje')
+plt.ylabel('udio')
 plt.show()
