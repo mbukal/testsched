@@ -51,20 +51,20 @@ public class EvolutionarySchedulerDemo3 {
 		/* generation */
 		IndividualGenerator<PartialSolution> indGen = new RandomSearchPartialSolutionGenerator(
 				problem, 1);
-		int popSize = 70;
+		int popSize = 30;
 		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFuncMonitored.evaluate(ps1)
 				- evalFuncMonitored.evaluate(ps2);
 		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator,
 				indGen, popSize);
 
 		/* stop criterion */
-		int maxIter = 100000;
+		int maxIter = 4000000;
 
 		/* crossover */
 		CrossoverOperator<PartialSolution> crossOp = Crossovers.partiallyMapped();
 
 		/* mutation */
-		MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(1, 2);
+		MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(1, 5);
 
 		/* final product -- genetic algorithm */
 		GeneticAlgorithm<PartialSolution> scheduler = new EliminationalTournamentGeneticAlgorithm<>(

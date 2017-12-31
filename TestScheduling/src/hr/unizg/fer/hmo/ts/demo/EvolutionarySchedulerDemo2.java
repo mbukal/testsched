@@ -41,7 +41,7 @@ import hr.unizg.fer.hmo.ts.util.Visualization;
 public class EvolutionarySchedulerDemo2 {
 	public static void main(String[] args) throws IOException {
 		String path = FileUtils.findInAncestor(new File(".").getAbsolutePath(),
-				"data/problem-instances") + "/ts0.txt";
+				"data/problem-instances") + "/ts500m50r5-5.txt";
 		String problemDefinitionString;
 		try (FileInputStream problemFile = new FileInputStream(path)) {
 			problemDefinitionString = new String(problemFile.readAllBytes());
@@ -60,7 +60,7 @@ public class EvolutionarySchedulerDemo2 {
 		/* generation */
 		IndividualGenerator<PartialSolution> indGen = new RandomSearchPartialSolutionGenerator(
 				problem, 1);
-		int popSize = 70;
+		int popSize = 3;
 		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFuncMonitored.evaluate(ps1)
 				- evalFuncMonitored.evaluate(ps2);
 		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator,
@@ -76,13 +76,13 @@ public class EvolutionarySchedulerDemo2 {
 		SelectionOperator<PartialSolution> selectOp = new TopTwoSelection() ;
 
 		/* stop criterion */
-		int maxIter = 100000;
+		int maxIter = 1000000;
 
 		/* crossover */
 		CrossoverOperator<PartialSolution> crossOp = Crossovers.uniformLike();
 
 		/* mutation */
-		int minSwaps = 1, maxSwaps = 2;
+		int minSwaps = 1, maxSwaps = 10;
 		MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(minSwaps, maxSwaps);
 
 		/* final product -- genetic algorithm */
