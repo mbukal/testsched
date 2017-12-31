@@ -2,7 +2,7 @@ package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+import java.util.SortedSet;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.evalfunc.EvaluationFunction;
 import hr.unizg.fer.hmo.ts.optimization.ga.selection.SelectionOperator;
@@ -18,12 +18,14 @@ public class RouletteWheelSelection implements SelectionOperator<PartialSolution
 	}
 	
 	@Override
-	public ParentPair<PartialSolution> select(Set<PartialSolution> population) {
+	public ParentPair<PartialSolution> select(SortedSet<PartialSolution> population) {
 		Map<PartialSolution, Double> psToInverseEval = new HashMap<>();
 		
-		int evalSum = population.stream().mapToInt(ps -> evalFunc.evaluate(ps)).sum();
+		int maxEval = evalFunc.evaluate(population.last());
 		
-		population.forEach(ps -> psToInverseEval.put(ps, (double)evalFunc.evaluate(ps) / evalSum));
+		int evalSum = population.stream().mapToInt(ps -> (maxEval - evalFunc.evaluate(ps))).sum();
+		
+		population.forEach(ps -> psToInverseEval.put(ps, (double)(maxEval - evalFunc.evaluate(ps)) / evalSum));
 		
 		PartialSolution parent1 = RandUtils.spinAWheel(psToInverseEval);
 		PartialSolution parent2 = RandUtils.spinAWheel(psToInverseEval);

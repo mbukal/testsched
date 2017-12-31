@@ -2,7 +2,7 @@ package hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.SortedSet;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.selection.SelectionOperator;
 import hr.unizg.fer.hmo.ts.optimization.ga.util.ParentPair;
@@ -13,7 +13,7 @@ public class RandomSelection
 			implements SelectionOperator<PartialSolution> {
 
 	@Override
-	public ParentPair<PartialSolution> select(Set<PartialSolution> population) {
+	public ParentPair<PartialSolution> select(SortedSet<PartialSolution> population) {
 		
 		List<PartialSolution> popAsList = new ArrayList<>(population);
 
