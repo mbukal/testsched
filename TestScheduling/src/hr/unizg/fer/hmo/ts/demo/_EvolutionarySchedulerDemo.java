@@ -24,7 +24,7 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.EvolutionaryScheduler;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.Crossovers;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.Mutations;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RationalPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanFinder;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.TopTwoSelection;
@@ -33,7 +33,7 @@ import hr.unizg.fer.hmo.ts.util.LogUtils;
 
 public class _EvolutionarySchedulerDemo {
 	public static void main(String[] args) throws IOException {
-		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts500m50r5-5.txt";
+		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts2.txt";
 		String problemDefinitionString;
 		try (FileInputStream problemFile = new FileInputStream(path)) {
 			problemDefinitionString = new String(problemFile.readAllBytes());
@@ -49,7 +49,9 @@ public class _EvolutionarySchedulerDemo {
 		evalFuncMonitored.onUpdate.addListener((best) -> LogUtils.print(best));
 		
 		/* generation */
-		IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(problem.testCount);
+		//IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(problem.testCount);
+		MutationOperator<PartialSolution> diversifier = Mutations.singleSwapByDist(1, 1);
+		IndividualGenerator<PartialSolution> indGen = new RationalPartialSolutionGenerator(problem, diversifier);
 		int popSize = 30;
 		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFuncMonitored.evaluate(ps1)
 				- evalFuncMonitored.evaluate(ps2);
@@ -69,11 +71,11 @@ public class _EvolutionarySchedulerDemo {
 		int maxIter = 100000;
 
 		/* crossover */
-		CrossoverOperator<PartialSolution> crossOp = Crossovers.uniformLike();
+		CrossoverOperator<PartialSolution> crossOp = Crossovers.randomParentDummy();
 
 		/* mutation */
-		//int minSwaps = 1, maxSwaps = 10;
-		MutationOperator<PartialSolution> mutOp = Mutations.singleSwap();
+		int minSwaps = 1, maxSwaps = 2;
+		MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(minSwaps, maxSwaps);
 
 		/* final product -- genetic algorithm */
 		GeneticAlgorithm<PartialSolution> scheduler = new EvolutionaryScheduler(popGen, selectOp,
