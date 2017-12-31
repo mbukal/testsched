@@ -13,6 +13,16 @@ public class PartialSolution {
 		this.priorityToTest = priorityToTest;
 	}
 
+	public boolean isValid() {
+		boolean[] contained = new boolean[priorityToTest.length];
+		for (int test : priorityToTest) {
+			if (contained[test])
+				return false;
+			contained[test] = true;
+		}
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return Arrays.toString(priorityToTest);
@@ -39,7 +49,6 @@ public class PartialSolution {
 			return false;
 		return true;
 	}
-	
 
 	@Override
 	public PartialSolution clone() {

@@ -73,7 +73,9 @@ public final class Crossovers {
 				}
 			}
 			assert(used.size() == c.length);
-			return new PartialSolution(c);
+			PartialSolution child = new PartialSolution(c);
+			assert(child.isValid());
+			return child; 
 		};
 	}
 }
