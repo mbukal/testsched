@@ -77,8 +77,14 @@ public class _EvolutionarySchedulerDemo {
 		MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(minSwaps,
 				maxSwaps);
 		*/
-		int minDist = 100, maxDist = 499;
+		
+		/*
+		int minDist = 499, maxDist = 499;
 		MutationOperator<PartialSolution> mutOp = Mutations.singleSwapByDist(minDist, maxDist);
+		*/
+		
+		int minIndex = 0, maxIndex = 100;
+		MutationOperator<PartialSolution> mutOp = Mutations.singleSwapByLocation(minIndex, maxIndex);
 
 		/* final product -- genetic algorithm */
 		GeneticAlgorithm<PartialSolution> scheduler = new EvolutionaryScheduler(popGen, selectOp,
