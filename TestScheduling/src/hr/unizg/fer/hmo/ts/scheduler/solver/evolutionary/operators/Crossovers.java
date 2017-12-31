@@ -72,6 +72,7 @@ public final class Crossovers {
 					used.add(choice);
 				}
 			}
+			assert(used.size() == c.length);
 			return new PartialSolution(c);
 		};
 	}

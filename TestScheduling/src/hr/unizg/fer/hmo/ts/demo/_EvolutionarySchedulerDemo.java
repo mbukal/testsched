@@ -33,7 +33,7 @@ import hr.unizg.fer.hmo.ts.util.LogUtils;
 
 public class _EvolutionarySchedulerDemo {
 	public static void main(String[] args) throws IOException {
-		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts500m50r5-5.txt";
+		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts0.txt";
 		String problemDefinitionString;
 		try (FileInputStream problemFile = new FileInputStream(path)) {
 			problemDefinitionString = new String(problemFile.readAllBytes());
@@ -69,7 +69,7 @@ public class _EvolutionarySchedulerDemo {
 		int maxIter = 100000;
 
 		/* crossover */
-		CrossoverOperator<PartialSolution> crossOp = Crossovers.uniformLike();
+		CrossoverOperator<PartialSolution> crossOp = Crossovers.randomParentDummy();
 
 		/* mutation */
 		//int minSwaps = 1, maxSwaps = 10;
