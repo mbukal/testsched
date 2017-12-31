@@ -3,6 +3,8 @@ package hr.unizg.fer.hmo.ts.demo;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 import hr.unizg.fer.hmo.ts.optimization.ga.EliminationalTournamentGeneticAlgorithm;
@@ -62,8 +64,7 @@ public class EvolutionarySchedulerDemo3 {
 		CrossoverOperator<PartialSolution> crossOp = Crossovers.partiallyMapped();
 
 		/* mutation */
-		int minSwaps = 1, maxSwaps = 2;
-		MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(minSwaps, maxSwaps);
+		MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(1, 2);
 
 		/* final product -- genetic algorithm */
 		GeneticAlgorithm<PartialSolution> scheduler = new EliminationalTournamentGeneticAlgorithm<>(
