@@ -6,8 +6,10 @@ import java.util.Date;
 
 public class LogUtils {
 	private static DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+	private static Date date = new Date();
 
 	public static void print(Object best) {
-		System.out.println("[" + timeFormat.format(new Date()) + "] " + best);
+		date.setTime(System.currentTimeMillis());
+		System.out.println("[" + timeFormat.format(date) + "] " + best);
 	}
 }

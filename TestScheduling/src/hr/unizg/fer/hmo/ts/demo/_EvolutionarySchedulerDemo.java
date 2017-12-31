@@ -11,6 +11,7 @@ import hr.unizg.fer.hmo.ts.optimization.ga.indgen.IndividualGenerator;
 import hr.unizg.fer.hmo.ts.optimization.ga.mutation.MutationOperator;
 import hr.unizg.fer.hmo.ts.optimization.ga.optfinder.OptimumFinder;
 import hr.unizg.fer.hmo.ts.optimization.ga.popgen.PopulationGenerator;
+import hr.unizg.fer.hmo.ts.optimization.ga.proxies.FitnessUpdateMonitor;
 import hr.unizg.fer.hmo.ts.optimization.ga.selection.SelectionOperator;
 import hr.unizg.fer.hmo.ts.optimization.ga.updatepop.UpdatePopulationOperator;
 import hr.unizg.fer.hmo.ts.scheduler.model.problem.Problem;
@@ -28,10 +29,11 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.Sho
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RandomSelection;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.DeterministicWorstEliminator;
+import hr.unizg.fer.hmo.ts.util.LogUtils;
 
 public class _EvolutionarySchedulerDemo {
 	public static void main(String[] args) throws IOException {
-		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts500m50r5-5.txt";
+		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts1.txt";
 		String problemDefinitionString;
 		try (FileInputStream problemFile = new FileInputStream(path)) {
 			problemDefinitionString = new String(problemFile.readAllBytes());
@@ -42,12 +44,15 @@ public class _EvolutionarySchedulerDemo {
 		/* evaluation */
 		SolutionDecoder decoder = new SecretSolutionDecoder(problem);
 		EvaluationFunction<PartialSolution> evalFunc = new CachingScheduleEvaluator(decoder);
-
+		FitnessUpdateMonitor<PartialSolution> evalFuncMonitored = new FitnessUpdateMonitor<PartialSolution>(
+				evalFunc);
+		evalFuncMonitored.onUpdate.addListener((best) -> LogUtils.print(best));
+		
 		/* generation */
 		IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(problem.testCount);
 		int popSize = 30;
-		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFunc.evaluate(ps1)
-				- evalFunc.evaluate(ps2);
+		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFuncMonitored.evaluate(ps1)
+				- evalFuncMonitored.evaluate(ps2);
 		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator,
 				indGen, popSize);
 
