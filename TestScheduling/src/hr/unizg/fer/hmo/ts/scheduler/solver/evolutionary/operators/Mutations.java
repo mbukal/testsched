@@ -9,6 +9,10 @@ import hr.unizg.fer.hmo.ts.util.RandUtils;
 
 public final class Mutations {
 	private static Random rand = RandUtils.rand;
+	
+	public static MutationOperator<PartialSolution> identity() {
+		return (individual) -> { return individual; };
+	}
 
 	@SafeVarargs
 	public static MutationOperator<PartialSolution> sequence(
