@@ -29,10 +29,10 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.Indepe
 import hr.unizg.fer.hmo.ts.util.FileUtils;
 import hr.unizg.fer.hmo.ts.util.LogUtils;
 
-public class EvolutionarySchedulerDemo3 {
+public class EliminationalEvolutionarySchedulerDemo {
 	public static void main(String[] args) throws IOException {
 		String path = FileUtils.findInAncestor(new File(".").getAbsolutePath(),
-				"data/problem-instances") + "/ts500m50r5-5.txt";
+				"data/problem-instances") + "/ts2.txt";
 		String problemDefinitionString;
 		try (FileInputStream problemFile = new FileInputStream(path)) {
 			problemDefinitionString = new String(problemFile.readAllBytes());
@@ -51,20 +51,20 @@ public class EvolutionarySchedulerDemo3 {
 		/* generation */
 		IndividualGenerator<PartialSolution> indGen = new RandomSearchPartialSolutionGenerator(
 				problem, 1);
-		int popSize = 30;
+		int popSize = 500;
 		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFuncMonitored.evaluate(ps1)
 				- evalFuncMonitored.evaluate(ps2);
 		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator,
 				indGen, popSize);
 
 		/* stop criterion */
-		int maxIter = 4000000;
+		int maxIter = 5000000;
 
 		/* crossover */
 		CrossoverOperator<PartialSolution> crossOp = Crossovers.partiallyMapped();
 
 		/* mutation */
-		MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(1, 5);
+		MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(1, 2);
 
 		/* final product -- genetic algorithm */
 		GeneticAlgorithm<PartialSolution> scheduler = new EliminationalTournamentGeneticAlgorithm<>(

@@ -60,7 +60,7 @@ public class EvolutionarySchedulerDemo2 {
 		/* generation */
 		IndividualGenerator<PartialSolution> indGen = new RandomSearchPartialSolutionGenerator(
 				problem, 1);
-		int popSize = 3;
+		int popSize = 200;
 		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFuncMonitored.evaluate(ps1)
 				- evalFuncMonitored.evaluate(ps2);
 		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator,
@@ -73,7 +73,7 @@ public class EvolutionarySchedulerDemo2 {
 		OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder();
 
 		/* selection */
-		SelectionOperator<PartialSolution> selectOp = new TopTwoSelection() ;
+		SelectionOperator<PartialSolution> selectOp = new RouletteWheelSelection(evalFunc) ;
 
 		/* stop criterion */
 		int maxIter = 1000000;
