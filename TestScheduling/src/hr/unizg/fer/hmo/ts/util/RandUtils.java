@@ -46,4 +46,8 @@ public final class RandUtils {
 		throw new IllegalArgumentException(
 				"Provided map not suitable to this method. Make sure values are normed!");
 	}
+	
+	public static int randBetweenInclusive(int lb, int ub) {
+		return lb + rand.nextInt(ub - lb + 1);
+	}
 }

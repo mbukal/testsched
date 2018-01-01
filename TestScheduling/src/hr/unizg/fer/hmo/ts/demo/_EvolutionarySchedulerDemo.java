@@ -24,16 +24,21 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.EvolutionaryScheduler;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.Crossovers;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.Mutations;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.evalfunc.CachingScheduleEvaluator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RationalPartialSolutionGenerator;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.RandomPartialSolutionGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanFinder;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.AdaptiveBestSelection;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.DeterministicBestSelection;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RandomSelection;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.TopTwoSelection;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.AdaptiveWorstEliminator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.DeterministicWorstEliminator;
+import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.RandomEliminator;
 import hr.unizg.fer.hmo.ts.util.LogUtils;
 
 public class _EvolutionarySchedulerDemo {
 	public static void main(String[] args) throws IOException {
-		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts2.txt";
+		String path = "C:/Users/Marko/git/testsched/TestScheduling/data/problem-instances/ts500m50r5-5.txt";
 		String problemDefinitionString;
 		try (FileInputStream problemFile = new FileInputStream(path)) {
 			problemDefinitionString = new String(problemFile.readAllBytes());
@@ -49,29 +54,27 @@ public class _EvolutionarySchedulerDemo {
 		evalFuncMonitored.onUpdate.addListener((best) -> LogUtils.print(best));
 		
 		/* generation */
-		//IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(problem.testCount);
-		MutationOperator<PartialSolution> diversifier = Mutations.singleSwapByDist(1, 1);
-		IndividualGenerator<PartialSolution> indGen = new RationalPartialSolutionGenerator(problem, diversifier);
-		int popSize = 30;
+		IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(problem.testCount);
+		int popSize = 50;
 		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFuncMonitored.evaluate(ps1)
 				- evalFuncMonitored.evaluate(ps2);
 		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator,
 				indGen, popSize);
 
 		/* updating */
-		UpdatePopulationOperator<PartialSolution> updatePopOp = new DeterministicWorstEliminator();
+		UpdatePopulationOperator<PartialSolution> updatePopOp = new AdaptiveWorstEliminator(4);
 
 		/* optimum individual detection */
 		OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder();
 
 		/* selection */
-		SelectionOperator<PartialSolution> selectOp = new TopTwoSelection();
+		SelectionOperator<PartialSolution> selectOp = new AdaptiveBestSelection(2);
 
 		/* stop criterion */
-		int maxIter = 100000;
+		int maxIter = 300000;
 
 		/* crossover */
-		CrossoverOperator<PartialSolution> crossOp = Crossovers.randomParentDummy();
+		CrossoverOperator<PartialSolution> crossOp = Crossovers.partiallyMapped();
 
 		/* mutation */
 		int minSwaps = 1, maxSwaps = 2;
