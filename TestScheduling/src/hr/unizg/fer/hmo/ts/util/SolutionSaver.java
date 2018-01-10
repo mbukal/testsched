@@ -17,9 +17,8 @@ public final class SolutionSaver {
 			throws IOException {
 		Path path = Paths.get(problemInstanceDirPath + File.separator + problemID + File.separator
 				+ algorithmID + File.separator + solution.duration + ".txt").toAbsolutePath();
-		Files.createDirectories(path);
+		Files.createDirectories(path.getParent());
 		System.out.println(path);
-		path =
 		Files.write(path, solution.toString().getBytes());
 	}
 }

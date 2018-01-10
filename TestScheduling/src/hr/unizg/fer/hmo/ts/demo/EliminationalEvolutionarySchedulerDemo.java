@@ -72,7 +72,7 @@ public class EliminationalEvolutionarySchedulerDemo {
 	}
 
 	public static void main(String[] args) throws IOException {
-		String problemName = "ts2";
+		String problemName = "ts1";
 		String path = FileUtils.findInAncestor(new File(".").getAbsolutePath(),
 				"data/problem-instances") + File.separator + problemName + ".txt";
 		String problemDefinitionString;
@@ -81,11 +81,11 @@ public class EliminationalEvolutionarySchedulerDemo {
 		}
 		VerboseProblem verboseProblem = new VerboseProblem(problemDefinitionString);
 		Problem problem = new Problem(verboseProblem);
-		int popSize = 20, iter = 1000;
-		for (int i = 0; i < 1; i++) {
+		int popSize = 20, iter = 5000, maxSwaps = 2;
+		for (int i = 0; i < 10; i++) {
 			Solution solution = sample(problem, popSize, iter);
 			VerboseSolution verboseSolution = new VerboseSolution(verboseProblem, solution);
-			String algoID = "elim-pop" + popSize + "-iter" + iter;
+			String algoID = "elim-pop" + popSize + "-iter" + iter + "-maxSwaps" + maxSwaps;
 			SolutionSaver.save(verboseSolution, problemName, algoID);
 			// System.out.println(verboseSolution);
 
