@@ -10,15 +10,16 @@ import java.nio.file.Paths;
 import hr.unizg.fer.hmo.ts.scheduler.model.solution.VerboseSolution;
 
 public final class SolutionSaver {
-	public static final String problemInstanceDirPath = FileUtils.findInAncestor(
-			new File(".").getAbsolutePath(), "data/results") + File.separator + "solutions";
+	public static final String problemInstanceDirPath = (FileUtils.findInAncestor(
+			new File(".").getAbsolutePath(), "data/results") + File.separator + "solutions").replace("\\.\\", "\\");
 
 	public static void save(VerboseSolution solution, String problemID, String algorithmID)
 			throws IOException {
 		Path path = Paths.get(problemInstanceDirPath + File.separator + problemID + File.separator
-				+ algorithmID + File.separator + solution.duration + ".txt").toRealPath();
+				+ algorithmID + File.separator + solution.duration + ".txt").toAbsolutePath();
 		Files.createDirectories(path);
 		System.out.println(path);
+		path =
 		Files.write(path, solution.toString().getBytes());
 	}
 }
