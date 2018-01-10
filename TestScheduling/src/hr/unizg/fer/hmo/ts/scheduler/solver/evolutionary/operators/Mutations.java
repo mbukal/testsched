@@ -123,6 +123,10 @@ public final class Mutations {
 			return individual;
 		};
 	}
+	
+	public static ConfigMultiSwap configurableMultiSwap() {
+		return new ConfigMultiSwap();
+	}
 
 	// private static helper methods
 
@@ -143,5 +147,28 @@ public final class Mutations {
 		else // put < take
 			System.arraycopy(arr, put, arr, put + 1, take - put);
 		arr[put] = taken;
+	}
+	
+	public static class ConfigMultiSwap implements MutationOperator<PartialSolution> {
+		private int maxSwapCount;
+		
+		public ConfigMultiSwap() {
+			this.maxSwapCount = 1;
+		}
+
+		public ConfigMultiSwap(int swapCount) {
+			this.maxSwapCount = swapCount;
+		}
+		
+		public void setMaxSwapCount(int swapCount) {
+			this.maxSwapCount = swapCount;
+		}
+
+		@Override
+		public PartialSolution mutate(PartialSolution individual) {
+			swapRandomly(individual.priorityToTest, RandUtils.randBetweenInclusive(1, maxSwapCount));
+			return individual;
+		}
+
 	}
 }

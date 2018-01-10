@@ -29,19 +29,14 @@ import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.indgen.Random
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.optfinder.ShortestMakespanFinder;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.popgen.IndependentPopulationGenerator;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.AdaptiveBestSelection;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.DeterministicBestSelection;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.RandomSelection;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.selection.TopTwoSelection;
 import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.AdaptiveWorstEliminator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.DeterministicWorstEliminator;
-import hr.unizg.fer.hmo.ts.scheduler.solver.evolutionary.operators.updatepop.RandomEliminator;
 import hr.unizg.fer.hmo.ts.util.FileUtils;
 import hr.unizg.fer.hmo.ts.util.LogUtils;
 
 public class _EvolutionarySchedulerDemo {
 	public static void main(String[] args) throws IOException {
 		String path = FileUtils.findInAncestor(new File(".").getAbsolutePath(),
-				"data/problem-instances") + "/ts3.txt";
+				"data/problem-instances") + "/ts1.txt";
 		String problemDefinitionString;
 		try (FileInputStream problemFile = new FileInputStream(path)) {
 			problemDefinitionString = new String(problemFile.readAllBytes());
@@ -58,14 +53,18 @@ public class _EvolutionarySchedulerDemo {
 		
 		/* generation */
 		IndividualGenerator<PartialSolution> indGen = new RandomPartialSolutionGenerator(problem.testCount);
-		int popSize = 50;
+		int popSize = 20;
 		Comparator<PartialSolution> comparator = (ps1, ps2) -> evalFuncMonitored.evaluate(ps1)
 				- evalFuncMonitored.evaluate(ps2);
 		PopulationGenerator<PartialSolution> popGen = new IndependentPopulationGenerator(comparator,
 				indGen, popSize);
 
 		/* updating */
-		UpdatePopulationOperator<PartialSolution> updatePopOp = new AdaptiveWorstEliminator(4);
+		
+		//UpdatePopulationOperator<PartialSolution> popUpdater = new AdaptiveWorstEliminator(2);
+		//UpdaterProxy updatePopOp = new UpdaterProxy(popUpdater, evalFunc);
+		
+		UpdatePopulationOperator<PartialSolution>updatePopOp = new AdaptiveWorstEliminator(2);
 
 		/* optimum individual detection */
 		OptimumFinder<PartialSolution> optFinder = new ShortestMakespanFinder();
@@ -77,11 +76,13 @@ public class _EvolutionarySchedulerDemo {
 		int maxIter = 300000;
 
 		/* crossover */
-		CrossoverOperator<PartialSolution> crossOp = Crossovers.partiallyMapped();
+		CrossoverOperator<PartialSolution> crossOp = Crossovers.uniformLike();
 
 		/* mutation */
 		int minSwaps = 1, maxSwaps = 2;
-		MutationOperator<PartialSolution> mutOp = Mutations.multiSwap(minSwaps, maxSwaps);
+		MutationOperator<PartialSolution> mutOp = //Mutations.multiSwap(minSwaps, maxSwaps);
+													Mutations.singleSwap();
+
 
 		/* final product -- genetic algorithm */
 		GeneticAlgorithm<PartialSolution> scheduler = new EvolutionaryScheduler(popGen, selectOp,
