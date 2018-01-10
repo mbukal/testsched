@@ -80,7 +80,7 @@ public class DiversityDemo {
 		int maxIter = 500000;
 
 		/* crossover */
-		CrossoverOperator<PartialSolution> crossOp = Crossovers.randomParentDummy();
+		CrossoverOperator<PartialSolution> crossOp = Crossovers.uniformLike();
 
 		/* mutation */
 		MutationOperator<PartialSolution> mutOp = Mutations.singleSwap();

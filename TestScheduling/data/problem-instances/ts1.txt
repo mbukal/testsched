@@ -1,4 +1,5 @@
 %% ****  Testsuite  ****
+% Original name			   : t500m100r10-2.pl
 % Number of tests                  : 500
 % Number of machines               : 100
 % Number of resources              : 10
