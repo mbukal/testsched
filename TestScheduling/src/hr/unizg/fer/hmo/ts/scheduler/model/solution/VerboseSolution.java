@@ -25,8 +25,9 @@ public class VerboseSolution {
 		}
 	}
 
-	public VerboseProblem problem;
-	public List<Entry> entries;
+	public final VerboseProblem problem;
+	public final List<Entry> entries;
+	public final int duration;
 
 	public VerboseSolution(VerboseProblem verboseProblem, Solution solution) {
 		this.problem = verboseProblem;
@@ -40,6 +41,7 @@ public class VerboseSolution {
 			}
 		}
 		this.entries = Collections.unmodifiableList(entries);
+		this.duration = solution.getDuration();
 	}
 
 	@Override
