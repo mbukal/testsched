@@ -33,5 +33,16 @@ public class IndependentPopulationGenerator
 		
 		return population;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(this.getClass().getSimpleName());
+		sb.append("\n");
+		sb.append("pop-size = " + populationSize);
+		
+		return sb.toString();
+	}
 
 }

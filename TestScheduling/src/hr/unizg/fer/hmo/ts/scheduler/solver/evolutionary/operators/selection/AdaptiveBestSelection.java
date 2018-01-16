@@ -35,5 +35,15 @@ public class AdaptiveBestSelection implements SelectionOperator<PartialSolution>
 		
 		return ParentPair.of(parent1, parent2);
 	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(this.getClass().getSimpleName());
+		sb.append("\n");
+		sb.append("shrink-count = " + shrinkCount);
+		
+		return sb.toString();
+	}
 
 }

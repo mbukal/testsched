@@ -11,5 +11,13 @@ public class ShortestMakespanFinder implements OptimumFinder<PartialSolution> {
 	public PartialSolution getOptimum(SortedSet<PartialSolution> candidates) {
 		return candidates.first();
 	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(this.getClass().getSimpleName());
+		
+		return sb.toString();
+	}
 
 }

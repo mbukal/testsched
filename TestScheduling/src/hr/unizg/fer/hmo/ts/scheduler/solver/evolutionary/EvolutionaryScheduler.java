@@ -30,4 +30,46 @@ public class EvolutionaryScheduler
 				maxIter);
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("[MAX-ITER]:");
+		sb.append("\n");
+		sb.append(maxIter);
+		sb.append("\n");
+		
+		sb.append("[POPULATION GENERATOR]:");
+		sb.append("\n");
+		sb.append(initPopGen);
+		sb.append("\n");
+		
+		sb.append("[SELECTION OPERATOR]:");
+		sb.append("\n");
+		sb.append(selectOp);
+		sb.append("\n");
+		
+		sb.append("[CROSSOVER OPERATOR]:");
+		sb.append("\n");
+		sb.append(crossOp);
+		sb.append("\n");
+		
+		sb.append("[MUTATION OPERATOR]:");
+		sb.append("\n");
+		sb.append(mutOp);
+		sb.append("\n");
+		
+		sb.append("[POPULATION UPDATER]:");
+		sb.append("\n");
+		sb.append(updatePopOp);
+		sb.append("\n:");
+		
+		sb.append("[OPTIMUM FINDER]:");
+		sb.append("\n");
+		sb.append(optFinder);
+		sb.append("\n");
+		
+		return sb.toString();
+	}
+	
 }

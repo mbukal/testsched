@@ -11,21 +11,19 @@ import hr.unizg.fer.hmo.ts.optimization.ga.updatepop.UpdatePopulationOperator;
 import hr.unizg.fer.hmo.ts.optimization.ga.util.ParentPair;
 
 public class SteadyStateGeneticAlgorithm<T> implements GeneticAlgorithm<T> {
-	private PopulationGenerator<T> initPopGen;
+	protected PopulationGenerator<T> initPopGen;
 	
-	private SelectionOperator<T> selectOp;
+	protected SelectionOperator<T> selectOp;
 	
-	private CrossoverOperator<T> crossOp;
+	protected CrossoverOperator<T> crossOp;
 	
-	private MutationOperator<T> mutOp;
+	protected MutationOperator<T> mutOp;
 	
-	private UpdatePopulationOperator<T> updatePopOp;
+	protected UpdatePopulationOperator<T> updatePopOp;
 	
-	private OptimumFinder<T> optFinder;
+	protected OptimumFinder<T> optFinder;
 	
-	// private StopCriterion stopCrit;
-	
-	private int maxIter;
+	protected int maxIter;
 	
 	public SteadyStateGeneticAlgorithm(
 			PopulationGenerator<T> initPopGen
@@ -34,7 +32,6 @@ public class SteadyStateGeneticAlgorithm<T> implements GeneticAlgorithm<T> {
 			,MutationOperator<T> mutOp
 			,UpdatePopulationOperator<T> updatePopOp
 			,OptimumFinder<T> optFinder
-			/*,StopCriterion stopCrit*/
 			,int maxIter) {
 
 		this.initPopGen = initPopGen;
@@ -43,7 +40,6 @@ public class SteadyStateGeneticAlgorithm<T> implements GeneticAlgorithm<T> {
 		this.mutOp = mutOp;
 		this.updatePopOp = updatePopOp;
 		this.optFinder = optFinder;
-		// this.stopCrit = stopCrit;
 		this.maxIter = maxIter;
 	}
 

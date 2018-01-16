@@ -23,6 +23,18 @@ public final class Mutations {
 			return individual;
 		};
 	}
+	
+	public static MutationOperator<PartialSolution> oneOfTwo(MutationOperator<PartialSolution> mut1,
+			MutationOperator<PartialSolution> mut2, double prob1) {
+		return individual -> {
+			if (RandUtils.rand.nextDouble() < prob1) {
+				individual = mut1.mutate(individual);
+			} else {
+				individual = mut2.mutate(individual);
+			}
+			return individual;
+		};
+	}
 
 	public static MutationOperator<PartialSolution> singleSwap() {
 		return (individual) -> {

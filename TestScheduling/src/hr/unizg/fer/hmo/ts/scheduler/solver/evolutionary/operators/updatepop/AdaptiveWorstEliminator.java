@@ -37,5 +37,15 @@ public class AdaptiveWorstEliminator implements UpdatePopulationOperator<Partial
 		population.add(offspring);
 		return population;
 	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(this.getClass().getSimpleName());
+		sb.append("\n");
+		sb.append("shrink-count = " + shrinkCount);
+		
+		return sb.toString();
+	}
 
 }
