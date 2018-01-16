@@ -72,23 +72,26 @@ public class EliminationalEvolutionarySchedulerDemo {
 	}
 
 	public static void main(String[] args) throws IOException {
-		String problemName = "ts1";
-		String path = FileUtils.findInAncestor(new File(".").getAbsolutePath(),
-				"data/problem-instances") + File.separator + problemName + ".txt";
-		String problemDefinitionString;
-		try (FileInputStream problemFile = new FileInputStream(path)) {
-			problemDefinitionString = new String(problemFile.readAllBytes());
-		}
-		VerboseProblem verboseProblem = new VerboseProblem(problemDefinitionString);
-		Problem problem = new Problem(verboseProblem);
-		int popSize = 20, iter = 5000, maxSwaps = 2;
-		for (int i = 0; i < 10; i++) {
-			Solution solution = sample(problem, popSize, iter);
-			VerboseSolution verboseSolution = new VerboseSolution(verboseProblem, solution);
-			String algoID = "elim-pop" + popSize + "-iter" + iter + "-maxSwaps" + maxSwaps;
-			SolutionSaver.save(verboseSolution, problemName, algoID);
-			// System.out.println(verboseSolution);
-
+		for (String problemName : new String[] { "ts3", "ts6", "ts7", "ts8", "ts9", "ts10", "ts1", "ts2", "ts4", "ts5" }) {
+			String path = FileUtils.findInAncestor(new File(".").getAbsolutePath(),
+					"data/problem-instances") + File.separator + problemName + ".txt";
+			String problemDefinitionString;
+			try (FileInputStream problemFile = new FileInputStream(path)) {
+				problemDefinitionString = new String(problemFile.readAllBytes());
+			}
+			VerboseProblem verboseProblem = new VerboseProblem(problemDefinitionString);
+			Problem problem = new Problem(verboseProblem);
+			int iter = 400000;
+			for (int popSize : new int[] { 20 })
+				for (int maxSwaps : new int[] { 2 })
+					for (int i = 0; i < 4; i++) {
+						Solution solution = sample(problem, popSize, iter);
+						VerboseSolution verboseSolution = new VerboseSolution(verboseProblem,
+								solution);
+						String algoID = "elim-pop" + popSize + "-iter" + iter + "-maxSwaps"
+								+ maxSwaps;
+						SolutionSaver.save(verboseSolution, problemName, algoID);
+					}
 		}
 	}
 }
